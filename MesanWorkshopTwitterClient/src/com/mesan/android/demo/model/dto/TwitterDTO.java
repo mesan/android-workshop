@@ -6,6 +6,10 @@ public class TwitterDTO {
 	private String keyword;
 	private ArrayList<String> tweets;
 
+	public TwitterDTO(String keyword) {
+		setKeyword(keyword);
+	}
+	
 	public TwitterDTO(String keyword, ArrayList<String> tweets) {
 		setKeyword(keyword);
 		setTweets(tweets);
