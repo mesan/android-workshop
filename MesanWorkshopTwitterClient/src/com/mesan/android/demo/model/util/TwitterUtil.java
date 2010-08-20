@@ -6,6 +6,7 @@ import android.content.Context;
 
 import com.mesan.android.demo.model.data.TwitterDAO;
 import com.mesan.android.demo.model.dto.TwitterDTO;
+import com.mesan.android.demo.model.service.TwitterService;
 
 public class TwitterUtil {
 
@@ -21,7 +22,15 @@ public class TwitterUtil {
 		return null;
 	}
 	
-	public void searchForTweets(String keyword){
+	public TwitterDTO searchForTweet(String keyword, boolean searchWeb){
 		
+		TwitterService twitterService = new TwitterService();
+		
+		if(searchWeb){
+			TwitterDTO twitterDTO = twitterService.getTweetFromWeb(keyword);
+			twitterDAO.setTweet(twitterDTO);
+		}
+		
+		return twitterDAO.getTweet(keyword);
 	}
 }
