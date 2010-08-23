@@ -20,6 +20,10 @@ public class TwitterUtil {
 		return twitterDAO.getTweets();
 	}
 	
+	public TwitterDTO getTweet(String keyword){
+		return twitterDAO.getTweet(keyword);
+	}
+	
 	public TwitterDTO searchForTweet(String keyword, boolean searchWeb){
 		
 		TwitterService twitterService = new TwitterService();
