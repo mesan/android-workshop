@@ -1,4 +1,4 @@
-package com.mesan.android.demo.model.data;
+package com.mesan.android.demo.model.persistence;
 
 import java.util.ArrayList;
 
@@ -94,8 +94,10 @@ public class TwitterDAO {
 	}
 
 	public void deleteTweet(String keyword) {
+		
 		// Search by name
 		TwitterDTO twitterDTO = getTweet(keyword);
+		
 		// Delete object
 		if (twitterDTO != null) {
 			db().delete(twitterDTO);

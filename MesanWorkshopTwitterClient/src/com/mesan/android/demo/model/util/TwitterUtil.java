@@ -4,8 +4,8 @@ import java.util.ArrayList;
 
 import android.content.Context;
 
-import com.mesan.android.demo.model.data.TwitterDAO;
 import com.mesan.android.demo.model.dto.TwitterDTO;
+import com.mesan.android.demo.model.persistence.TwitterDAO;
 import com.mesan.android.demo.model.service.TwitterService;
 
 public class TwitterUtil {

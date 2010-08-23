@@ -5,17 +5,19 @@ import java.util.Date;
 
 public class TweetDTO {
 
-	private String text;
-	private URL imageUrl;
+	private String text, profileName;
+	private URL profileUrl;
+	
 	private Date date;
 
 	public TweetDTO() {
 
 	}
 
-	public TweetDTO(String text, URL imageUrl, Date date) {
+	public TweetDTO(String text, String profileName, URL profileUrl, Date date) {
 		setText(text);
-		setImageUrl(imageUrl);
+		setProfileName(profileName);
+		setProfileUrl(profileUrl);
 		setDate(date);
 	}
 
@@ -27,12 +29,20 @@ public class TweetDTO {
 		this.text = text;
 	}
 
-	public URL getImageUrl() {
-		return imageUrl;
+	public String getProfileName() {
+		return profileName;
 	}
 
-	public void setImageUrl(URL imageUrl) {
-		this.imageUrl = imageUrl;
+	public void setProfileName(String profileName) {
+		this.profileName = profileName;
+	}
+
+	public URL getProfileUrl() {
+		return profileUrl;
+	}
+
+	public void setProfileUrl(URL profileUrl) {
+		this.profileUrl = profileUrl;
 	}
 
 	public Date getDate() {
@@ -43,4 +53,5 @@ public class TweetDTO {
 		this.date = date;
 	}
 
+	
 }
