@@ -37,8 +37,8 @@ public class TwitterDAO {
 	private Configuration dbConfig() {
 		Configuration c = Db4o.newConfiguration();
 		c.objectClass(TwitterDTO.class).objectField(PRIMARY_KEY).indexed(true);
-		c.objectClass(TwitterDTO.class).updateDepth(6);
-		c.objectClass(TwitterDTO.class).minimumActivationDepth(6);
+		c.objectClass(TwitterDTO.class).updateDepth(3);
+		c.objectClass(TwitterDTO.class).minimumActivationDepth(3);
 		c.objectClass(TwitterDTO.class).cascadeOnDelete(true);
 		return c;
 	}
@@ -56,10 +56,11 @@ public class TwitterDAO {
 	}
 
 	public void setTweet(TwitterDTO twitterDTO) {
-		TwitterDTO tempTweet = getTweet(twitterDTO.getKeyword());
+		String keyword = twitterDTO.getKeyword();
+		TwitterDTO tempTweet = getTweet(keyword);
 
 		if (tempTweet == null) {
-			tempTweet = new TwitterDTO(twitterDTO.getKeyword());
+			tempTweet = new TwitterDTO(keyword);
 		}
 		tempTweet.setTweets(twitterDTO.getTweets());
 
@@ -74,6 +75,7 @@ public class TwitterDAO {
 		if (result.hasNext()) {
 			return (TwitterDTO) result.next();
 		}
+		System.out.println("null");
 		return null;
 	}
 
@@ -105,7 +107,7 @@ public class TwitterDAO {
 		}
 	}
 
-	public int bookamrkCount() {
+	public int tweetCount() {
 		return getAllTweets().size();
 	}
 }

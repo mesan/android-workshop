@@ -17,9 +17,7 @@ public class TwitterUtil {
 	}
 	
 	public ArrayList<TwitterDTO> getTweets(){
-		
-		
-		return null;
+		return twitterDAO.getTweets();
 	}
 	
 	public TwitterDTO searchForTweet(String keyword, boolean searchWeb){

@@ -39,18 +39,20 @@ public class TwitterService {
 
 		// Prepare a request object
 		httpget = new HttpGet("http://search.twitter.com/search.json?result_type=recent&q=" + keyword);
-
+		
 		DefaultHttpClient client = new DefaultHttpClient();
 
+		
+		
 		try {
 			response = client.execute(httpget);
 			
 			// If the response does not enclose an entity, there is no need
 			// to worry about connection release
 			StatusLine status = response.getStatusLine();
-
+			
 			if (status.getStatusCode() == 200) {
-				return parseJson(EntityUtils.toString(response.getEntity()));
+				return parseJson(EntityUtils.toString(response.getEntity()), keyword);
 			}
 			
 		} catch (ClientProtocolException e) {
@@ -64,7 +66,7 @@ public class TwitterService {
 		return null;
 	}
 	
-	public TwitterDTO parseJson(String json){
+	public TwitterDTO parseJson(String json, String keyword){
 		TwitterDTO twitterDTO = null;
 		
 		try {
@@ -75,7 +77,7 @@ public class TwitterService {
 			JSONArray resultArray = shipmentObject.optJSONArray("results");			
 			int resultSize = resultArray.length();
 			
-			ArrayList<TweetDTO> tweetList = null;
+			ArrayList<TweetDTO> tweetList = new ArrayList<TweetDTO>();
 			TweetDTO tweetDTO = null;
 			JSONObject tweet = null;
 			DateFormat formatter = new SimpleDateFormat("EEE, dd MMM yyyy HH:mm:ss Z");
@@ -83,13 +85,11 @@ public class TwitterService {
 
 			for(int i = 0; i<resultSize; i++){
 				tweetDTO = new TweetDTO();
-				tweetList = new ArrayList<TweetDTO>();
 				
 				tweet = resultArray.optJSONObject(i);
 				
 				tweetDTO.setText(tweet.optString("text"));
 				tweetDTO.setProfileName(tweet.optString("from_user"));
-				
 				try {
 					tweetDTO.setProfileUrl(new URL(tweet.optString("profile_image_url")));
 				} catch (MalformedURLException murlex) {
@@ -105,10 +105,12 @@ public class TwitterService {
 				tweetList.add(tweetDTO);
 			}
 			
+			twitterDTO.setKeyword(keyword);
+			twitterDTO.setTweets(tweetList);
+			
 		} catch (JSONException e) {
 			Log.e(TwitterService.class.getSimpleName(), e.getMessage());
 		}
-		
 		return twitterDTO;
 	}
 }

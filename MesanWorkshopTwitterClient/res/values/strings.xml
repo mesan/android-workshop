@@ -2,4 +2,7 @@
 <resources>
     <string name="hello">Hello World, DefaultController!</string>
     <string name="app_name">MesanWorkshopTwitterClient</string>
+    
+    
+    <string name="search">Søk!</string>
 </resources>

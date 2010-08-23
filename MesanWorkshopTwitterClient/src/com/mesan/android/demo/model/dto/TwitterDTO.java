@@ -4,7 +4,7 @@ import java.util.ArrayList;
 
 public class TwitterDTO {
 	private String keyword;
-	private ArrayList<String> tweets;
+	private ArrayList<TweetDTO> tweets;
 
 	public TwitterDTO() {
 	}
@@ -13,7 +13,7 @@ public class TwitterDTO {
 		setKeyword(keyword);
 	}
 	
-	public TwitterDTO(String keyword, ArrayList<String> tweets) {
+	public TwitterDTO(String keyword, ArrayList<TweetDTO> tweets) {
 		setKeyword(keyword);
 		setTweets(tweets);
 	}
@@ -22,16 +22,18 @@ public class TwitterDTO {
 		return keyword;
 	}
 
-	public ArrayList<String> getTweets() {
-		return tweets;
-	}
-
 	public void setKeyword(String keyword) {
 		this.keyword = keyword;
 	}
 
-	public void setTweets(ArrayList<String> tweets) {
+	public ArrayList<TweetDTO> getTweets() {
+		return tweets;
+	}
+
+	public void setTweets(ArrayList<TweetDTO> tweets) {
 		this.tweets = tweets;
 	}
+	
+	
 
 }
