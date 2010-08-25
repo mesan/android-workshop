@@ -17,11 +17,11 @@ public class TwitterUtil {
 		twitterDAO = new TwitterDAO(context);
 	}
 	
-	public ArrayList<TwitterDTO> getTweets(){
+	public ArrayList<TwitterDTO> getAllTwitterDTOs(){
 		return twitterDAO.getTweets();
 	}
 
-	public TwitterDTO getTweet(String keyword, boolean searchWeb){
+	public TwitterDTO getTwitterDTO(String keyword, boolean searchWeb){
 				
 		if(searchWeb){
 			TwitterService twitterService = new TwitterService();
@@ -33,7 +33,7 @@ public class TwitterUtil {
 			twitterDAO.setTweet(twitterDTO);
 		}
 		
-		return twitterDAO.getTweet(keyword);
+		return twitterDAO.getTwitterDTO(keyword);
 	}
 	
 	public ArrayList<String> getTrendingTopics(){

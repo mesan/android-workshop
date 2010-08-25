@@ -11,6 +11,8 @@
             </intent-filter>
         </activity>
 
+		<activity android:name=".TweetsController" />
+		
 		<!-- WIDGET -->
 		<!-- Broadcast Receiver that will process AppWidget updates -->
         <receiver android:name=".widget.TwitterWidget" android:label="@string/widget_name">
@@ -23,6 +25,7 @@
         <!-- Service to perform web API queries -->        
         <service android:name=".widget.TwitterWidget$UpdateService" />
         
+		
     </application>
     <uses-sdk android:minSdkVersion="7" />
 	<uses-permission android:name="android.permission.INTERNET" />

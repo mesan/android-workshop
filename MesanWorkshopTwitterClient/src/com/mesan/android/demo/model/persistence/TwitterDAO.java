@@ -57,7 +57,7 @@ public class TwitterDAO {
 
 	public void setTweet(TwitterDTO twitterDTO) {
 		String keyword = twitterDTO.getKeyword();
-		TwitterDTO tempTweet = getTweet(keyword);
+		TwitterDTO tempTweet = getTwitterDTO(keyword);
 
 		if (tempTweet == null) {
 			tempTweet = new TwitterDTO(keyword);
@@ -68,7 +68,7 @@ public class TwitterDAO {
 		db().commit();
 	}
 
-	public TwitterDTO getTweet(String keyword) {
+	public TwitterDTO getTwitterDTO(String keyword) {
 		TwitterDTO twitterDTO = new TwitterDTO(keyword);
 		ObjectSet<TwitterDTO> result = db().queryByExample(twitterDTO);
 
@@ -98,7 +98,7 @@ public class TwitterDAO {
 	public void deleteTweet(String keyword) {
 		
 		// Search by name
-		TwitterDTO twitterDTO = getTweet(keyword);
+		TwitterDTO twitterDTO = getTwitterDTO(keyword);
 		
 		// Delete object
 		if (twitterDTO != null) {
