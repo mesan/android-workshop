@@ -3,8 +3,9 @@
     <string name="hello">Hello World, DefaultController!</string>
     <string name="app_name">MesanWorkshopTwitterClient</string>
     <string name="widget_name">Trending Topics</string>
-    
-    
+        
+    <string name="notification_title">TwitterDemo</string>
+    <string name="notification_content">er nå det hotteste søkeordet!</string>
     
     <string name="search">Søk!</string>
     <string name="widget_error">Ingen Trending Topics funnet</string>

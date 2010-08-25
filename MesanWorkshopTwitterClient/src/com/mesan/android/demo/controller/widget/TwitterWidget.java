@@ -2,6 +2,9 @@ package com.mesan.android.demo.controller.widget;
 
 import java.util.ArrayList;
 
+import android.app.Notification;
+import android.app.NotificationManager;
+import android.app.PendingIntent;
 import android.app.Service;
 import android.appwidget.AppWidgetManager;
 import android.appwidget.AppWidgetProvider;
@@ -11,6 +14,7 @@ import android.content.Intent;
 import android.os.IBinder;
 import android.widget.RemoteViews;
 
+import com.mesan.android.demo.controller.DefaultController;
 import com.mesan.android.demo.controller.R;
 import com.mesan.android.demo.model.util.TwitterUtil;
 
@@ -26,6 +30,8 @@ public class TwitterWidget extends AppWidgetProvider {
 	}
 	
 	public static class UpdateService extends Service {
+		
+		private String mostPopularWord = "";
 		
 		@Override
 		public void onStart(Intent intent, int startId) {
@@ -70,6 +76,13 @@ public class TwitterWidget extends AppWidgetProvider {
 					}
 				}
 				
+				String topWordAsOfNow = trendingTopics.get(0);
+				
+				if(!mostPopularWord.equalsIgnoreCase(topWordAsOfNow)){
+					sendNotification(topWordAsOfNow);
+				}
+				mostPopularWord = topWordAsOfNow;
+				
 				updateViews.setTextViewText(R.id.lblTrendingTopics, topics.toString());
 
 			} else {
@@ -77,6 +90,28 @@ public class TwitterWidget extends AppWidgetProvider {
 			}
 
 			return updateViews;
+		}
+		
+		private void sendNotification(String word){
+
+			Context context = getApplicationContext();
+			
+			String ns = Context.NOTIFICATION_SERVICE;
+			NotificationManager mNotificationManager = (NotificationManager) getSystemService(ns);
+			
+			int icon = R.drawable.notification;
+			CharSequence tickerText = context.getString(R.string.notification_title);
+			long when = System.currentTimeMillis();
+			Notification notification = new Notification(icon, tickerText, when);
+			
+			CharSequence contentTitle = context.getString(R.string.notification_title);
+			CharSequence contentText = word + " " + context.getString(R.string.notification_content);
+			
+			Intent notificationIntent = new Intent(this, DefaultController.class);
+			PendingIntent contentIntent = PendingIntent.getActivity(this, 0, notificationIntent, 0);
+			notification.setLatestEventInfo(context, contentTitle, contentText, contentIntent);
+			
+			mNotificationManager.notify(1, notification);
 		}
 
 		@Override
