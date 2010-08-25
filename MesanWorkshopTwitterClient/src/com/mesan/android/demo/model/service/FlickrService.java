@@ -6,16 +6,16 @@ import java.net.URL;
 import java.util.ArrayList;
 
 import org.apache.http.HttpResponse;
+import org.apache.http.ParseException;
 import org.apache.http.StatusLine;
-import org.apache.http.client.ClientProtocolException;
-import org.apache.http.client.methods.HttpGet;
-import org.apache.http.impl.client.DefaultHttpClient;
 import org.apache.http.util.EntityUtils;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
 import android.util.Log;
+
+import com.mesan.android.demo.model.application.Application;
 
 public class FlickrService {
 
@@ -24,33 +24,18 @@ public class FlickrService {
 	public ArrayList<URL> getImagesFromFlickr(String keyword){
 		
 		// Execute the request
-		HttpResponse response;
-		HttpGet httpget = null;
+		HttpResponse response = Application.sendGetRequestForUrl(FLICKR_SEARCH_API_URL + keyword);
 
-		// Prepare a request object
-		httpget = new HttpGet(FLICKR_SEARCH_API_URL + keyword);
+		StatusLine status = response.getStatusLine();
 		
-		DefaultHttpClient client = new DefaultHttpClient();
-
-		
-		
-		try {
-			response = client.execute(httpget);
-			
-			// If the response does not enclose an entity, there is no need
-			// to worry about connection release
-			StatusLine status = response.getStatusLine();
-			
-			if (status.getStatusCode() == 200) {
+		if (status.getStatusCode() == 200) {
+			try {
 				return parseJson(EntityUtils.toString(response.getEntity()), keyword);
+			} catch (ParseException pex) {
+				Log.e(TwitterService.class.getSimpleName(), pex.getMessage(), pex);
+			} catch (IOException ioex) {
+				Log.e(TwitterService.class.getSimpleName(), ioex.getMessage(), ioex);
 			}
-			
-		} catch (ClientProtocolException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
 		}
 		
 		return null;
