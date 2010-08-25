@@ -26,6 +26,7 @@ import com.mesan.android.demo.model.dto.TwitterDTO;
 public class TwitterService {
 	
 	private static final String TWITTER_SEARCH_URL = "http://search.twitter.com/search.json?result_type=recent&q=";
+	private static final String TWITTER_TRENDING_TOPICS = "http://api.twitter.com/1/trends.json";
 
 	public TwitterService(){
 		
@@ -40,7 +41,7 @@ public class TwitterService {
 		
 		if (status.getStatusCode() == 200) {
 			try {
-				return parseJson(EntityUtils.toString(response.getEntity()), keyword);
+				return parseTwitterJson(EntityUtils.toString(response.getEntity()), keyword);
 			} catch (IOException ioex) {
 				Log.e(TwitterService.class.getSimpleName(), ioex.getMessage(), ioex);
 			}
@@ -49,15 +50,30 @@ public class TwitterService {
 		return null;
 	}
 	
-	public TwitterDTO parseJson(String json, String keyword){
+	public ArrayList<String> searchForTrendingTopics(){
+		HttpResponse response = Application.sendGetRequestForUrl(TWITTER_TRENDING_TOPICS);
+		StatusLine status = response.getStatusLine();
+		
+		if (status.getStatusCode() == 200) {
+			try {
+				return parseTrendingTopicsJson(EntityUtils.toString(response.getEntity()));
+			} catch (IOException ioex) {
+				Log.e(TwitterService.class.getSimpleName(), ioex.getMessage(), ioex);
+			}
+		}
+		
+		return null;
+	}
+	
+	public TwitterDTO parseTwitterJson(String json, String keyword){
 		TwitterDTO twitterDTO = null;
 		
 		try {
 
 			twitterDTO = new TwitterDTO();
 			
-			JSONObject shipmentObject = new JSONObject(json);			
-			JSONArray resultArray = shipmentObject.optJSONArray("results");			
+			JSONObject twitterObject = new JSONObject(json);			
+			JSONArray resultArray = twitterObject.optJSONArray("results");			
 			int resultSize = resultArray.length();
 			
 			ArrayList<TweetDTO> tweetList = new ArrayList<TweetDTO>();
@@ -92,8 +108,32 @@ public class TwitterService {
 			twitterDTO.setTweets(tweetList);
 			
 		} catch (JSONException e) {
-			Log.e(TwitterService.class.getSimpleName(), e.getMessage());
+			Log.e(TwitterService.class.getSimpleName(), e.getMessage(), e);
 		}
 		return twitterDTO;
+	}
+	
+	public ArrayList<String> parseTrendingTopicsJson(String json){
+		
+		try {
+			
+			JSONObject trendingTopics = new JSONObject(json);
+			JSONArray topicsArray = trendingTopics.optJSONArray("trends");	
+			
+			int numOfTopics = topicsArray.length();
+			
+			ArrayList<String> topicsList = new ArrayList<String>();
+			
+			for(int i = 0; i<numOfTopics; i++){
+				JSONObject topic = topicsArray.optJSONObject(i);
+				topicsList.add(topic.optString("name"));
+			}
+			
+			return topicsList;
+		} catch (JSONException e) {
+			Log.e(TwitterService.class.getSimpleName(), e.getMessage(), e);
+		}			
+		
+		return null;
 	}
 }

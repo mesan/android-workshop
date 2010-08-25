@@ -2,7 +2,10 @@
 <resources>
     <string name="hello">Hello World, DefaultController!</string>
     <string name="app_name">MesanWorkshopTwitterClient</string>
+    <string name="widget_name">Trending Topics</string>
+    
     
     
     <string name="search">Søk!</string>
+    <string name="widget_error">Ingen Trending Topics funnet</string>
 </resources>

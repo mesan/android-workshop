@@ -35,4 +35,9 @@ public class TwitterUtil {
 		
 		return twitterDAO.getTweet(keyword);
 	}
+	
+	public ArrayList<String> getTrendingTopics(){
+		TwitterService twitterService = new TwitterService();
+		return twitterService.searchForTrendingTopics();
+	}
 }
