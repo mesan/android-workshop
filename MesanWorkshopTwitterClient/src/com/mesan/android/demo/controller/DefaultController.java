@@ -73,7 +73,7 @@ public class DefaultController extends Activity {
 			public void run() {
 				Message msg = new Message();
 				
-				TwitterDTO twitterDTO = twitterUtil.searchForTweet(keyword, true);
+				TwitterDTO twitterDTO = twitterUtil.getTweet(keyword, true);
 				
 				if(twitterDTO != null){
 
