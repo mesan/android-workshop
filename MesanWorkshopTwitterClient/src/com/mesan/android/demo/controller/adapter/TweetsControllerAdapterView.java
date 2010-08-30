@@ -16,6 +16,7 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.mesan.android.demo.controller.R;
+import com.mesan.android.demo.model.application.Application;
 import com.mesan.android.demo.model.dto.TweetDTO;
 
 public class TweetsControllerAdapterView extends RelativeLayout {
@@ -24,9 +25,7 @@ public class TweetsControllerAdapterView extends RelativeLayout {
 	private TextView txtProfileName, txtTweetText, txtTweetDate;
 	private ImageView imgProfileImage;
 
-	private TweetDTO tweetDTO;
 	private Context context;
-	private int position;
 
 	public TweetsControllerAdapterView(Context context) {
 		super(context);
@@ -51,12 +50,13 @@ public class TweetsControllerAdapterView extends RelativeLayout {
 		} else {
 			listItemLayout.setBackgroundResource(R.drawable.tweets_gradient_list_element);
 		}
+		
 		txtProfileName.setText(tweetDTO.getProfileName());
 		txtTweetText.setText(tweetDTO.getText());
+		txtTweetDate.setText(Application.formatDateToTimeDiff(tweetDTO.getDate()));
 		if (isNew) {
 			new ImageFromWebTask().execute(tweetDTO.getProfileUrl());
 		}
-		// txtTweetDate.setText(tweetDate);
 	}
 
 	private class ImageFromWebTask extends AsyncTask<String, Void, Boolean> {
