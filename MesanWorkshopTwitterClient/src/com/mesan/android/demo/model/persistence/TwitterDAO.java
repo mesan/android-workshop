@@ -1,6 +1,8 @@
 package com.mesan.android.demo.model.persistence;
 
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
 
 import android.content.Context;
 import android.util.Log;
@@ -9,6 +11,7 @@ import com.db4o.Db4o;
 import com.db4o.ObjectContainer;
 import com.db4o.ObjectSet;
 import com.db4o.config.Configuration;
+import com.db4o.query.Predicate;
 import com.db4o.query.Query;
 import com.mesan.android.demo.model.dto.TwitterDTO;
 
@@ -63,19 +66,27 @@ public class TwitterDAO {
 			tempTweet = new TwitterDTO(keyword);
 		}
 		tempTweet.setTweets(twitterDTO.getTweets());
+		tempTweet.setFlickrImages(twitterDTO.getFlickrImages());
 
 		db().store(tempTweet);
 		db().commit();
+		close();
 	}
 
-	public TwitterDTO getTwitterDTO(String keyword) {
-		TwitterDTO twitterDTO = new TwitterDTO(keyword);
-		ObjectSet<TwitterDTO> result = db().queryByExample(twitterDTO);
+	public TwitterDTO getTwitterDTO(final String keyword) {
+		
+		List<TwitterDTO> result = db().query(new Predicate<TwitterDTO>() {
+			private static final long serialVersionUID = 1L;
 
-		if (result.hasNext()) {
-			return (TwitterDTO) result.next();
+			@Override
+			public boolean match(TwitterDTO twitterDTO) {
+				return twitterDTO.getKeyword().equals(keyword);
+			}
+		}); 
+		
+		if(result != null && result.size() > 0){
+			return result.get(0);
 		}
-		System.out.println("null");
 		return null;
 	}
 
@@ -84,6 +95,8 @@ public class TwitterDAO {
 		ObjectSet<TwitterDTO> result = getAllTweets();
 		while (result.hasNext())
 			ret.add((TwitterDTO) result.next());
+		
+		Collections.sort(ret);
 		return ret;
 	}
 

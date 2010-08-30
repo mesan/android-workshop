@@ -8,6 +8,7 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.Locale;
 import java.util.TimeZone;
 
 import org.apache.http.HttpResponse;
@@ -79,9 +80,9 @@ public class TwitterService {
 			ArrayList<TweetDTO> tweetList = new ArrayList<TweetDTO>();
 			TweetDTO tweetDTO = null;
 			JSONObject tweet = null;
-			DateFormat formatter = new SimpleDateFormat("EEE, dd MMM yyyy HH:mm:ss Z");
+			DateFormat formatter = new SimpleDateFormat("EEE, dd MMM yyyy HH:mm:ss Z", Locale.US);
 			formatter.setTimeZone(TimeZone.getTimeZone("UTC"));
-
+			
 			for(int i = 0; i<resultSize; i++){
 				tweetDTO = new TweetDTO();
 				

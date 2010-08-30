@@ -94,23 +94,27 @@ public class TwitterWidget extends AppWidgetProvider {
 		
 		private void sendNotification(String word){
 
+			// Get context
 			Context context = getApplicationContext();
 			
-			String ns = Context.NOTIFICATION_SERVICE;
-			NotificationManager mNotificationManager = (NotificationManager) getSystemService(ns);
-			
-			int icon = R.drawable.notification;
-			CharSequence tickerText = context.getString(R.string.notification_title);
+			// Get the NotificationManager
+			NotificationManager mNotificationManager = (NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE);
+
+			// Setup
 			long when = System.currentTimeMillis();
-			Notification notification = new Notification(icon, tickerText, when);
+			CharSequence tickerText = context.getString(R.string.notification_title);
+			Notification notification = new Notification(R.drawable.notification, tickerText, when);
 			
+			// Define title & content of the notification
 			CharSequence contentTitle = context.getString(R.string.notification_title);
 			CharSequence contentText = word + " " + context.getString(R.string.notification_content);
 			
+			// Set what to do when notification is clicked
 			Intent notificationIntent = new Intent(this, DefaultController.class);
 			PendingIntent contentIntent = PendingIntent.getActivity(this, 0, notificationIntent, 0);
 			notification.setLatestEventInfo(context, contentTitle, contentText, contentIntent);
 			
+			// Notify
 			mNotificationManager.notify(1, notification);
 		}
 

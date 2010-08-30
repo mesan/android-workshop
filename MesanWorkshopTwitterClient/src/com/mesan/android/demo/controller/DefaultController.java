@@ -6,6 +6,7 @@ import android.app.Activity;
 import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
@@ -16,6 +17,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ListView;
 
+import com.mesan.android.demo.model.application.Application;
 import com.mesan.android.demo.model.dto.TwitterDTO;
 import com.mesan.android.demo.model.util.TwitterUtil;
 
@@ -69,7 +71,8 @@ public class DefaultController extends Activity {
 				String keyword = txtKeyword.getText().toString();
 				if(!"".equals(keyword)) {
 					
-					searchForTweets(txtKeyword.getText().toString());
+					//searchForTweets(txtKeyword.getText().toString());
+					new SearchForNewTweetsTask().execute(txtKeyword.getText().toString());
 					
 				}
 			}
@@ -87,26 +90,6 @@ public class DefaultController extends Activity {
 		});
 	}
 	
-	private void searchForTweets(final String keyword){
-		progress = ProgressDialog.show(context, "Kontakter Twitter", "søker etter tweets med nøkkelord " + keyword, true, true);
-		new Thread(new Runnable() {
-						
-			public void run() {
-				Message msg = new Message();
-				
-				TwitterDTO twitterDTO = twitterUtil.getTwitterDTO(keyword, true);
-				
-				if(twitterDTO != null){					
-					
-					msg.what = SEARCH_SUCCESS;
-				}else{
-					msg.what = SEARCH_FAILED;
-				}				
-				tweetHandler.sendMessage(msg);
-			}
-		}).start();
-	}
-	
 	private void populateList(){
 		keywords.clear();
 		ArrayList<TwitterDTO> allTweets = twitterUtil.getAllTwitterDTOs();
@@ -114,6 +97,53 @@ public class DefaultController extends Activity {
 			keywords.add(t.getKeyword());
 		}
 		lstKeywords.setAdapter(new ArrayAdapter<String>(context, android.R.layout.simple_list_item_1, keywords));
+	}
+	
+	private class SearchForNewTweetsTask extends AsyncTask<String, Void, Boolean> {
+		
+		@Override
+		protected void onPreExecute() {
+			progress = ProgressDialog.show(context, "Kontakter Twitter", "sÃ¸ker etter tweets", true, true);
+			super.onPreExecute();
+		}
+		
+		@Override
+		protected Boolean doInBackground(String... params) {
+			if(twitterUtil.getTwitterDTO(params[0], true) != null){
+				return true;
+			}
+			return false;
+		}
+		
+		@Override
+		protected void onPostExecute(Boolean searchSuccess) {
+			if(searchSuccess){
+				txtKeyword.setText("");
+				populateList();
+			}
+			progress.dismiss();
+			Application.hideKeyboard(context, txtKeyword);
+			super.onPostExecute(searchSuccess);
+		}
+		
+	}
+	
+	private void searchForTweets(final String keyword){
+		
+		progress = ProgressDialog.show(context, "Kontakter Twitter", "sÃ¸ker etter tweets", true, true);
+		new Thread(new Runnable() {						
+			public void run() {
+				Message msg = new Message();
+				TwitterDTO twitterDTO = twitterUtil.getTwitterDTO(keyword, true);
+				
+				if(twitterDTO != null){	
+					msg.what = SEARCH_SUCCESS;
+				}else{
+					msg.what = SEARCH_FAILED;
+				}				
+				tweetHandler.sendMessage(msg);
+			}
+		}).start();
 	}
 	
 	private Handler tweetHandler = new Handler(){

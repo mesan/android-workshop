@@ -28,7 +28,7 @@ public class TwitterUtil {
 			FlickrService flickrService = new FlickrService();
 			
 			
-			TwitterDTO twitterDTO = twitterService.getTweetFromWeb(keyword);			
+			TwitterDTO twitterDTO = twitterService.getTweetFromWeb(keyword);		
 			twitterDTO.setFlickrImages(flickrService.getImagesFromFlickr(keyword));
 			twitterDAO.setTweet(twitterDTO);
 		}
