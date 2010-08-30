@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+	xmlns:android="http://schemas.android.com/apk/res/android"
+	android:layout_width="fill_parent"
+	android:layout_height="wrap_content">
+  
+  	<ImageView android:id="@+id/imgProfileImage" 
+  		android:layout_width="40dp"
+  		android:layout_height="40dp"
+  		android:gravity="left"
+  		android:layout_alignParentLeft="true"
+  		android:src="@drawable/twiter_01" />
+  		
+  	<TextView android:id="@+id/txtProfileName"
+  		android:layout_width="fill_parent"
+		android:layout_height="wrap_content" 
+  		android:textSize="12dp"
+  		android:textColor="@color/twitter_light_blue"
+  		android:layout_toRightOf="@id/imgProfileImage"
+  		android:text="Profilnavn" />
+  		
+	<TextView android:id="@+id/txtTweetText"
+		android:layout_width="fill_parent"
+		android:layout_height="wrap_content"
+		android:textSize="16dp"
+		android:textColor="@color/white"
+		android:layout_below="@id/txtProfileName"
+		android:layout_toRightOf="@id/imgProfileImage"
+		android:text="Tweet" />
+		
+	<TextView android:id="@+id/txtTweetDate"
+		android:layout_width="fill_parent"
+		android:layout_height="wrap_content"
+		android:text="Dato for tweet"
+		android:textSize="10dp"
+		android:layout_below="@id/txtTweetText"
+		android:layout_toRightOf="@id/imgProfileImage" />	
+	
+	
+</RelativeLayout>
