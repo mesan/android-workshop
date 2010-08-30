@@ -1,20 +1,21 @@
 package com.mesan.android.demo.model.dto;
 
-import java.net.URL;
+import java.io.Serializable;
 import java.util.Date;
 
-public class TweetDTO {
-
+public class TweetDTO implements Serializable {
+	private static final long serialVersionUID = 2769808976839209522L;
 	private String text, profileName;
-	private URL profileUrl;
-	
+	private String profileUrl;
+
 	private Date date;
 
 	public TweetDTO() {
 
 	}
 
-	public TweetDTO(String text, String profileName, URL profileUrl, Date date) {
+	public TweetDTO(String text, String profileName, String profileUrl,
+			Date date) {
 		setText(text);
 		setProfileName(profileName);
 		setProfileUrl(profileUrl);
@@ -37,11 +38,11 @@ public class TweetDTO {
 		this.profileName = profileName;
 	}
 
-	public URL getProfileUrl() {
+	public String getProfileUrl() {
 		return profileUrl;
 	}
 
-	public void setProfileUrl(URL profileUrl) {
+	public void setProfileUrl(String profileUrl) {
 		this.profileUrl = profileUrl;
 	}
 
@@ -53,5 +54,4 @@ public class TweetDTO {
 		this.date = date;
 	}
 
-	
 }

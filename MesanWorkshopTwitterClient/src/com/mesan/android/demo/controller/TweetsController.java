@@ -35,14 +35,13 @@ public class TweetsController extends Activity {
 		twitterUtil = new TwitterUtil(context);
 		keyword = getIntent().getStringExtra("keyword");
 		twitterDTO = twitterUtil.getTwitterDTO(keyword, false);
-		
 		lstTweets = (ListView) findViewById(R.id.lstTweets);
-		
-		
+
 	}
 
 	public void renderView() {
-		tweetsControllerAdapter = new TweetsControllerAdapter(context, twitterDTO.getTweets());
+		tweetsControllerAdapter = new TweetsControllerAdapter(context,
+				twitterDTO.getTweets());
 		lstTweets.setAdapter(tweetsControllerAdapter);
 	}
 

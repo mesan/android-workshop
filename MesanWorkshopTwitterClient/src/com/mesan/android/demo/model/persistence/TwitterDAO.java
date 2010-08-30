@@ -40,8 +40,8 @@ public class TwitterDAO {
 	private Configuration dbConfig() {
 		Configuration c = Db4o.newConfiguration();
 		c.objectClass(TwitterDTO.class).objectField(PRIMARY_KEY).indexed(true);
-		c.objectClass(TwitterDTO.class).updateDepth(3);
-		c.objectClass(TwitterDTO.class).minimumActivationDepth(3);
+		c.objectClass(TwitterDTO.class).updateDepth(6);
+		c.objectClass(TwitterDTO.class).minimumActivationDepth(6);
 		c.objectClass(TwitterDTO.class).cascadeOnDelete(true);
 		return c;
 	}

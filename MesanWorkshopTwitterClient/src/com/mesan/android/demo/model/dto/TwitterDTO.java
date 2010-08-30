@@ -1,12 +1,13 @@
 package com.mesan.android.demo.model.dto;
 
-import java.net.URL;
+import java.io.Serializable;
 import java.util.ArrayList;
 
-public class TwitterDTO implements Comparable<TwitterDTO> {
+public class TwitterDTO implements Comparable<TwitterDTO>, Serializable {
+	private static final long serialVersionUID = 5723006892309338592L;
 	private String keyword;
 	private ArrayList<TweetDTO> tweets;
-	private ArrayList<URL> flickrImages;
+	private ArrayList<String> flickrImages;
 	private Long timeInMillis;
 	
 	public TwitterDTO() {
@@ -18,7 +19,7 @@ public class TwitterDTO implements Comparable<TwitterDTO> {
 		setTimeInMillis();
 	}
 	
-	public TwitterDTO(String keyword, ArrayList<TweetDTO> tweets, ArrayList<URL> flickrImages) {
+	public TwitterDTO(String keyword, ArrayList<TweetDTO> tweets, ArrayList<String> flickrImages) {
 		setKeyword(keyword);
 		setTweets(tweets);
 		setFlickrImages(flickrImages);
@@ -41,11 +42,11 @@ public class TwitterDTO implements Comparable<TwitterDTO> {
 		this.tweets = tweets;
 	}
 
-	public ArrayList<URL> getFlickrImages() {
+	public ArrayList<String> getFlickrImages() {
 		return flickrImages;
 	}
 
-	public void setFlickrImages(ArrayList<URL> flickrImages) {
+	public void setFlickrImages(ArrayList<String> flickrImages) {
 		this.flickrImages = flickrImages;
 	}
 
