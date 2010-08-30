@@ -1,12 +1,15 @@
 package com.mesan.android.demo.controller.adapter;
 
+import java.io.BufferedInputStream;
 import java.io.IOException;
+import java.io.InputStream;
+import java.net.MalformedURLException;
 import java.net.URL;
 
 import android.content.Context;
 import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
-import android.text.format.DateFormat;
+import android.graphics.drawable.Drawable;
+import android.os.AsyncTask;
 import android.view.LayoutInflater;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
@@ -22,16 +25,13 @@ public class TweetsControllerAdapterView extends RelativeLayout {
 	private ImageView imgProfileImage;
 
 	private TweetDTO tweetDTO;
-	private Context context; 
+	private Context context;
 	private int position;
 
-	public TweetsControllerAdapterView(Context context, TweetDTO tweetDTO, int position) {
+	public TweetsControllerAdapterView(Context context) {
 		super(context);
 		this.context = context;
-		this.tweetDTO = tweetDTO;
-		this.position = position;
 		initLayout();
-		renderItem();
 	}
 
 	public void initLayout() {
@@ -41,31 +41,50 @@ public class TweetsControllerAdapterView extends RelativeLayout {
 		txtProfileName = (TextView) listItemLayout.findViewById(R.id.txtProfileName);
 		txtTweetText = (TextView) listItemLayout.findViewById(R.id.txtTweetText);
 		txtTweetDate = (TextView) listItemLayout.findViewById(R.id.txtTweetDate);
+		imgProfileImage = (ImageView) listItemLayout.findViewById(R.id.imgProfileImage);
 	}
 
-	public void renderItem() {
-		
-		if (position %2 != 0){
+	public void renderItem(Boolean isNew, TweetDTO tweetDTO, int position) {
+
+		if (position % 2 != 0) {
 			listItemLayout.setBackgroundResource(R.drawable.tweets_gradient_list_element_darker);
-		}else{
+		} else {
 			listItemLayout.setBackgroundResource(R.drawable.tweets_gradient_list_element);
 		}
 		txtProfileName.setText(tweetDTO.getProfileName());
 		txtTweetText.setText(tweetDTO.getText());
-		Bitmap bm;
-		/*try {
-			bm = BitmapFactory.decodeStream(tweetDTO.getProfileUrl().openConnection().getInputStream());
-			if(bm != null){
-			imgProfileImage.setImageBitmap(bm);
-			}
-		} catch (IOException e) {
-			e.printStackTrace();
-
-		} catch (Exception e) {
-			e.printStackTrace();
+		if (isNew) {
+			new ImageFromWebTask().execute(tweetDTO.getProfileUrl());
 		}
-		// txtTweetDate.setText(tweetDate);*/
+		// txtTweetDate.setText(tweetDate);
 	}
-	
-	
+
+	private class ImageFromWebTask extends AsyncTask<String, Void, Boolean> {
+		private Drawable img;
+
+		@Override
+		protected Boolean doInBackground(String... params) {
+			try {
+				URL url = new URL(params[0]);
+				InputStream is = new BufferedInputStream(url.openStream());
+				img = Drawable.createFromStream(is, "src");
+				return true;
+
+			} catch (MalformedURLException e) {
+				e.printStackTrace();
+			} catch (IOException e) {
+				e.printStackTrace();
+			}
+			return false;
+		}
+
+		@Override
+		protected void onPostExecute(Boolean result) {
+			if (img != null) {
+				imgProfileImage.setImageDrawable(img);
+			}
+			super.onPostExecute(result);
+		}
+	}
+
 }

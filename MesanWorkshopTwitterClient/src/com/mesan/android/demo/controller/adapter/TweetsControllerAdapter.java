@@ -31,7 +31,16 @@ public class TweetsControllerAdapter extends BaseAdapter{
 	}
 
 	public View getView(int pos, View view, ViewGroup viewGroup) {
-		return new TweetsControllerAdapterView(context, listOfTweetDTO.get(pos), pos);
+		TweetsControllerAdapterView tcav;
+		
+		if(view == null){
+			tcav = new TweetsControllerAdapterView(context);
+			tcav.renderItem(true, listOfTweetDTO.get(pos), pos);
+		}else{
+			tcav = (TweetsControllerAdapterView) view;
+			tcav.renderItem(false, listOfTweetDTO.get(pos), pos);
+		}		
+		return tcav;
 	}
 
 }
