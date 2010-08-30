@@ -26,13 +26,9 @@ public class DefaultController extends Activity {
 	private EditText txtKeyword;
 	private Button btnSearch;
 	private ListView lstKeywords;
-	private ProgressDialog progress;
 	
 	private ArrayList<String> keywords;
 	private TwitterUtil twitterUtil;
-	
-	private static final int SEARCH_FAILED = 0;
-	private static final int SEARCH_SUCCESS = 1;
 	
 	private Context context;
 	
@@ -67,13 +63,11 @@ public class DefaultController extends Activity {
 		btnSearch.setOnClickListener(new View.OnClickListener() {
 			
 			public void onClick(View v) {
-
 				String keyword = txtKeyword.getText().toString();
-				if(!"".equals(keyword)) {
-					
-					//searchForTweets(txtKeyword.getText().toString());
-					new SearchForNewTweetsTask().execute(txtKeyword.getText().toString());
-					
+				if(!"".equals(keyword)) {					
+					txtKeyword.setText("");
+					Application.hideKeyboard(context, txtKeyword);
+					goToActivity(keyword, context);
 				}
 			}
 		});
@@ -81,11 +75,7 @@ public class DefaultController extends Activity {
 		lstKeywords.setOnItemClickListener(new AdapterView.OnItemClickListener() {
 
 			public void onItemClick(AdapterView<?> arg0, View view, int pos, long id) {
-				Intent myIntent = new Intent();
-				
-				myIntent.setClass(view.getContext(), TweetsController.class);
-				myIntent.putExtra("keyword", keywords.get(pos));
-				startActivity(myIntent);
+				goToActivity(keywords.get(pos), view.getContext());
 			}
 		});
 	}
@@ -99,63 +89,19 @@ public class DefaultController extends Activity {
 		lstKeywords.setAdapter(new ArrayAdapter<String>(context, android.R.layout.simple_list_item_1, keywords));
 	}
 	
-	private class SearchForNewTweetsTask extends AsyncTask<String, Void, Boolean> {
+	private void goToActivity(String keyword, Context context){
+		Intent myIntent = new Intent();
 		
-		@Override
-		protected void onPreExecute() {
-			progress = ProgressDialog.show(context, "Kontakter Twitter", "søker etter tweets", true, true);
-			super.onPreExecute();
-		}
-		
-		@Override
-		protected Boolean doInBackground(String... params) {
-			if(twitterUtil.getTwitterDTO(params[0], true) != null){
-				return true;
-			}
-			return false;
-		}
-		
-		@Override
-		protected void onPostExecute(Boolean searchSuccess) {
-			if(searchSuccess){
-				txtKeyword.setText("");
-				populateList();
-			}
-			progress.dismiss();
-			Application.hideKeyboard(context, txtKeyword);
-			super.onPostExecute(searchSuccess);
-		}
-		
+		myIntent.setClass(context, TweetsController.class);
+		myIntent.putExtra("keyword", keyword);
+		startActivity(myIntent);
 	}
 	
-	private void searchForTweets(final String keyword){
-		
-		progress = ProgressDialog.show(context, "Kontakter Twitter", "søker etter tweets", true, true);
-		new Thread(new Runnable() {						
-			public void run() {
-				Message msg = new Message();
-				TwitterDTO twitterDTO = twitterUtil.getTwitterDTO(keyword, true);
-				
-				if(twitterDTO != null){	
-					msg.what = SEARCH_SUCCESS;
-				}else{
-					msg.what = SEARCH_FAILED;
-				}				
-				tweetHandler.sendMessage(msg);
-			}
-		}).start();
+	@Override
+	protected void onResume() {
+		super.onResume();
+		populateList();
 	}
 	
-	private Handler tweetHandler = new Handler(){
-		
-		@Override
-		public void handleMessage(Message msg) {
-			if(msg.what == SEARCH_SUCCESS){
-				txtKeyword.setText("");
-				populateList();
-				progress.dismiss();
-			}
-			super.handleMessage(msg);
-		}
-	};
+
 }

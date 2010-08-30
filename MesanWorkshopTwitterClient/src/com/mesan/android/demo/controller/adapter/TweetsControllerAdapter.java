@@ -31,7 +31,7 @@ public class TweetsControllerAdapter extends BaseAdapter{
 	}
 
 	public View getView(int pos, View view, ViewGroup viewGroup) {
-		return new TweetsControllerAdapterView(context, listOfTweetDTO.get(pos));
+		return new TweetsControllerAdapterView(context, listOfTweetDTO.get(pos), pos);
 	}
 
 }
