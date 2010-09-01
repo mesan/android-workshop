@@ -1,11 +1,5 @@
 package no.mesan.android.demo.view.adapterview;
 
-import java.io.BufferedInputStream;
-import java.io.IOException;
-import java.io.InputStream;
-import java.net.MalformedURLException;
-import java.net.URL;
-
 import no.mesan.android.demo.controller.R;
 import no.mesan.android.demo.model.application.Application;
 import no.mesan.android.demo.model.dto.TweetDTO;
@@ -60,31 +54,18 @@ public class TweetsControllerAdapterView extends RelativeLayout {
 		}
 	}
 
-	private class ImageFromWebTask extends AsyncTask<String, Void, Boolean> {
-		private Drawable img;
+	private class ImageFromWebTask extends AsyncTask<String, Void, Drawable> {
 
 		@Override
-		protected Boolean doInBackground(String... params) {
-			try {
-				URL url = new URL(params[0]);
-				InputStream is = new BufferedInputStream(url.openStream());
-				img = Drawable.createFromStream(is, "src");
-				return true;
-
-			} catch (MalformedURLException e) {
-				e.printStackTrace();
-			} catch (IOException e) {
-				e.printStackTrace();
-			}
-			return false;
+		protected Drawable doInBackground(String... params) {
+			return Application.getImageFromWeb(params[0]);
 		}
 
 		@Override
-		protected void onPostExecute(Boolean result) {
-			if (img != null) {
-				imgProfileImage.setImageDrawable(img);
+		protected void onPostExecute(Drawable image) {
+			if (image != null) {
+				imgProfileImage.setImageDrawable(image);
 			}
-			super.onPostExecute(result);
 		}
 	}
 

@@ -1,13 +1,7 @@
 package no.mesan.android.demo.controller;
 
-import java.io.BufferedInputStream;
-import java.io.IOException;
-import java.io.InputStream;
-import java.net.MalformedURLException;
-import java.net.URL;
 import java.util.ArrayList;
 
-import no.mesan.android.demo.controller.R;
 import no.mesan.android.demo.model.dto.TwitterDTO;
 import no.mesan.android.demo.model.util.FlickrUtil;
 import no.mesan.android.demo.model.util.TwitterUtil;
@@ -43,9 +37,9 @@ public class TweetsController extends Activity {
 		setContentView(R.layout.tweets_controller);
 
 		context = this;
-		
+
 		keyword = getIntent().getStringExtra("keyword");
-		
+
 		initComponents();
 		renderView();
 
@@ -62,12 +56,13 @@ public class TweetsController extends Activity {
 
 		// Get tweets
 		new SearchForNewTweetsTask().execute(keyword.toString());
-		
+
 		// Get flickr images
 		new SearchForFlickrImagesTask().execute(keyword.toString());
 	}
 
-	private class SearchForFlickrImagesTask extends AsyncTask<String, Void, Boolean> {
+	private class SearchForFlickrImagesTask extends
+			AsyncTask<String, Void, Boolean> {
 
 		@Override
 		protected void onPreExecute() {
@@ -76,40 +71,36 @@ public class TweetsController extends Activity {
 
 		@Override
 		protected Boolean doInBackground(String... params) {
-			try {
-				
-				FlickrUtil flickrUtil = new FlickrUtil();
-				ArrayList<String> urls = flickrUtil.getFlickrUrlsByKeywordFromWeb(params[0]);
-				int urlsLength = urls.size();
-				
-				for (int i = 0; i < urlsLength; i++) {
-					URL url = new URL(urls.get(i));
-					InputStream is = new BufferedInputStream(url.openStream());
-					listOfFlickrImg.add(Drawable.createFromStream(is, "src"));
-				}
-				return true;
 
-			} catch (MalformedURLException e) {
-				e.printStackTrace();
-			} catch (IOException e) {
-				e.printStackTrace();
+			FlickrUtil flickrUtil = new FlickrUtil();
+			listOfFlickrImg = flickrUtil
+					.getFlickrUrlsByKeywordFromWeb(params[0]);
+
+			if (listOfFlickrImg != null) {
+				return true;
 			}
+
 			return false;
 		}
 
 		@Override
-		protected void onPostExecute(Boolean result) {
-			super.onPostExecute(result);
-			glrFlickrImages.setAdapter(new GalleryAdapter(context, listOfFlickrImg));
+		protected void onPostExecute(Boolean isSuccess) {
+			super.onPostExecute(isSuccess);
+			if (isSuccess) {
+				glrFlickrImages.setAdapter(new GalleryAdapter(context,
+						listOfFlickrImg));
+			}
 
 		}
 	}
 
-	private class SearchForNewTweetsTask extends AsyncTask<String, Void, Boolean> {
+	private class SearchForNewTweetsTask extends
+			AsyncTask<String, Void, Boolean> {
 
 		@Override
 		protected void onPreExecute() {
-			progress = ProgressDialog.show(context, "Kontakter Twitter", "søker etter tweets", true, true);
+			progress = ProgressDialog.show(context, "Kontakter Twitter",
+					"søker etter tweets", true, true);
 			super.onPreExecute();
 		}
 
@@ -125,10 +116,11 @@ public class TweetsController extends Activity {
 		@Override
 		protected void onPostExecute(Boolean searchSuccess) {
 			if (searchSuccess) {
-				tweetsControllerAdapter = new TweetsControllerAdapter(context, twitterDTO.getTweets());
+				tweetsControllerAdapter = new TweetsControllerAdapter(context,
+						twitterDTO.getTweets());
 				lstTweets.setAdapter(tweetsControllerAdapter);
 			}
-			
+
 			progress.dismiss();
 
 			super.onPostExecute(searchSuccess);

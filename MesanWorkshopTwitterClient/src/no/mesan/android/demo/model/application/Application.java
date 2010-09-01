@@ -1,6 +1,10 @@
 package no.mesan.android.demo.model.application;
 
+import java.io.BufferedInputStream;
 import java.io.IOException;
+import java.io.InputStream;
+import java.net.MalformedURLException;
+import java.net.URL;
 import java.util.Calendar;
 import java.util.Date;
 
@@ -10,11 +14,16 @@ import org.apache.http.client.methods.HttpGet;
 import org.apache.http.impl.client.DefaultHttpClient;
 
 import android.content.Context;
+import android.graphics.drawable.Drawable;
+import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
 import android.util.Log;
 import android.view.View;
 import android.view.inputmethod.InputMethodManager;
 
 public class Application {
+	
+	private static ConnectivityManager conManager;
 	
 	private static String[] months = { "januar", "februar", "mars", "april", "mai", "juni", "juli", "august", "september", "oktober", "november", "desember" };
 
@@ -96,5 +105,36 @@ public class Application {
 		}
 		
 		return stringBuilder.toString();
+	}
+	
+	/**
+	 * Check if network is available 
+	 * 
+	 * @param context
+	 * @return boolean
+	 */
+	public static boolean isNetworkAvailable(Context context) {
+		conManager = (ConnectivityManager) context.getSystemService(Context.CONNECTIVITY_SERVICE);
+		if (conManager != null) {
+			if (conManager.getNetworkInfo(1).getState() == NetworkInfo.State.CONNECTED || conManager.getNetworkInfo(1).getState() == NetworkInfo.State.CONNECTING || conManager.getNetworkInfo(0).getState() == NetworkInfo.State.CONNECTED || conManager.getNetworkInfo(0).getState() == NetworkInfo.State.CONNECTING) {
+				return true;
+			}
+		}
+		return false;
+	}
+	
+	public static synchronized Drawable getImageFromWeb(String pathToImage){
+		InputStream is = null;
+		try {
+			URL url = new URL(pathToImage);
+			is = new BufferedInputStream(url.openStream());
+			return Drawable.createFromStream(is, "src");
+
+		} catch (MalformedURLException e) {
+			Log.d(Application.class.getSimpleName(), e.getMessage(), e);
+		} catch (IOException e) {
+			Log.d(Application.class.getSimpleName(), e.getMessage(), e);
+		}
+		return null;
 	}
 }
