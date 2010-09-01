@@ -1,4 +1,4 @@
-package com.mesan.android.demo.controller;
+package no.mesan.android.demo.controller;
 
 import java.io.BufferedInputStream;
 import java.io.IOException;
@@ -6,8 +6,12 @@ import java.io.InputStream;
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.ArrayList;
-import java.util.Collections;
 
+import no.mesan.android.demo.controller.R;
+import no.mesan.android.demo.model.dto.TwitterDTO;
+import no.mesan.android.demo.model.util.TwitterUtil;
+import no.mesan.android.demo.view.adapter.GalleryAdapter;
+import no.mesan.android.demo.view.adapter.TweetsControllerAdapter;
 import android.app.Activity;
 import android.app.ProgressDialog;
 import android.content.Context;
@@ -16,11 +20,6 @@ import android.os.AsyncTask;
 import android.os.Bundle;
 import android.widget.Gallery;
 import android.widget.ListView;
-
-import com.mesan.android.demo.controller.adapter.GalleryAdapter;
-import com.mesan.android.demo.controller.adapter.TweetsControllerAdapter;
-import com.mesan.android.demo.model.dto.TwitterDTO;
-import com.mesan.android.demo.model.util.TwitterUtil;
 
 public class TweetsController extends Activity {
 

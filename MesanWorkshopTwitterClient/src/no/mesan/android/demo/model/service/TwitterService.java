@@ -1,4 +1,4 @@
-package com.mesan.android.demo.model.service;
+package no.mesan.android.demo.model.service;
 
 import java.io.IOException;
 import java.text.DateFormat;
@@ -9,6 +9,10 @@ import java.util.Date;
 import java.util.Locale;
 import java.util.TimeZone;
 
+import no.mesan.android.demo.model.application.Application;
+import no.mesan.android.demo.model.dto.TweetDTO;
+import no.mesan.android.demo.model.dto.TwitterDTO;
+
 import org.apache.http.HttpResponse;
 import org.apache.http.StatusLine;
 import org.apache.http.util.EntityUtils;
@@ -18,9 +22,6 @@ import org.json.JSONObject;
 
 import android.util.Log;
 
-import com.mesan.android.demo.model.application.Application;
-import com.mesan.android.demo.model.dto.TweetDTO;
-import com.mesan.android.demo.model.dto.TwitterDTO;
 
 public class TwitterService {
 

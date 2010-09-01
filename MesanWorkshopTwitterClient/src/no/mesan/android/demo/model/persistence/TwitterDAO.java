@@ -1,8 +1,10 @@
-package com.mesan.android.demo.model.persistence;
+package no.mesan.android.demo.model.persistence;
 
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
+
+import no.mesan.android.demo.model.dto.TwitterDTO;
 
 import android.content.Context;
 import android.util.Log;
@@ -13,7 +15,6 @@ import com.db4o.ObjectSet;
 import com.db4o.config.Configuration;
 import com.db4o.query.Predicate;
 import com.db4o.query.Query;
-import com.mesan.android.demo.model.dto.TwitterDTO;
 
 public class TwitterDAO {
 

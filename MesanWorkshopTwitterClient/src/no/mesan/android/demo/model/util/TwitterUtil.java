@@ -1,13 +1,14 @@
-package com.mesan.android.demo.model.util;
+package no.mesan.android.demo.model.util;
 
 import java.util.ArrayList;
 
+import no.mesan.android.demo.model.dto.TwitterDTO;
+import no.mesan.android.demo.model.persistence.TwitterDAO;
+import no.mesan.android.demo.model.service.FlickrService;
+import no.mesan.android.demo.model.service.TwitterService;
+
 import android.content.Context;
 
-import com.mesan.android.demo.model.dto.TwitterDTO;
-import com.mesan.android.demo.model.persistence.TwitterDAO;
-import com.mesan.android.demo.model.service.FlickrService;
-import com.mesan.android.demo.model.service.TwitterService;
 
 public class TwitterUtil {
 

@@ -1,4 +1,4 @@
-package com.mesan.android.demo.model.application;
+package no.mesan.android.demo.model.application;
 
 import java.io.IOException;
 import java.util.Calendar;

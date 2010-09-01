@@ -1,4 +1,4 @@
-package com.mesan.android.demo.model.dto;
+package no.mesan.android.demo.model.dto;
 
 import java.io.Serializable;
 import java.util.ArrayList;

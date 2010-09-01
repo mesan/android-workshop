@@ -1,4 +1,4 @@
-package com.mesan.android.demo.controller.adapter;
+package no.mesan.android.demo.view.adapter;
 
 import java.util.ArrayList;
 

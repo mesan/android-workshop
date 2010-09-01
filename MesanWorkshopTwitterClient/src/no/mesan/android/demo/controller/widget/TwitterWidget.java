@@ -1,7 +1,11 @@
-package com.mesan.android.demo.controller.widget;
+package no.mesan.android.demo.controller.widget;
 
 import java.util.ArrayList;
 
+
+import no.mesan.android.demo.controller.DefaultController;
+import no.mesan.android.demo.controller.R;
+import no.mesan.android.demo.model.util.TwitterUtil;
 import android.app.Notification;
 import android.app.NotificationManager;
 import android.app.PendingIntent;
@@ -13,10 +17,6 @@ import android.content.Context;
 import android.content.Intent;
 import android.os.IBinder;
 import android.widget.RemoteViews;
-
-import com.mesan.android.demo.controller.DefaultController;
-import com.mesan.android.demo.controller.R;
-import com.mesan.android.demo.model.util.TwitterUtil;
 
 
 public class TwitterWidget extends AppWidgetProvider {

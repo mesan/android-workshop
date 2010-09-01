@@ -1,7 +1,9 @@
-package com.mesan.android.demo.model.service;
+package no.mesan.android.demo.model.service;
 
 import java.io.IOException;
 import java.util.ArrayList;
+
+import no.mesan.android.demo.model.application.Application;
 
 import org.apache.http.HttpResponse;
 import org.apache.http.ParseException;
@@ -13,7 +15,6 @@ import org.json.JSONObject;
 
 import android.util.Log;
 
-import com.mesan.android.demo.model.application.Application;
 
 public class FlickrService {
 

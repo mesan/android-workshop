@@ -1,4 +1,4 @@
-package com.mesan.android.demo.controller.adapter;
+package no.mesan.android.demo.view.adapterview;
 
 import java.io.BufferedInputStream;
 import java.io.IOException;
@@ -6,18 +6,16 @@ import java.io.InputStream;
 import java.net.MalformedURLException;
 import java.net.URL;
 
+import no.mesan.android.demo.controller.R;
+import no.mesan.android.demo.model.application.Application;
+import no.mesan.android.demo.model.dto.TweetDTO;
 import android.content.Context;
-import android.graphics.Bitmap;
 import android.graphics.drawable.Drawable;
 import android.os.AsyncTask;
 import android.view.LayoutInflater;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
-
-import com.mesan.android.demo.controller.R;
-import com.mesan.android.demo.model.application.Application;
-import com.mesan.android.demo.model.dto.TweetDTO;
 
 public class TweetsControllerAdapterView extends RelativeLayout {
 

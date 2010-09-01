@@ -1,13 +1,15 @@
-package com.mesan.android.demo.controller.adapter;
+package no.mesan.android.demo.view.adapter;
 
 import java.util.ArrayList;
+
+import no.mesan.android.demo.model.dto.TweetDTO;
+import no.mesan.android.demo.view.adapterview.TweetsControllerAdapterView;
 
 import android.content.Context;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 
-import com.mesan.android.demo.model.dto.TweetDTO;
 
 public class TweetsControllerAdapter extends BaseAdapter{
 	private ArrayList<TweetDTO> listOfTweetDTO;
