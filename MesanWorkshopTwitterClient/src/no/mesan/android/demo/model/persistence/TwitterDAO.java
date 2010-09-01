@@ -67,7 +67,6 @@ public class TwitterDAO {
 			tempTweet = new TwitterDTO(keyword);
 		}
 		tempTweet.setTweets(twitterDTO.getTweets());
-		tempTweet.setFlickrImages(twitterDTO.getFlickrImages());
 
 		db().store(tempTweet);
 		db().commit();

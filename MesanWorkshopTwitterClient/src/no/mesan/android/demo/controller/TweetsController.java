@@ -9,6 +9,7 @@ import java.util.ArrayList;
 
 import no.mesan.android.demo.controller.R;
 import no.mesan.android.demo.model.dto.TwitterDTO;
+import no.mesan.android.demo.model.util.FlickrUtil;
 import no.mesan.android.demo.model.util.TwitterUtil;
 import no.mesan.android.demo.view.adapter.GalleryAdapter;
 import no.mesan.android.demo.view.adapter.TweetsControllerAdapter;
@@ -34,8 +35,6 @@ public class TweetsController extends Activity {
 	private ProgressDialog progress;
 
 	private Context context;
-
-	private ArrayList<String> urls;
 	private ArrayList<Drawable> listOfFlickrImg;
 
 	@Override
@@ -44,37 +43,31 @@ public class TweetsController extends Activity {
 		setContentView(R.layout.tweets_controller);
 
 		context = this;
+		
+		keyword = getIntent().getStringExtra("keyword");
+		
 		initComponents();
+		renderView();
 
 	}
 
 	private void initComponents() {
 		twitterUtil = new TwitterUtil(context);
-		keyword = getIntent().getStringExtra("keyword");
 		lstTweets = (ListView) findViewById(R.id.lstTweets);
 		glrFlickrImages = (Gallery) findViewById(R.id.glrFlickerImages);
 		listOfFlickrImg = new ArrayList<Drawable>();
-
-		new SearchForNewTweetsTask().execute(keyword.toString());
 	}
 
 	private void renderView() {
 
-		if (twitterDTO != null) {
-			urls = twitterDTO.getFlickrImages();
-			tweetsControllerAdapter = new TweetsControllerAdapter(context, twitterDTO.getTweets());
-			lstTweets.setAdapter(tweetsControllerAdapter);
-			int urlsSize = urls.size();
-			String[] urlArr = new String[urlsSize];
-
-			for (int i = 0; i < urlsSize; i++) {
-				urlArr[i] = urls.get(i);
-			}
-			new ConvertUrlToDrawable().execute(urlArr);
-		}
+		// Get tweets
+		new SearchForNewTweetsTask().execute(keyword.toString());
+		
+		// Get flickr images
+		new SearchForFlickrImagesTask().execute(keyword.toString());
 	}
 
-	private class ConvertUrlToDrawable extends AsyncTask<String, Void, Boolean> {
+	private class SearchForFlickrImagesTask extends AsyncTask<String, Void, Boolean> {
 
 		@Override
 		protected void onPreExecute() {
@@ -84,8 +77,13 @@ public class TweetsController extends Activity {
 		@Override
 		protected Boolean doInBackground(String... params) {
 			try {
-				for (int i = 0; i < params.length; i++) {
-					URL url = new URL(params[i]);
+				
+				FlickrUtil flickrUtil = new FlickrUtil();
+				ArrayList<String> urls = flickrUtil.getFlickrUrlsByKeywordFromWeb(params[0]);
+				int urlsLength = urls.size();
+				
+				for (int i = 0; i < urlsLength; i++) {
+					URL url = new URL(urls.get(i));
 					InputStream is = new BufferedInputStream(url.openStream());
 					listOfFlickrImg.add(Drawable.createFromStream(is, "src"));
 				}
@@ -127,8 +125,10 @@ public class TweetsController extends Activity {
 		@Override
 		protected void onPostExecute(Boolean searchSuccess) {
 			if (searchSuccess) {
-				renderView();
+				tweetsControllerAdapter = new TweetsControllerAdapter(context, twitterDTO.getTweets());
+				lstTweets.setAdapter(tweetsControllerAdapter);
 			}
+			
 			progress.dismiss();
 
 			super.onPostExecute(searchSuccess);

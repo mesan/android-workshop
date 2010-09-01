@@ -7,7 +7,6 @@ public class TwitterDTO implements Comparable<TwitterDTO>, Serializable {
 	private static final long serialVersionUID = 5723006892309338592L;
 	private String keyword;
 	private ArrayList<TweetDTO> tweets;
-	private ArrayList<String> flickrImages;
 	private Long timeInMillis;
 	
 	public TwitterDTO() {
@@ -19,10 +18,9 @@ public class TwitterDTO implements Comparable<TwitterDTO>, Serializable {
 		setTimeInMillis();
 	}
 	
-	public TwitterDTO(String keyword, ArrayList<TweetDTO> tweets, ArrayList<String> flickrImages) {
+	public TwitterDTO(String keyword, ArrayList<TweetDTO> tweets) {
 		setKeyword(keyword);
 		setTweets(tweets);
-		setFlickrImages(flickrImages);
 		setTimeInMillis();
 	}
 
@@ -40,14 +38,6 @@ public class TwitterDTO implements Comparable<TwitterDTO>, Serializable {
 
 	public void setTweets(ArrayList<TweetDTO> tweets) {
 		this.tweets = tweets;
-	}
-
-	public ArrayList<String> getFlickrImages() {
-		return flickrImages;
-	}
-
-	public void setFlickrImages(ArrayList<String> flickrImages) {
-		this.flickrImages = flickrImages;
 	}
 
 	public Long getTimeInMillis() {
