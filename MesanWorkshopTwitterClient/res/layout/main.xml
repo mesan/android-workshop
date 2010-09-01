@@ -4,12 +4,7 @@
     android:layout_width="fill_parent"
     android:layout_height="fill_parent"
     android:baselineAligned="true">
-	<ImageView
-		android:layout_width="fill_parent"
-		android:layout_height="wrap_content"
-	    android:src="@drawable/twiter_01"
-	    android:background="@color/white"	    
-    />
+	
     <RelativeLayout
 	    android:orientation="vertical"
 	    android:layout_width="fill_parent"
