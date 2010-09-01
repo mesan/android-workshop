@@ -93,7 +93,7 @@ public class TwitterService {
 
 				tweet = resultArray.optJSONObject(i);
 
-				tweetDTO.setText(tweet.optString("text"));
+				tweetDTO.setContent(tweet.optString("text"));
 				tweetDTO.setProfileName(tweet.optString("from_user"));
 
 				tweetDTO.setProfileUrl(tweet.optString("profile_image_url"));

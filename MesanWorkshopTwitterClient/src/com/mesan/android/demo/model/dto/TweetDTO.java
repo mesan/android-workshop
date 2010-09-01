@@ -5,7 +5,7 @@ import java.util.Date;
 
 public class TweetDTO implements Serializable {
 	private static final long serialVersionUID = 2769808976839209522L;
-	private String text, profileName;
+	private String content, profileName;
 	private String profileUrl;
 
 	private Date date;
@@ -14,20 +14,21 @@ public class TweetDTO implements Serializable {
 
 	}
 
-	public TweetDTO(String text, String profileName, String profileUrl,
+	public TweetDTO(String content, String profileName, String profileUrl,
 			Date date) {
-		setText(text);
+		setContent(content);
 		setProfileName(profileName);
 		setProfileUrl(profileUrl);
 		setDate(date);
 	}
 
-	public String getText() {
-		return text;
+	
+	public String getContent() {
+		return content;
 	}
 
-	public void setText(String text) {
-		this.text = text;
+	public void setContent(String content) {
+		this.content = content;
 	}
 
 	public String getProfileName() {

@@ -80,7 +80,6 @@ public class TweetsController extends Activity {
 		@Override
 		protected void onPreExecute() {
 			super.onPreExecute();
-			// Progressbar
 		}
 
 		@Override

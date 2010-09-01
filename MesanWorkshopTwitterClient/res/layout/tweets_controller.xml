@@ -7,7 +7,9 @@
 	
 	<Gallery android:id="@+id/glrFlickerImages"
     	android:layout_width="fill_parent"
-    	android:layout_height="100dp">		
+    	android:layout_height="100dp"
+    	android:unselectedAlpha="0.5"
+    	android:spacing="1dp">		
 	</Gallery>
   
 	<ListView

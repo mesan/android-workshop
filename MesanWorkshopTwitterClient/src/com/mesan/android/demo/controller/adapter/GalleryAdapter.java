@@ -35,10 +35,9 @@ public class GalleryAdapter extends BaseAdapter{
 	public View getView(int position, View convertView, ViewGroup parent) {
 		ImageView iv = new ImageView(context);
 		iv.setLayoutParams(new Gallery.LayoutParams(LayoutParams.WRAP_CONTENT, LayoutParams.WRAP_CONTENT));
-		iv.setScaleType(ImageView.ScaleType.CENTER_INSIDE);
-		iv.setImageDrawable(listOfFlickrImg.get(position));
+		iv.setScaleType(ImageView.ScaleType.CENTER_CROP);
+		iv.setImageDrawable(listOfFlickrImg.get(position));	
 	
 		return iv;
 	}
-
 }
