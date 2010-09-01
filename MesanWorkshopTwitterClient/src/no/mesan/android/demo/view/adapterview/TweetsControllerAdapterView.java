@@ -26,36 +26,27 @@ public class TweetsControllerAdapterView extends RelativeLayout {
 	}
 
 	public void initLayout() {
-		LayoutInflater layoutInflater = (LayoutInflater) context
-				.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+		LayoutInflater layoutInflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
 
-		listItemLayout = (RelativeLayout) layoutInflater.inflate(
-				R.layout.tweets_controller_list_item, this);
+		listItemLayout = (RelativeLayout) layoutInflater.inflate(R.layout.tweets_controller_list_item, this);
 		// TextViewene fjernes, skal lages i oppgave fire
-		txtProfileName = (TextView) listItemLayout
-				.findViewById(R.id.txtProfileName);
-		txtTweetText = (TextView) listItemLayout
-				.findViewById(R.id.txtTweetText);
-		txtTweetDate = (TextView) listItemLayout
-				.findViewById(R.id.txtTweetDate);
-		imgProfileImage = (ImageView) listItemLayout
-				.findViewById(R.id.imgProfileImage);
+		txtProfileName = (TextView) listItemLayout.findViewById(R.id.txtProfileName);
+		txtTweetText = (TextView) listItemLayout.findViewById(R.id.txtTweetText);
+		txtTweetDate = (TextView) listItemLayout.findViewById(R.id.txtTweetDate);
+		imgProfileImage = (ImageView) listItemLayout.findViewById(R.id.imgProfileImage);
 	}
 
 	public void renderItem(Boolean isNew, TweetDTO tweetDTO, int position) {
 		// la stå
 		if (position % 2 != 0) {
-			listItemLayout
-					.setBackgroundResource(R.drawable.tweets_gradient_list_element_darker);
+			listItemLayout.setBackgroundResource(R.drawable.tweets_gradient_list_element_darker);
 		} else {
-			listItemLayout
-					.setBackgroundResource(R.drawable.tweets_gradient_list_element);
+			listItemLayout.setBackgroundResource(R.drawable.tweets_gradient_list_element);
 		}
 		// fjernes. Teksten skal settes i oppgaven
 		txtProfileName.setText(tweetDTO.getProfileName());
 		txtTweetText.setText(tweetDTO.getContent());
-		txtTweetDate.setText(Application.formatDateToTimeDiff(tweetDTO
-				.getDate()));
+		txtTweetDate.setText(Application.formatDateToTimeDiff(tweetDTO.getDate()));
 
 		// la stå
 		if (isNew) {
@@ -74,6 +65,8 @@ public class TweetsControllerAdapterView extends RelativeLayout {
 		protected void onPostExecute(Drawable image) {
 			if (image != null) {
 				imgProfileImage.setImageDrawable(image);
+			}else{
+				imgProfileImage.setImageResource(R.drawable.twiter_01);
 			}
 		}
 	}
