@@ -11,9 +11,11 @@ import android.content.Context;
 public class TwitterUtil {
 
 	private TwitterDAO twitterDAO;
+	private Context context;
 	
 	public TwitterUtil(Context context){
 		twitterDAO = new TwitterDAO(context);
+		this.context = context;
 	}
 	
 	public ArrayList<TwitterDTO> getAllTwitterDTOs(){
@@ -23,16 +25,18 @@ public class TwitterUtil {
 	public TwitterDTO getTwitterDTO(String keyword, boolean searchWeb){
 				
 		if(searchWeb){
-			TwitterService twitterService = new TwitterService();			
+			TwitterService twitterService = new TwitterService(context);			
 			TwitterDTO twitterDTO = twitterService.getTweetFromWeb(keyword);		
-			twitterDAO.setTweet(twitterDTO);
+			if(twitterDTO != null){				
+				twitterDAO.setTweet(twitterDTO);
+			}
 		}
 		
 		return twitterDAO.getTwitterDTO(keyword);
 	}
 	
 	public ArrayList<String> getTrendingTopics(){
-		TwitterService twitterService = new TwitterService();
+		TwitterService twitterService = new TwitterService(context);
 		return twitterService.searchForTrendingTopics();
 	}
 }

@@ -1,6 +1,8 @@
 package no.mesan.android.demo.model.service;
 
+import java.io.BufferedReader;
 import java.io.IOException;
+import java.io.InputStreamReader;
 import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -20,6 +22,7 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import android.content.Context;
 import android.util.Log;
 
 
@@ -28,12 +31,24 @@ public class TwitterService {
 	private static final String TWITTER_SEARCH_URL = "http://search.twitter.com/search.json?result_type=recent&q=";
 	private static final String TWITTER_TRENDING_TOPICS = "http://api.twitter.com/1/trends.json";
 
-	public TwitterService() {
-
+	private Context context;
+	
+	public TwitterService(Context context){
+		this.context = context;
 	}
 
 	public TwitterDTO getTweetFromWeb(String keyword) {
 
+		keyword = keyword.replace(" ", "+");
+
+		if(Application.isNetworkAvailable(context)){
+			return searchWeb(keyword);
+		}		
+
+		return searchOffline(keyword);
+	}
+	
+	private TwitterDTO searchWeb(String keyword){
 		// Execute the request
 		HttpResponse response = Application
 				.sendGetRequestForUrl(TWITTER_SEARCH_URL + keyword);
@@ -49,23 +64,40 @@ public class TwitterService {
 						ioex);
 			}
 		}
-
 		return null;
+	}
+	
+	private TwitterDTO searchOffline(String keyword){
+		String line = null;
+		try {
+			BufferedReader reader = new BufferedReader(new InputStreamReader(context.getAssets().open("dummies/java_twitter.json")), 2048);
+			StringBuilder sb = new StringBuilder();
+			while ((line = reader.readLine()) != null) {
+				sb.append(line + "\n");
+			}
+			return parseTwitterJson(sb.toString(), keyword);
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+		return null ;
 	}
 
 	public ArrayList<String> searchForTrendingTopics() {
-		HttpResponse response = Application
-				.sendGetRequestForUrl(TWITTER_TRENDING_TOPICS);
-		StatusLine status = response.getStatusLine();
-
-		if (status.getStatusCode() == 200) {
-			try {
-				return parseTrendingTopicsJson(EntityUtils.toString(response
-						.getEntity()));
-			} catch (IOException ioex) {
-				Log.e(TwitterService.class.getSimpleName(), ioex.getMessage(),
-						ioex);
-			}
+		
+		if(Application.isNetworkAvailable(context)){
+			HttpResponse response = Application
+			.sendGetRequestForUrl(TWITTER_TRENDING_TOPICS);
+			StatusLine status = response.getStatusLine();
+			
+			if (status.getStatusCode() == 200) {
+				try {
+					return parseTrendingTopicsJson(EntityUtils.toString(response
+							.getEntity()));
+				} catch (IOException ioex) {
+					Log.e(TwitterService.class.getSimpleName(), ioex.getMessage(),
+							ioex);
+				}
+			}			
 		}
 
 		return null;

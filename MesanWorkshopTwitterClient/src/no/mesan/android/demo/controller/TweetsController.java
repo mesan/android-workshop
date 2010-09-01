@@ -72,7 +72,7 @@ public class TweetsController extends Activity {
 		@Override
 		protected Boolean doInBackground(String... params) {
 
-			FlickrUtil flickrUtil = new FlickrUtil();
+			FlickrUtil flickrUtil = new FlickrUtil(context);
 			listOfFlickrImg = flickrUtil
 					.getFlickrUrlsByKeywordFromWeb(params[0]);
 

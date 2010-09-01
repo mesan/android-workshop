@@ -2,32 +2,50 @@ package no.mesan.android.demo.model.util;
 
 import java.util.ArrayList;
 
+import no.mesan.android.demo.controller.R;
 import no.mesan.android.demo.model.application.Application;
 import no.mesan.android.demo.model.service.FlickrService;
+import android.content.Context;
 import android.graphics.drawable.Drawable;
 import android.util.Log;
 
 public class FlickrUtil {
 
-	public FlickrUtil(){
-		
+	private Context context;
+
+	public FlickrUtil(Context context) {
+		this.context = context;
 	}
-	
-	public ArrayList<Drawable> getFlickrUrlsByKeywordFromWeb(String keyword){
+
+	public ArrayList<Drawable> getFlickrUrlsByKeywordFromWeb(String keyword) {
 		ArrayList<Drawable> flickrList = null;
-		
-		try{
-			FlickrService flickrService = new FlickrService();
-			ArrayList<String> urls = flickrService.getImagesFromFlickr(keyword);
-			int urlsLength = urls.size();
+
+		try {
 			flickrList = new ArrayList<Drawable>();
-			
-			for (int i = 0; i < urlsLength; i++) {
-				flickrList.add(Application.getImageFromWeb(urls.get(i)));
+
+			if (Application.isNetworkAvailable(context)) {
+				FlickrService flickrService = new FlickrService(context);
+				ArrayList<String> urls = flickrService
+						.getImagesFromFlickr(keyword);
+				int urlsLength = urls.size();
+				for (int i = 0; i < urlsLength; i++) {
+					flickrList.add(Application.getImageFromWeb(urls.get(i)));
+				}
+			} else {
+				flickrList.add(context.getResources().getDrawable(
+						R.drawable.dummy_java1));
+				flickrList.add(context.getResources().getDrawable(
+						R.drawable.dummy_java2));
+				flickrList.add(context.getResources().getDrawable(
+						R.drawable.dummy_java3));
+				flickrList.add(context.getResources().getDrawable(
+						R.drawable.dummy_java4));
 			}
-		} catch(Exception e){
+
+		} catch (Exception e) {
 			Log.d(FlickrUtil.class.getSimpleName(), e.getMessage(), e);
 		}
+
 		return flickrList;
 	}
 }
