@@ -26,29 +26,38 @@ public class TweetsControllerAdapterView extends RelativeLayout {
 	}
 
 	public void initLayout() {
-		LayoutInflater layoutInflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+		LayoutInflater layoutInflater = (LayoutInflater) context
+				.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
 
-		listItemLayout = (RelativeLayout) layoutInflater.inflate(R.layout.tweets_controller_list_item, this);
-		//TextViewene fjernes, skal lages i oppgave fire
-		txtProfileName = (TextView) listItemLayout.findViewById(R.id.txtProfileName);
-		txtTweetText = (TextView) listItemLayout.findViewById(R.id.txtTweetText);
-		txtTweetDate = (TextView) listItemLayout.findViewById(R.id.txtTweetDate);
-		imgProfileImage = (ImageView) listItemLayout.findViewById(R.id.imgProfileImage);
+		listItemLayout = (RelativeLayout) layoutInflater.inflate(
+				R.layout.tweets_controller_list_item, this);
+		// TextViewene fjernes, skal lages i oppgave fire
+		txtProfileName = (TextView) listItemLayout
+				.findViewById(R.id.txtProfileName);
+		txtTweetText = (TextView) listItemLayout
+				.findViewById(R.id.txtTweetText);
+		txtTweetDate = (TextView) listItemLayout
+				.findViewById(R.id.txtTweetDate);
+		imgProfileImage = (ImageView) listItemLayout
+				.findViewById(R.id.imgProfileImage);
 	}
 
 	public void renderItem(Boolean isNew, TweetDTO tweetDTO, int position) {
-		//la stå
+		// la stå
 		if (position % 2 != 0) {
-			listItemLayout.setBackgroundResource(R.drawable.tweets_gradient_list_element_darker);
+			listItemLayout
+					.setBackgroundResource(R.drawable.tweets_gradient_list_element_darker);
 		} else {
-			listItemLayout.setBackgroundResource(R.drawable.tweets_gradient_list_element);
+			listItemLayout
+					.setBackgroundResource(R.drawable.tweets_gradient_list_element);
 		}
-		//fjernes. Teksten skal settes i oppgaven
+		// fjernes. Teksten skal settes i oppgaven
 		txtProfileName.setText(tweetDTO.getProfileName());
 		txtTweetText.setText(tweetDTO.getContent());
-		txtTweetDate.setText(Application.formatDateToTimeDiff(tweetDTO.getDate()));
-		
-		//la stå
+		txtTweetDate.setText(Application.formatDateToTimeDiff(tweetDTO
+				.getDate()));
+
+		// la stå
 		if (isNew) {
 			new ImageFromWebTask().execute(tweetDTO.getProfileUrl());
 		}
