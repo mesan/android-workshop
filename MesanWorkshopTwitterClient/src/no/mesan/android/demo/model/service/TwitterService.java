@@ -38,9 +38,6 @@ public class TwitterService {
 	}
 
 	public TwitterDTO getTweetFromWeb(String keyword) {
-
-		keyword = keyword.replace(" ", "+");
-
 		if(Application.isNetworkAvailable(context)){
 			return searchWeb(keyword);
 		}		
@@ -50,9 +47,9 @@ public class TwitterService {
 	
 	private TwitterDTO searchWeb(String keyword){
 		// Execute the request
-		HttpResponse response = Application
-				.sendGetRequestForUrl(TWITTER_SEARCH_URL + keyword);
-
+		Request request = new Request();
+		HttpResponse response = request.sendGetRequestForUrl(TWITTER_SEARCH_URL + keyword);
+		
 		StatusLine status = response.getStatusLine();
 
 		if (status.getStatusCode() == 200) {
@@ -85,8 +82,8 @@ public class TwitterService {
 	public ArrayList<String> searchForTrendingTopics() {
 		
 		if(Application.isNetworkAvailable(context)){
-			HttpResponse response = Application
-			.sendGetRequestForUrl(TWITTER_TRENDING_TOPICS);
+			Request request = new Request();
+			HttpResponse response = request.sendGetRequestForUrl(TWITTER_TRENDING_TOPICS);
 			StatusLine status = response.getStatusLine();
 			
 			if (status.getStatusCode() == 200) {

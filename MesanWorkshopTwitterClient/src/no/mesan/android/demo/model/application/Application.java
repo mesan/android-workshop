@@ -8,11 +8,6 @@ import java.net.URL;
 import java.util.Calendar;
 import java.util.Date;
 
-import org.apache.http.HttpResponse;
-import org.apache.http.client.ClientProtocolException;
-import org.apache.http.client.methods.HttpGet;
-import org.apache.http.impl.client.DefaultHttpClient;
-
 import android.content.Context;
 import android.graphics.drawable.Drawable;
 import android.net.ConnectivityManager;
@@ -27,27 +22,6 @@ public class Application {
 	
 	private static String[] months = { "januar", "februar", "mars", "april", "mai", "juni", "juli", "august", "september", "oktober", "november", "desember" };
 
-	public synchronized static HttpResponse sendGetRequestForUrl(String url) {
-		// Execute the request
-		HttpResponse response = null;
-		HttpGet httpget = null;
-
-		// Prepare a request object
-		httpget = new HttpGet(url);
-
-		DefaultHttpClient client = new DefaultHttpClient();
-
-		try {
-
-			response = client.execute(httpget);
-
-		} catch (ClientProtocolException cpex) {
-			Log.e(Application.class.getSimpleName(), "", cpex);
-		} catch (IOException ioex) {
-			Log.e(Application.class.getSimpleName(), "", ioex);
-		}
-		return response;
-	}
 
 	public static void hideKeyboard(Context context, View view) {
 		InputMethodManager imm = (InputMethodManager) context
