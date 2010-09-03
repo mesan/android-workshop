@@ -74,8 +74,11 @@ public class Application {
 		if (minutes >= 45 && minutes < 90) {
 			stringBuilder.replace(0, stringBuilder.length(), "ca 1 time siden");
 		}
-		if (minutes < 45) {
+		if (minutes < 45 && minutes != 1) {
 			stringBuilder.replace(0, stringBuilder.length(), minutes + " minutter siden");
+		}
+		if (minutes == 1) {
+			stringBuilder.replace(0, stringBuilder.length(), minutes + " minutt siden");
 		}
 		
 		return stringBuilder.toString();
