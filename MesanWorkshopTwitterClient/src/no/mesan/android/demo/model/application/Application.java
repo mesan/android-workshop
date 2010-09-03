@@ -1,18 +1,11 @@
 package no.mesan.android.demo.model.application;
 
-import java.io.BufferedInputStream;
-import java.io.IOException;
-import java.io.InputStream;
-import java.net.MalformedURLException;
-import java.net.URL;
 import java.util.Calendar;
 import java.util.Date;
 
 import android.content.Context;
-import android.graphics.drawable.Drawable;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
-import android.util.Log;
 import android.view.View;
 import android.view.inputmethod.InputMethodManager;
 
@@ -100,18 +93,5 @@ public class Application {
 		return false;
 	}
 	
-	public static synchronized Drawable getImageFromWeb(String pathToImage){
-		InputStream is = null;
-		try {
-			URL url = new URL(pathToImage);
-			is = new BufferedInputStream(url.openStream());
-			return Drawable.createFromStream(is, "src");
-
-		} catch (MalformedURLException e) {
-			Log.d(Application.class.getSimpleName(), e.getMessage(), e);
-		} catch (IOException e) {
-			Log.d(Application.class.getSimpleName(), e.getMessage(), e);
-		}
-		return null;
-	}
+	
 }

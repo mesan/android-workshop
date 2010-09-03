@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import no.mesan.android.demo.controller.R;
 import no.mesan.android.demo.model.application.Application;
 import no.mesan.android.demo.model.service.FlickrService;
+import no.mesan.android.demo.model.service.Request;
 import android.content.Context;
 import android.graphics.drawable.Drawable;
 import android.util.Log;
@@ -28,8 +29,10 @@ public class FlickrUtil {
 				ArrayList<String> urls = flickrService
 						.getImagesFromFlickr(keyword);
 				int urlsLength = urls.size();
+				Request request = new Request();
 				for (int i = 0; i < urlsLength; i++) {
-					flickrList.add(Application.getImageFromWeb(urls.get(i)));
+					
+					flickrList.add(request.getImageFromWeb(urls.get(i)));
 				}
 			} else {
 				flickrList.add(context.getResources().getDrawable(

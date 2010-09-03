@@ -3,6 +3,7 @@ package no.mesan.android.demo.view.adapterview;
 import no.mesan.android.demo.controller.R;
 import no.mesan.android.demo.model.application.Application;
 import no.mesan.android.demo.model.dto.TweetDTO;
+import no.mesan.android.demo.model.service.Request;
 import android.content.Context;
 import android.graphics.drawable.Drawable;
 import android.os.AsyncTask;
@@ -59,7 +60,8 @@ public class TweetsControllerAdapterView extends RelativeLayout {
 
 		@Override
 		protected Drawable doInBackground(String... params) {
-			return Application.getImageFromWeb(params[0]);
+			Request request = new Request();
+			return request.getImageFromWeb(params[0]);
 		}
 
 		@Override
