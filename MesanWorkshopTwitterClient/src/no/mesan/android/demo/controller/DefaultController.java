@@ -71,8 +71,7 @@ public class DefaultController extends Activity {
 
 			public boolean onKey(View v, int keyCode, KeyEvent event) {
 
-				if (keyCode == KeyEvent.KEYCODE_ENTER
-						&& event.getAction() == KeyEvent.ACTION_DOWN) {
+				if (keyCode == KeyEvent.KEYCODE_ENTER && event.getAction() == KeyEvent.ACTION_DOWN) {
 					String keyword = txtKeyword.getText().toString();
 					if (!"".equals(keyword)) {
 						txtKeyword.setText("");
@@ -85,14 +84,12 @@ public class DefaultController extends Activity {
 			}
 		});
 
-		lstKeywords
-				.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+		lstKeywords.setOnItemClickListener(new AdapterView.OnItemClickListener() {
 
-					public void onItemClick(AdapterView<?> arg0, View view,
-							int pos, long id) {
-						goToActivity(keywords.get(pos), view.getContext());
-					}
-				});
+			public void onItemClick(AdapterView<?> arg0, View view, int pos, long id) {
+				goToActivity(keywords.get(pos), view.getContext());
+			}
+		});
 	}
 
 	private void populateList() {
@@ -101,8 +98,7 @@ public class DefaultController extends Activity {
 		for (TwitterDTO t : allTweets) {
 			keywords.add(t.getKeyword());
 		}
-		lstKeywords.setAdapter(new ArrayAdapter<String>(context,
-				android.R.layout.simple_list_item_1, keywords));
+		lstKeywords.setAdapter(new ArrayAdapter<String>(context, android.R.layout.simple_list_item_1, keywords));
 	}
 
 	private void goToActivity(String keyword, Context context) {
