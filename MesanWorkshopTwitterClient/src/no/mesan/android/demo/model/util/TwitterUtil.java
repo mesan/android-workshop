@@ -28,7 +28,7 @@ public class TwitterUtil {
 			TwitterService twitterService = new TwitterService(context);			
 			TwitterDTO twitterDTO = twitterService.getTweetFromWeb(keyword);		
 			if(twitterDTO != null){				
-				twitterDAO.setTweet(twitterDTO);
+				twitterDAO.saveTweet(twitterDTO);
 			}
 		}
 		

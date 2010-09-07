@@ -50,9 +50,10 @@ public class TweetsControllerAdapterView extends RelativeLayout {
 		txtTweetDate.setText(Application.formatDateToTimeDiff(tweetDTO.getDate()));
 
 		// la stå
-		if (isNew && Application.isNetworkAvailable(context)) {
-			
-			new ImageFromWebTask().execute(tweetDTO.getProfileUrl());
+		if (isNew && Application.isNetworkAvailable(context)) {			
+			//new ImageFromWebTask().execute(tweetDTO.getProfileUrl());
+			Request request = new Request();
+			imgProfileImage.setImageDrawable(request.getImageFromWeb(tweetDTO.getProfileUrl()));
 		}
 	}
 

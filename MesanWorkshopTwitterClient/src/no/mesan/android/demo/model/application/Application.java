@@ -9,13 +9,24 @@ import android.net.NetworkInfo;
 import android.view.View;
 import android.view.inputmethod.InputMethodManager;
 
+/**
+ * Class to deal with common methods
+ * 
+ * @author Thomas Pettersen
+ *
+ */
 public class Application {
 	
 	private static ConnectivityManager conManager;
 	
-	private static String[] months = { "januar", "februar", "mars", "april", "mai", "juni", "juli", "august", "september", "oktober", "november", "desember" };
+	private final static String[] months = { "januar", "februar", "mars", "april", "mai", "juni", "juli", "august", "september", "oktober", "november", "desember" };
 
-
+	/**
+	 * Hides the keyboard when view loses focus
+	 * 
+	 * @param context
+	 * @param view
+	 */
 	public static void hideKeyboard(Context context, View view) {
 		InputMethodManager imm = (InputMethodManager) context
 				.getSystemService(Context.INPUT_METHOD_SERVICE);

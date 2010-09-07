@@ -13,11 +13,13 @@ import android.widget.BaseAdapter;
 
 public class TweetsControllerAdapter extends BaseAdapter{
 	private ArrayList<TweetDTO> listOfTweetDTO;
+	private ArrayList<TweetsControllerAdapterView> viewList;
 	private Context context;
 	
 	public TweetsControllerAdapter(Context context, ArrayList<TweetDTO> listOfTweetDTO){
 		this.context = context;
-		this.listOfTweetDTO = listOfTweetDTO;		
+		this.listOfTweetDTO = listOfTweetDTO;
+		viewList = new ArrayList<TweetsControllerAdapterView>();
 	}
 
 	public int getCount() {
@@ -35,12 +37,12 @@ public class TweetsControllerAdapter extends BaseAdapter{
 	public View getView(int pos, View view, ViewGroup viewGroup) {
 		TweetsControllerAdapterView tcav;
 		
-		if(view == null){
+		if(pos > viewList.size()-1){
 			tcav = new TweetsControllerAdapterView(context);
 			tcav.renderItem(true, listOfTweetDTO.get(pos), pos);
+			viewList.add(tcav);
 		}else{
-			tcav = (TweetsControllerAdapterView) view;
-			tcav.renderItem(false, listOfTweetDTO.get(pos), pos);
+			tcav = viewList.get(pos);
 		}		
 		return tcav;
 	}

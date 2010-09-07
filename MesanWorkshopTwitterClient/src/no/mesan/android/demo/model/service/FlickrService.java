@@ -16,19 +16,31 @@ import org.json.JSONObject;
 import android.content.Context;
 import android.util.Log;
 
-
+/**
+ * Service which searches the Flickr DB for images by keyword
+ * 
+ * @author Thomas Pettersen
+ *
+ */
 public class FlickrService {
+	
 	private Context context;
+	private static final String FLICKR_SEARCH_API_URL = "http://api.flickr.com/services/rest/?method=flickr.photos.search&nojsoncallback=1&format=json&api_key=6b3b39e81d8f4b5f527250506e146d4b&sort=interestingness-asc&extras=url_s&per_page=10&tags=";
 	
 	public FlickrService(Context context){
 		this.context = context;
 	}
 
-	private static final String FLICKR_SEARCH_API_URL = "http://api.flickr.com/services/rest/?method=flickr.photos.search&nojsoncallback=1&format=json&api_key=6b3b39e81d8f4b5f527250506e146d4b&sort=interestingness-asc&extras=url_s&per_page=10&tags=";
-
+	/**
+	 * Search online at Flickr for images
+	 * 
+	 * @param keyword
+	 * @return ArrayList<String> - List of urls
+	 */
 	public ArrayList<String> getImagesFromFlickr(String keyword) {
 		
 		if(Application.isNetworkAvailable(context)){
+			
 			// Execute the request
 			Request request = new Request();
 			HttpResponse response = request.sendGetRequestForUrl(FLICKR_SEARCH_API_URL + keyword);
@@ -48,7 +60,6 @@ public class FlickrService {
 				}
 			}
 		}
-		
 
 		return null;
 	}

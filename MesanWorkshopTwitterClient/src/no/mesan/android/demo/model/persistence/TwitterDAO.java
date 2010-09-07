@@ -16,6 +16,13 @@ import com.db4o.config.Configuration;
 import com.db4o.query.Predicate;
 import com.db4o.query.Query;
 
+/**
+ * Persistence class for a TwitterDTO. 
+ * Using db4o as database
+ * 
+ * @author Thomas Pettersen
+ *
+ */
 public class TwitterDAO {
 
 	private Context context;
@@ -59,7 +66,12 @@ public class TwitterDAO {
 			oc.close();
 	}
 
-	public void setTweet(TwitterDTO twitterDTO) {
+	/**
+	 * Create and update method
+	 * 
+	 * @param twitterDTO 
+	 */
+	public void saveTweet(TwitterDTO twitterDTO) {
 		String keyword = twitterDTO.getKeyword();
 		TwitterDTO tempTweet = getTwitterDTO(keyword);
 
@@ -73,6 +85,12 @@ public class TwitterDAO {
 		close();
 	}
 
+	/**
+	 * Get a TwitterDTO by the keyword
+	 * 
+	 * @param keyword
+	 * @return TwitterDTO
+	 */
 	public TwitterDTO getTwitterDTO(final String keyword) {
 		
 		List<TwitterDTO> result = db().query(new Predicate<TwitterDTO>() {
@@ -90,6 +108,11 @@ public class TwitterDAO {
 		return null;
 	}
 
+	/**
+	 * Get all twitterDTOs in the Database
+	 * 
+	 * @return ArrayList<TwitterDTO>
+	 */
 	public ArrayList<TwitterDTO> getTweets() {
 		ArrayList<TwitterDTO> ret = new ArrayList<TwitterDTO>();
 		ObjectSet<TwitterDTO> result = getAllTweets();
@@ -108,6 +131,11 @@ public class TwitterDAO {
 		return query.execute();
 	}
 
+	/**
+	 * Remove a twitterDTO from DB
+	 * 
+	 * @param keyword
+	 */
 	public void deleteTweet(String keyword) {
 		
 		// Search by name
