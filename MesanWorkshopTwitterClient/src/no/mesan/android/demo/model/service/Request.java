@@ -67,7 +67,7 @@ public class Request {
 		try {
 			URL url = new URL(imageUrl);
 			is = new BufferedInputStream(url.openStream());
-			return Drawable.createFromStream(is, "src");
+			return Drawable.createFromStream(is, "src" + (int)Math.random() * 1000);
 
 		} catch (MalformedURLException e) {
 			Log.d(Application.class.getSimpleName(), e.getMessage(), e);
