@@ -74,7 +74,7 @@ public class TweetsController extends Activity {
 
 			FlickrUtil flickrUtil = new FlickrUtil(context);
 			listOfFlickrImg = flickrUtil
-					.getFlickrUrlsByKeywordFromWeb(params[0]);
+					.getFlickrImagesByKeywordFromWeb(params[0]);
 
 			if (listOfFlickrImg != null) {
 				return true;

@@ -16,8 +16,21 @@ import org.apache.http.impl.client.DefaultHttpClient;
 import android.graphics.drawable.Drawable;
 import android.util.Log;
 
+/**
+ * Handles common operations for requesting urls and 
+ * images from web
+ * 
+ * @author Thomas Pettersen
+ *
+ */
 public class Request {
 
+	/**
+	 * Send a  GET request for a given url
+	 * 
+	 * @param url - String
+	 * @return HttpResponse - the GET response. null if not found
+	 */
 	public HttpResponse sendGetRequestForUrl(String url) {
 		
 		url = url.replaceAll(" ", "+");
@@ -26,12 +39,12 @@ public class Request {
 		HttpResponse response = null;
 		HttpGet httpget = null;
 
-		// Prepare a request object
-		httpget = new HttpGet(url);
-
-		DefaultHttpClient client = new DefaultHttpClient();
-
 		try {
+
+			// Prepare a request object
+			httpget = new HttpGet(url);
+
+			DefaultHttpClient client = new DefaultHttpClient();
 
 			response = client.execute(httpget);
 
@@ -43,10 +56,16 @@ public class Request {
 		return response;
 	}
 	
-	public Drawable getImageFromWeb(String pathToImage){
+	/**
+	 * Send a request for a Image on a given url
+	 * 
+	 * @param imageUrl - String
+	 * @return Drawable - containing the Image. null if not found
+	 */
+	public Drawable getImageFromWeb(String imageUrl){
 		InputStream is = null;
 		try {
-			URL url = new URL(pathToImage);
+			URL url = new URL(imageUrl);
 			is = new BufferedInputStream(url.openStream());
 			return Drawable.createFromStream(is, "src");
 

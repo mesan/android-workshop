@@ -25,46 +25,58 @@ import org.json.JSONObject;
 import android.content.Context;
 import android.util.Log;
 
-
+/**
+ * Service which searches Twitter for tweets by keyword
+ * 
+ * @author Thomas Pettersen
+ * 
+ */
 public class TwitterService {
 
 	private static final String TWITTER_SEARCH_URL = "http://search.twitter.com/search.json?result_type=recent&q=";
 	private static final String TWITTER_TRENDING_TOPICS = "http://api.twitter.com/1/trends.json";
 
 	private Context context;
-	
-	public TwitterService(Context context){
+
+	public TwitterService(Context context) {
 		this.context = context;
 	}
 
+	/**
+	 * Search online at Twitter for Tweets by keyword
+	 * 
+	 * @param keyword
+	 *            - String
+	 * @return TwitterDTO - Containing the information returned. null if not
+	 *         found
+	 */
 	public TwitterDTO getTweetFromWeb(String keyword) {
-		if(Application.isNetworkAvailable(context)){
+		if (Application.isNetworkAvailable(context)) {
 			return searchWeb(keyword);
-		}		
+		}
 
 		return searchOffline(keyword);
 	}
-	
-	private TwitterDTO searchWeb(String keyword){
-		// Execute the request
-		Request request = new Request();
-		HttpResponse response = request.sendGetRequestForUrl(TWITTER_SEARCH_URL + keyword);
-		
-		StatusLine status = response.getStatusLine();
 
-		if (status.getStatusCode() == 200) {
-			try {
-				return parseTwitterJson(
-						EntityUtils.toString(response.getEntity()), keyword);
-			} catch (IOException ioex) {
-				Log.e(TwitterService.class.getSimpleName(), ioex.getMessage(),
-						ioex);
+	private TwitterDTO searchWeb(String keyword) {
+		try {
+			// Execute the request
+			Request request = new Request();
+			HttpResponse response = request.sendGetRequestForUrl(TWITTER_SEARCH_URL + keyword);
+
+			StatusLine status = response.getStatusLine();
+
+			if (status.getStatusCode() == 200) {
+
+				return parseTwitterJson(EntityUtils.toString(response.getEntity()), keyword);
 			}
+		} catch (IOException ioex) {
+			Log.e(TwitterService.class.getSimpleName(), ioex.getMessage(), ioex);
 		}
 		return null;
 	}
-	
-	private TwitterDTO searchOffline(String keyword){
+
+	private TwitterDTO searchOffline(String keyword) {
 		String line = null;
 		try {
 			BufferedReader reader = new BufferedReader(new InputStreamReader(context.getAssets().open("dummies/java_twitter.json")), 2048);
@@ -76,31 +88,34 @@ public class TwitterService {
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
-		return null ;
+		return null;
 	}
 
+	/**
+	 * Search online at Twitter for Trending Topics
+	 * 
+	 * @return ArrayList<String> - List of top ten trending topics
+	 */
 	public ArrayList<String> searchForTrendingTopics() {
-		
-		if(Application.isNetworkAvailable(context)){
+
+		if (Application.isNetworkAvailable(context)) {
 			Request request = new Request();
 			HttpResponse response = request.sendGetRequestForUrl(TWITTER_TRENDING_TOPICS);
 			StatusLine status = response.getStatusLine();
-			
+
 			if (status.getStatusCode() == 200) {
 				try {
-					return parseTrendingTopicsJson(EntityUtils.toString(response
-							.getEntity()));
+					return parseTrendingTopicsJson(EntityUtils.toString(response.getEntity()));
 				} catch (IOException ioex) {
-					Log.e(TwitterService.class.getSimpleName(), ioex.getMessage(),
-							ioex);
+					Log.e(TwitterService.class.getSimpleName(), ioex.getMessage(), ioex);
 				}
-			}			
+			}
 		}
 
 		return null;
 	}
 
-	public TwitterDTO parseTwitterJson(String json, String keyword) {
+	private TwitterDTO parseTwitterJson(String json, String keyword) {
 		TwitterDTO twitterDTO = null;
 
 		try {
@@ -114,8 +129,7 @@ public class TwitterService {
 			ArrayList<TweetDTO> tweetList = new ArrayList<TweetDTO>();
 			TweetDTO tweetDTO = null;
 			JSONObject tweet = null;
-			DateFormat formatter = new SimpleDateFormat(
-					"EEE, dd MMM yyyy HH:mm:ss Z", Locale.US);
+			DateFormat formatter = new SimpleDateFormat("EEE, dd MMM yyyy HH:mm:ss Z", Locale.US);
 			formatter.setTimeZone(TimeZone.getTimeZone("UTC"));
 
 			for (int i = 0; i < resultSize; i++) {
@@ -129,11 +143,9 @@ public class TwitterService {
 				tweetDTO.setProfileUrl(tweet.optString("profile_image_url"));
 
 				try {
-					tweetDTO.setDate((Date) formatter.parse(tweet
-							.optString("created_at")));
+					tweetDTO.setDate((Date) formatter.parse(tweet.optString("created_at")));
 				} catch (ParseException pex) {
-					Log.i(TwitterService.class.getSimpleName(),
-							"unparseable date", pex);
+					Log.i(TwitterService.class.getSimpleName(), "unparseable date", pex);
 				}
 
 				tweetList.add(tweetDTO);
@@ -148,7 +160,7 @@ public class TwitterService {
 		return twitterDTO;
 	}
 
-	public ArrayList<String> parseTrendingTopicsJson(String json) {
+	private ArrayList<String> parseTrendingTopicsJson(String json) {
 
 		try {
 
