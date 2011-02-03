@@ -3,15 +3,18 @@ package no.mesan.android.demo.model.dto;
 import java.io.Serializable;
 import java.util.Date;
 
+import android.graphics.drawable.Drawable;
+
 public class TweetDTO implements Serializable {
 	private static final long serialVersionUID = 2769808976839209522L;
 	private String content, profileName;
 	private String profileUrl;
+	private Drawable imgProfile;
 
 	private Date date;
 
 	public TweetDTO() {
-
+		
 	}
 
 	public TweetDTO(String content, String profileName, String profileUrl,
@@ -55,4 +58,15 @@ public class TweetDTO implements Serializable {
 		this.date = date;
 	}
 
+	public Drawable getImgProfile() {
+		return imgProfile;
+	}
+
+	public void setImgProfile(Drawable imgProfile) {
+		this.imgProfile = imgProfile;
+	}
+
+	public boolean hasImage(){
+		return this.imgProfile != null;
+	}
 }

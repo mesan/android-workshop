@@ -82,7 +82,7 @@ public class TwitterService {
 			BufferedReader reader = new BufferedReader(new InputStreamReader(context.getAssets().open("dummies/java_twitter.json")), 2048);
 			StringBuilder sb = new StringBuilder();
 			while ((line = reader.readLine()) != null) {
-				sb.append(line + "\n");
+				sb.append(line);
 			}
 			return parseTwitterJson(sb.toString(), keyword);
 		} catch (IOException e) {
