@@ -110,6 +110,8 @@ public class TweetsControllerAdapter extends BaseAdapter {
 				TweetDTO tweetDTO = listOfTweetDTO.get(index);
 				tweetDTO.setImgProfile(image);
 			}
+			
+			// Update rows
 			notifyDataSetChanged();
 		}
 	}
