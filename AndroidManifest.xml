@@ -13,6 +13,7 @@
         </activity>
 
 		<activity android:name=".TweetsController" />
+		<activity android:name=".WebProfileController" />
 		
 		<!-- WIDGET -->
 		<!-- Broadcast Receiver that will process AppWidget updates -->
