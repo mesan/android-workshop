@@ -26,6 +26,8 @@ public class DefaultController extends Activity {
 
 	private ArrayList<String> keywords;
 	private TwitterUtil twitterUtil;
+	
+	private ArrayAdapter<String> arrAdapter;
 
 	private Context context;
 
@@ -46,10 +48,12 @@ public class DefaultController extends Activity {
 		txtKeyword = (EditText) findViewById(R.id.txtKeyword);
 		btnSearch = (Button) findViewById(R.id.btnSearch);
 		lstKeywords = (ListView) findViewById(R.id.lstKeywords);
+		keywords = new ArrayList<String>();
+		arrAdapter = new ArrayAdapter<String>(context, android.R.layout.simple_list_item_1, keywords);
+		lstKeywords.setAdapter(arrAdapter);
 	}
 
 	private void renderView() {
-		keywords = new ArrayList<String>();
 		twitterUtil = new TwitterUtil(context);
 		populateList();
 	}
@@ -98,13 +102,13 @@ public class DefaultController extends Activity {
 		for (TwitterDTO t : allTweets) {
 			keywords.add(t.getKeyword());
 		}
-		lstKeywords.setAdapter(new ArrayAdapter<String>(context, android.R.layout.simple_list_item_1, keywords));
+		arrAdapter.notifyDataSetChanged();
 	}
 
 	private void goToActivity(String keyword, Context context) {
 		Intent myIntent = new Intent();
 
-		myIntent.setClass(context, TweetsController.class);
+		myIntent.setClass(context, TabController.class);
 		myIntent.putExtra("keyword", keyword);
 		startActivity(myIntent);
 	}

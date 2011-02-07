@@ -12,8 +12,9 @@
             </intent-filter>
         </activity>
 
+		<activity android:name=".TabController" />
 		<activity android:name=".TweetsController" />
-		<activity android:name=".WebProfileController" />
+		<activity android:name=".GalleryController" />
 		
 		<!-- WIDGET -->
 		<!-- Broadcast Receiver that will process AppWidget updates -->
