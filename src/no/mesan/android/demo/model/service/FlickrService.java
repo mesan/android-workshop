@@ -2,8 +2,10 @@ package no.mesan.android.demo.model.service;
 
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.List;
 
 import no.mesan.android.demo.model.application.Application;
+import no.mesan.android.demo.model.dto.FlickrDto;
 
 import org.apache.http.HttpResponse;
 import org.apache.http.ParseException;
@@ -38,7 +40,7 @@ public class FlickrService {
 	 * @param keyword
 	 * @return ArrayList<String> - List of urls
 	 */
-	public ArrayList<String> getImagesFromFlickr(String keyword) {
+	public List<FlickrDto> getImagesFromFlickr(String keyword) {
 		
 		if(Application.isNetworkAvailable(context)){
 			
@@ -65,8 +67,8 @@ public class FlickrService {
 		return null;
 	}
 
-	private ArrayList<String> parseJson(String json, String keyword) {
-		ArrayList<String> urlList = new ArrayList<String>();
+	private List<FlickrDto> parseJson(String json, String keyword) {
+		List<FlickrDto> urlList = new ArrayList<FlickrDto>();
 
 		try {
 
@@ -81,7 +83,7 @@ public class FlickrService {
 			for (int i = 0; i < photoArrSize; i++) {
 				photo = photoArray.optJSONObject(i);
 
-				urlList.add(photo.optString(IMAGE_SIZE).replaceAll("\\\\", ""));
+				urlList.add(new FlickrDto(photo.optString("title"), photo.optString(IMAGE_SIZE).replaceAll("\\\\", "")));
 			}
 
 		} catch (JSONException e) {

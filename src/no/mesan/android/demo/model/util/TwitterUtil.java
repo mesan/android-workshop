@@ -2,8 +2,8 @@ package no.mesan.android.demo.model.util;
 
 import java.util.ArrayList;
 
-import no.mesan.android.demo.model.dto.TwitterDTO;
-import no.mesan.android.demo.model.persistence.TwitterDAO;
+import no.mesan.android.demo.model.dto.TwitterDto;
+import no.mesan.android.demo.model.persistence.TwitterDao;
 import no.mesan.android.demo.model.service.TwitterService;
 import android.content.Context;
 
@@ -16,16 +16,16 @@ import android.content.Context;
  */
 public class TwitterUtil {
 
-	private TwitterDAO twitterDAO;
+	private TwitterDao twitterDao;
 	private Context context;
 	
 	public TwitterUtil(Context context){
-		twitterDAO = new TwitterDAO(context);
+		twitterDao = new TwitterDao(context);
 		this.context = context;
 	}
 	
-	public ArrayList<TwitterDTO> getAllTwitterDTOs(){
-		return twitterDAO.getTweets();
+	public ArrayList<TwitterDto> getAllTwitterDTOs(){
+		return twitterDao.getTweets();
 	}
 
 	/**
@@ -33,19 +33,19 @@ public class TwitterUtil {
 	 * 
 	 * @param keyword - String
 	 * @param searchWeb - searches the web if true, uses only persisted values if false
-	 * @return TwitterDTO - containing all information about tweets from Twitter
+	 * @return TwitterDto - containing all information about tweets from Twitter
 	 */
-	public TwitterDTO getTwitterDTO(String keyword, boolean searchWeb){
+	public TwitterDto getTwitterDTO(String keyword, boolean searchWeb){
 				
 		if(searchWeb){
 			TwitterService twitterService = new TwitterService(context);			
-			TwitterDTO twitterDTO = twitterService.getTweetFromWeb(keyword);		
-			if(twitterDTO != null){				
-				twitterDAO.saveTweet(twitterDTO);
+			TwitterDto twitterDto = twitterService.getTweetFromWeb(keyword);		
+			if(twitterDto != null){				
+				twitterDao.saveTweet(twitterDto);
 			}
 		}
 		
-		return twitterDAO.getTwitterDTO(keyword);
+		return twitterDao.getTwitterDTO(keyword);
 	}
 	
 	/**

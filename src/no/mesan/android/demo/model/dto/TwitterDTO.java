@@ -3,22 +3,22 @@ package no.mesan.android.demo.model.dto;
 import java.io.Serializable;
 import java.util.ArrayList;
 
-public class TwitterDTO implements Comparable<TwitterDTO>, Serializable {
+public class TwitterDto implements Comparable<TwitterDto>, Serializable {
 	private static final long serialVersionUID = 5723006892309338592L;
 	private String keyword;
-	private ArrayList<TweetDTO> tweets;
+	private ArrayList<TweetDto> tweets;
 	private Long timeInMillis;
 	
-	public TwitterDTO() {
+	public TwitterDto() {
 		setTimeInMillis();
 	}
 	
-	public TwitterDTO(String keyword) {
+	public TwitterDto(String keyword) {
 		setKeyword(keyword);
 		setTimeInMillis();
 	}
 	
-	public TwitterDTO(String keyword, ArrayList<TweetDTO> tweets) {
+	public TwitterDto(String keyword, ArrayList<TweetDto> tweets) {
 		setKeyword(keyword);
 		setTweets(tweets);
 		setTimeInMillis();
@@ -32,11 +32,11 @@ public class TwitterDTO implements Comparable<TwitterDTO>, Serializable {
 		this.keyword = keyword;
 	}
 
-	public ArrayList<TweetDTO> getTweets() {
+	public ArrayList<TweetDto> getTweets() {
 		return tweets;
 	}
 
-	public void setTweets(ArrayList<TweetDTO> tweets) {
+	public void setTweets(ArrayList<TweetDto> tweets) {
 		this.tweets = tweets;
 	}
 
@@ -48,7 +48,7 @@ public class TwitterDTO implements Comparable<TwitterDTO>, Serializable {
 		timeInMillis = System.currentTimeMillis();
 	}
 
-	public int compareTo(TwitterDTO another) {
+	public int compareTo(TwitterDto another) {
 		return (getTimeInMillis() < another.getTimeInMillis()) ? 1 : -1;
 	}
 	

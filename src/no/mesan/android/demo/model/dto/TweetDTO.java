@@ -5,7 +5,7 @@ import java.util.Date;
 
 import android.graphics.drawable.Drawable;
 
-public class TweetDTO implements Serializable {
+public class TweetDto implements Serializable {
 	private static final long serialVersionUID = 2769808976839209522L;
 	private String content, profileName;
 	private String profileUrl;
@@ -13,11 +13,11 @@ public class TweetDTO implements Serializable {
 
 	private Date date;
 
-	public TweetDTO() {
+	public TweetDto() {
 		
 	}
 
-	public TweetDTO(String content, String profileName, String profileUrl,
+	public TweetDto(String content, String profileName, String profileUrl,
 			Date date) {
 		setContent(content);
 		setProfileName(profileName);

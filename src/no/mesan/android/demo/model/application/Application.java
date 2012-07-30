@@ -13,12 +13,12 @@ import android.view.inputmethod.InputMethodManager;
  * Class to deal with common methods
  * 
  * @author Thomas Pettersen
- *
+ * 
  */
 public class Application {
-	
+
 	private static ConnectivityManager conManager;
-	
+
 	private final static String[] months = { "januar", "februar", "mars", "april", "mai", "juni", "juli", "august", "september", "oktober", "november", "desember" };
 
 	/**
@@ -28,37 +28,36 @@ public class Application {
 	 * @param view
 	 */
 	public static void hideKeyboard(Context context, View view) {
-		InputMethodManager imm = (InputMethodManager) context
-				.getSystemService(Context.INPUT_METHOD_SERVICE);
+		InputMethodManager imm = (InputMethodManager) context.getSystemService(Context.INPUT_METHOD_SERVICE);
 		imm.hideSoftInputFromWindow(view.getWindowToken(), 0);
 	}
 
 	/**
-	 * Formats a Date to a time unit denoting the date's time different 
-	 * from current time
+	 * Formats a Date to a time unit denoting the date's time different from
+	 * current time
 	 * 
 	 * @param date
-	 * @return String 
+	 * @return String
 	 */
 	public synchronized static String formatDateToTimeDiff(Date eventDate) {
 		StringBuilder stringBuilder = new StringBuilder();
-		
+
 		Calendar eventCalendar = Calendar.getInstance();
 		eventCalendar.setTime(eventDate);
 		eventCalendar.set(Calendar.MONTH, (eventCalendar.get(Calendar.MONTH)));
 
 		Calendar currentTime = Calendar.getInstance();
 		currentTime.setTime(new Date());
-		
-		int hour = eventDate.getHours();
+
+		int hour = eventCalendar.get(Calendar.HOUR_OF_DAY);
 		String textHours = hour + "";
-		if(hour < 10){
+		if (hour < 10) {
 			textHours = "0" + hour;
 		}
-		
-		int minute = eventDate.getMinutes();
+
+		int minute = eventCalendar.get(Calendar.MINUTE);
 		String textMinutes = minute + "";
-		if(minute < 10){
+		if (minute < 10) {
 			textMinutes = "0" + minute;
 		}
 
@@ -67,7 +66,6 @@ public class Application {
 		long currentTimeMillis = currentTime.getTimeInMillis();
 		long eventMillis = eventCalendar.getTimeInMillis();
 		long minutes = (currentTimeMillis / 60000) - (eventMillis / 60000);
-
 
 		if (minutes >= 150 && minutes <= 180) {
 			stringBuilder.replace(0, stringBuilder.length(), "ca 3 timer siden");
@@ -84,12 +82,12 @@ public class Application {
 		if (minutes == 1) {
 			stringBuilder.replace(0, stringBuilder.length(), minutes + " minutt siden");
 		}
-		
+
 		return stringBuilder.toString();
 	}
-	
+
 	/**
-	 * Check if network is available 
+	 * Check if network is available
 	 * 
 	 * @param context
 	 * @return boolean
@@ -103,6 +101,5 @@ public class Application {
 		}
 		return false;
 	}
-	
-	
+
 }

@@ -12,8 +12,8 @@ import java.util.Locale;
 import java.util.TimeZone;
 
 import no.mesan.android.demo.model.application.Application;
-import no.mesan.android.demo.model.dto.TweetDTO;
-import no.mesan.android.demo.model.dto.TwitterDTO;
+import no.mesan.android.demo.model.dto.TweetDto;
+import no.mesan.android.demo.model.dto.TwitterDto;
 
 import org.apache.http.HttpResponse;
 import org.apache.http.StatusLine;
@@ -34,7 +34,7 @@ import android.util.Log;
 public class TwitterService {
 
 	private static final String TWITTER_SEARCH_URL = "http://search.twitter.com/search.json?result_type=recent&q=";
-	private static final String TWITTER_TRENDING_TOPICS = "http://api.twitter.com/1/trends.json";
+	private static final String TWITTER_TRENDING_TOPICS = "https://api.twitter.com/1/trends/1.json";
 
 	private Context context;
 
@@ -47,10 +47,10 @@ public class TwitterService {
 	 * 
 	 * @param keyword
 	 *            - String
-	 * @return TwitterDTO - Containing the information returned. null if not
+	 * @return TwitterDto - Containing the information returned. null if not
 	 *         found
 	 */
-	public TwitterDTO getTweetFromWeb(String keyword) {
+	public TwitterDto getTweetFromWeb(String keyword) {
 		if (Application.isNetworkAvailable(context)) {
 			return searchWeb(keyword);
 		}
@@ -58,7 +58,7 @@ public class TwitterService {
 		return searchOffline(keyword);
 	}
 
-	private TwitterDTO searchWeb(String keyword) {
+	private TwitterDto searchWeb(String keyword) {
 		try {
 			// Execute the request
 			Request request = new Request();
@@ -76,7 +76,7 @@ public class TwitterService {
 		return null;
 	}
 
-	private TwitterDTO searchOffline(String keyword) {
+	private TwitterDto searchOffline(String keyword) {
 		String line = null;
 		try {
 			BufferedReader reader = new BufferedReader(new InputStreamReader(context.getAssets().open("dummies/java_twitter.json")), 2048);
@@ -115,56 +115,56 @@ public class TwitterService {
 		return null;
 	}
 
-	private TwitterDTO parseTwitterJson(String json, String keyword) {
-		TwitterDTO twitterDTO = null;
+	private TwitterDto parseTwitterJson(String json, String keyword) {
+		TwitterDto twitterDto = null;
 
 		try {
 
-			twitterDTO = new TwitterDTO();
+			twitterDto = new TwitterDto();
 
 			JSONObject twitterObject = new JSONObject(json);
 			JSONArray resultArray = twitterObject.optJSONArray("results");
 			int resultSize = resultArray.length();
 
-			ArrayList<TweetDTO> tweetList = new ArrayList<TweetDTO>();
-			TweetDTO tweetDTO = null;
+			ArrayList<TweetDto> tweetList = new ArrayList<TweetDto>();
+			TweetDto tweetDto = null;
 			JSONObject tweet = null;
 			DateFormat formatter = new SimpleDateFormat("EEE, dd MMM yyyy HH:mm:ss Z", Locale.US);
 			formatter.setTimeZone(TimeZone.getTimeZone("UTC"));
 
 			for (int i = 0; i < resultSize; i++) {
-				tweetDTO = new TweetDTO();
+				tweetDto = new TweetDto();
 
 				tweet = resultArray.optJSONObject(i);
 
-				tweetDTO.setContent(tweet.optString("text"));
-				tweetDTO.setProfileName(tweet.optString("from_user"));
+				tweetDto.setContent(tweet.optString("text"));
+				tweetDto.setProfileName(tweet.optString("from_user"));
 
-				tweetDTO.setProfileUrl(tweet.optString("profile_image_url"));
+				tweetDto.setProfileUrl(tweet.optString("profile_image_url"));
 
 				try {
-					tweetDTO.setDate((Date) formatter.parse(tweet.optString("created_at")));
+					tweetDto.setDate((Date) formatter.parse(tweet.optString("created_at")));
 				} catch (ParseException pex) {
 					Log.i(TwitterService.class.getSimpleName(), "unparseable date", pex);
 				}
 
-				tweetList.add(tweetDTO);
+				tweetList.add(tweetDto);
 			}
 
-			twitterDTO.setKeyword(keyword);
-			twitterDTO.setTweets(tweetList);
+			twitterDto.setKeyword(keyword);
+			twitterDto.setTweets(tweetList);
 
 		} catch (JSONException e) {
 			Log.e(TwitterService.class.getSimpleName(), e.getMessage(), e);
 		}
-		return twitterDTO;
+		return twitterDto;
 	}
 
 	private ArrayList<String> parseTrendingTopicsJson(String json) {
 
 		try {
-
-			JSONObject trendingTopics = new JSONObject(json);
+			JSONArray trendingTopicsArr = new JSONArray(json);
+			JSONObject trendingTopics = trendingTopicsArr.optJSONObject(0);
 			JSONArray topicsArray = trendingTopics.optJSONArray("trends");
 
 			int numOfTopics = topicsArray.length();

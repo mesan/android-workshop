@@ -4,7 +4,7 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
-import no.mesan.android.demo.model.dto.TwitterDTO;
+import no.mesan.android.demo.model.dto.TwitterDto;
 
 import android.content.Context;
 import android.util.Log;
@@ -17,19 +17,18 @@ import com.db4o.query.Predicate;
 import com.db4o.query.Query;
 
 /**
- * Persistence class for a TwitterDTO. 
- * Using db4o as database
+ * Persistence class for a TwitterDto. Using db4o as database
  * 
  * @author Thomas Pettersen
- *
+ * 
  */
-public class TwitterDAO {
+public class TwitterDao {
 
 	private Context context;
 	private static ObjectContainer oc = null;
 	private static final String PRIMARY_KEY = "keyword";
 
-	public TwitterDAO(Context context) {
+	public TwitterDao(Context context) {
 		this.context = context;
 	}
 
@@ -40,17 +39,17 @@ public class TwitterDAO {
 			}
 			return oc;
 		} catch (Exception e) {
-			Log.e(TwitterDAO.class.getName(), e.toString());
+			Log.e(TwitterDao.class.getName(), e.toString());
 			return null;
 		}
 	}
 
 	private Configuration dbConfig() {
 		Configuration c = Db4o.newConfiguration();
-		c.objectClass(TwitterDTO.class).objectField(PRIMARY_KEY).indexed(true);
-		c.objectClass(TwitterDTO.class).updateDepth(6);
-		c.objectClass(TwitterDTO.class).minimumActivationDepth(6);
-		c.objectClass(TwitterDTO.class).cascadeOnDelete(true);
+		c.objectClass(TwitterDto.class).objectField(PRIMARY_KEY).indexed(true);
+		c.objectClass(TwitterDto.class).updateDepth(6);
+		c.objectClass(TwitterDto.class).minimumActivationDepth(6);
+		c.objectClass(TwitterDto.class).cascadeOnDelete(true);
 		return c;
 	}
 
@@ -69,16 +68,16 @@ public class TwitterDAO {
 	/**
 	 * Create and update method
 	 * 
-	 * @param twitterDTO 
+	 * @param twitterDto
 	 */
-	public void saveTweet(TwitterDTO twitterDTO) {
-		String keyword = twitterDTO.getKeyword();
-		TwitterDTO tempTweet = getTwitterDTO(keyword);
+	public void saveTweet(TwitterDto twitterDto) {
+		String keyword = twitterDto.getKeyword();
+		TwitterDto tempTweet = getTwitterDTO(keyword);
 
 		if (tempTweet == null) {
-			tempTweet = new TwitterDTO(keyword);
+			tempTweet = new TwitterDto(keyword);
 		}
-		tempTweet.setTweets(twitterDTO.getTweets());
+		tempTweet.setTweets(twitterDto.getTweets());
 
 		db().store(tempTweet);
 		db().commit();
@@ -86,23 +85,23 @@ public class TwitterDAO {
 	}
 
 	/**
-	 * Get a TwitterDTO by the keyword
+	 * Get a TwitterDto by the keyword
 	 * 
 	 * @param keyword
-	 * @return TwitterDTO
+	 * @return TwitterDto
 	 */
-	public TwitterDTO getTwitterDTO(final String keyword) {
-		
-		List<TwitterDTO> result = db().query(new Predicate<TwitterDTO>() {
+	public TwitterDto getTwitterDTO(final String keyword) {
+
+		List<TwitterDto> result = db().query(new Predicate<TwitterDto>() {
 			private static final long serialVersionUID = 1L;
 
 			@Override
-			public boolean match(TwitterDTO twitterDTO) {
-				return twitterDTO.getKeyword().equals(keyword);
+			public boolean match(TwitterDto twitterDto) {
+				return twitterDto.getKeyword().equals(keyword);
 			}
-		}); 
-		
-		if(result != null && result.size() > 0){
+		});
+
+		if (result != null && result.size() > 0) {
 			return result.get(0);
 		}
 		return null;
@@ -111,24 +110,33 @@ public class TwitterDAO {
 	/**
 	 * Get all twitterDTOs in the Database
 	 * 
-	 * @return ArrayList<TwitterDTO>
+	 * @return ArrayList<TwitterDto>
 	 */
-	public ArrayList<TwitterDTO> getTweets() {
-		ArrayList<TwitterDTO> ret = new ArrayList<TwitterDTO>();
-		ObjectSet<TwitterDTO> result = getAllTweets();
-		while (result.hasNext())
-			ret.add((TwitterDTO) result.next());
-		
-		Collections.sort(ret);
+	public ArrayList<TwitterDto> getTweets() {
+		ArrayList<TwitterDto> ret = new ArrayList<TwitterDto>();
+		ObjectSet<TwitterDto> result = getAllTweets();
+
+		if (result != null) {
+			while (result.hasNext())
+				ret.add((TwitterDto) result.next());
+
+			Collections.sort(ret);
+
+		}
 		return ret;
 	}
 
 	@SuppressWarnings("unchecked")
-	private ObjectSet<TwitterDTO> getAllTweets() {
-		Query query = db().query();
-		query.constrain(TwitterDTO.class);
-		query.descend(PRIMARY_KEY).orderAscending();
-		return query.execute();
+	private ObjectSet<TwitterDto> getAllTweets() {
+		ObjectContainer db = db();
+
+		if (db != null) {
+			Query query = db().query();
+			query.constrain(TwitterDto.class);
+			query.descend(PRIMARY_KEY).orderAscending();
+			return query.execute();
+		}
+		return null;
 	}
 
 	/**
@@ -137,13 +145,13 @@ public class TwitterDAO {
 	 * @param keyword
 	 */
 	public void deleteTweet(String keyword) {
-		
+
 		// Search by name
-		TwitterDTO twitterDTO = getTwitterDTO(keyword);
-		
+		TwitterDto twitterDto = getTwitterDTO(keyword);
+
 		// Delete object
-		if (twitterDTO != null) {
-			db().delete(twitterDTO);
+		if (twitterDto != null) {
+			db().delete(twitterDto);
 			db().commit();
 		}
 	}
