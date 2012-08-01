@@ -1,8 +1,8 @@
 package no.mesan.android.demo.task;
 
+import no.mesan.android.demo.R;
 import no.mesan.android.demo.model.dto.TwitterDto;
 import no.mesan.android.demo.model.util.TwitterUtil;
-import no.mesan.android.demo.ui.R;
 import android.app.ProgressDialog;
 import android.content.Context;
 

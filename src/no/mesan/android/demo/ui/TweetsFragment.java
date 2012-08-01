@@ -2,6 +2,7 @@ package no.mesan.android.demo.ui;
 
 import java.util.ArrayList;
 
+import no.mesan.android.demo.R;
 import no.mesan.android.demo.model.dto.TweetDto;
 import no.mesan.android.demo.model.dto.TwitterDto;
 import no.mesan.android.demo.task.SearchForNewTweetsTask;
@@ -48,12 +49,11 @@ public class TweetsFragment extends Fragment {
 		viewer = inflater.inflate(R.layout.fragment_tweets, container, false);
 		context = viewer.getContext();
 		
-		keyword = getActivity().getIntent().getStringExtra("keyword");
+		keyword = getActivity().getIntent().getStringExtra(MainActivity.INTENT_KEYWORD);
 		
 		initGui();
 		initListeners();
 		
-		// return super.onCreateView(inflater, container, savedInstanceState);
 		return viewer;
 	}
 

@@ -2,10 +2,10 @@ package no.mesan.android.demo.ui.widget;
 
 import java.util.List;
 
+import no.mesan.android.demo.R;
 import no.mesan.android.demo.task.SearchForTrendingTopicsTask;
 import no.mesan.android.demo.task.TaskResult;
 import no.mesan.android.demo.ui.MainActivity;
-import no.mesan.android.demo.ui.R;
 import android.app.Notification;
 import android.app.NotificationManager;
 import android.app.PendingIntent;
@@ -135,6 +135,12 @@ public class TwitterWidget extends AppWidgetProvider {
 			// We don't need to bind to this service
 			return null;
 		}
+	}
+	
+	@Override
+	public void onDeleted(Context context, int[] appWidgetIds) {
+		context.stopService(new Intent(context, UpdateService.class));
+		super.onDeleted(context, appWidgetIds);
 	}
 
 }

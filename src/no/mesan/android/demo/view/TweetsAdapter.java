@@ -2,10 +2,10 @@ package no.mesan.android.demo.view;
 
 import java.util.ArrayList;
 
+import no.mesan.android.demo.R;
 import no.mesan.android.demo.model.application.Application;
 import no.mesan.android.demo.model.dto.TweetDto;
 import no.mesan.android.demo.model.service.Request;
-import no.mesan.android.demo.ui.R;
 import android.content.Context;
 import android.graphics.drawable.Drawable;
 import android.os.AsyncTask;
@@ -73,7 +73,7 @@ public class TweetsAdapter extends BaseAdapter {
 
 		// la stå
 		if (!tweetDto.hasImage() && Application.isNetworkAvailable(context)) {
-			tweetDto.setImgProfile(context.getResources().getDrawable(R.drawable.twiter_01));
+			tweetDto.setImgProfile(context.getResources().getDrawable(R.drawable.twitter_01));
 
 			new ImageFromWebTask(tweetListItemView, index).execute(tweetDto.getProfileUrl());
 			// Request request = new Request();

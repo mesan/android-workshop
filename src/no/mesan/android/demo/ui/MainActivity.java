@@ -2,6 +2,7 @@ package no.mesan.android.demo.ui;
 
 import java.util.ArrayList;
 
+import no.mesan.android.demo.R;
 import no.mesan.android.demo.model.application.Application;
 import no.mesan.android.demo.model.dto.TwitterDto;
 import no.mesan.android.demo.model.util.TwitterUtil;

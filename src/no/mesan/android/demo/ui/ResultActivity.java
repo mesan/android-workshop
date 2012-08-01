@@ -2,6 +2,7 @@ package no.mesan.android.demo.ui;
 
 import java.util.ArrayList;
 
+import no.mesan.android.demo.R;
 import android.app.ActionBar;
 import android.app.ActionBar.Tab;
 import android.app.Activity;

@@ -2,9 +2,9 @@ package no.mesan.android.demo.task;
 
 import java.util.List;
 
+import no.mesan.android.demo.R;
 import no.mesan.android.demo.model.dto.FlickrDto;
 import no.mesan.android.demo.model.util.FlickrUtil;
-import no.mesan.android.demo.ui.R;
 import android.app.ProgressDialog;
 import android.content.Context;
 

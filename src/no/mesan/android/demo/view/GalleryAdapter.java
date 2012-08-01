@@ -2,10 +2,10 @@ package no.mesan.android.demo.view;
 
 import java.util.List;
 
+import no.mesan.android.demo.R;
 import no.mesan.android.demo.model.dto.FlickrDto;
 import no.mesan.android.demo.task.DownloadImageTask;
 import no.mesan.android.demo.task.TaskResult;
-import no.mesan.android.demo.ui.R;
 import android.content.Context;
 import android.graphics.drawable.Drawable;
 import android.view.LayoutInflater;
@@ -58,10 +58,12 @@ public class GalleryAdapter extends BaseAdapter {
 		if (!flickrDto.hasImage() && !flickrDto.isLoading()) {
 			flickrDto.setLoading(true);
 			holder.imageViewFlickr.setImageDrawable(null);
-			loadImage(flickrDto);			
+			loadImage(flickrDto);	
+			
 		} else if (!flickrDto.hasImage() && flickrDto.isLoading()) {
 			holder.progressBarImage.setVisibility(View.VISIBLE);
 			holder.imageViewFlickr.setVisibility(View.GONE);
+			
 		} else {
 			holder.imageViewFlickr.setImageDrawable(flickrDto.getImage());
 			holder.progressBarImage.setVisibility(View.GONE);
