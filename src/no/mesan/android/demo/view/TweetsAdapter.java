@@ -5,10 +5,10 @@ import java.util.ArrayList;
 import no.mesan.android.demo.R;
 import no.mesan.android.demo.model.application.Application;
 import no.mesan.android.demo.model.dto.TweetDto;
-import no.mesan.android.demo.model.service.Request;
+import no.mesan.android.demo.task.DownloadImageTask;
+import no.mesan.android.demo.task.TaskResult;
 import android.content.Context;
 import android.graphics.drawable.Drawable;
-import android.os.AsyncTask;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -73,46 +73,32 @@ public class TweetsAdapter extends BaseAdapter {
 
 		// la stå
 		if (!tweetDto.hasImage() && Application.isNetworkAvailable(context)) {
-			tweetDto.setImgProfile(context.getResources().getDrawable(R.drawable.twitter_01));
-
-			new ImageFromWebTask(tweetListItemView, index).execute(tweetDto.getProfileUrl());
-			// Request request = new Request();
-			// request.getImageFromWeb(tweetDto.getProfileUrl());
+			tweetDto.setImgProfile(context.getResources().getDrawable(R.drawable.twitter_01));			
+			loadImage(tweetDto);
 		}
 
 		holder.imgProfileImage.setImageDrawable(tweetDto.getImgProfile());
 
 		return tweetListItemView;
 	}
+	
+	private void loadImage(final TweetDto tweetDto) {
+		new DownloadImageTask().executeWithCallback(new TaskResult<Drawable>() {
+
+			@Override
+			public void handleResult(Drawable result) {
+				if (result != null) {
+					tweetDto.setImgProfile(result);
+					
+					// Update rows
+					notifyDataSetChanged();
+				}
+			}
+		}, tweetDto.getProfileUrl());
+	}
 
 	static class ViewHolder {
 		TextView txtProfileName, txtTweetText, txtTweetDate;
 		ImageView imgProfileImage;
-	}
-
-	private class ImageFromWebTask extends AsyncTask<String, Void, Drawable> {
-		private int index;
-
-		public ImageFromWebTask(View tweetListItemView, int index) {
-			this.index = index;
-		}
-
-		@Override
-		protected Drawable doInBackground(String... params) {
-			Request request = new Request();
-			return request.getImageFromWeb(params[0]);
-		}
-
-		@Override
-		protected void onPostExecute(Drawable image) {
-
-			if (image != null) {
-				TweetDto tweetDto = tweetDtoList.get(index);
-				tweetDto.setImgProfile(image);
-			}
-			
-			// Update rows
-			notifyDataSetChanged();
-		}
 	}
 }
