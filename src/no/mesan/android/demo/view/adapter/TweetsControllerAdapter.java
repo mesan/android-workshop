@@ -2,9 +2,9 @@ package no.mesan.android.demo.view.adapter;
 
 import java.util.ArrayList;
 
-import no.mesan.android.demo.controller.R;
+import no.mesan.android.demo.R;
 import no.mesan.android.demo.model.application.Application;
-import no.mesan.android.demo.model.dto.TweetDTO;
+import no.mesan.android.demo.model.dto.TweetDto;
 import no.mesan.android.demo.model.service.Request;
 import android.content.Context;
 import android.graphics.drawable.Drawable;
@@ -17,23 +17,23 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 public class TweetsControllerAdapter extends BaseAdapter {
-	ArrayList<TweetDTO> listOfTweetDTO;
+	ArrayList<TweetDto> listOfTweetDto;
 	Context context;
 	private LayoutInflater layoutInflater;
-	private TweetDTO tweetDTO;
+	private TweetDto tweetDTO;
 
-	public TweetsControllerAdapter(Context context, ArrayList<TweetDTO> listOfTweetDTO) {
+	public TweetsControllerAdapter(Context context, ArrayList<TweetDto> listOfTweetDto) {
 		this.context = context;
-		this.listOfTweetDTO = listOfTweetDTO;
+		this.listOfTweetDto = listOfTweetDto;
 		layoutInflater = LayoutInflater.from(context);
 	}
 
 	public int getCount() {
-		return listOfTweetDTO.size();
+		return listOfTweetDto.size();
 	}
 
 	public Object getItem(int position) {
-		return listOfTweetDTO.get(position);
+		return listOfTweetDto.get(position);
 	}
 
 	public long getItemId(int position) {
@@ -57,7 +57,7 @@ public class TweetsControllerAdapter extends BaseAdapter {
 			holder = (ViewHolder) tweetListItemView.getTag();
 		}
 
-		tweetDTO = listOfTweetDTO.get(index);
+		tweetDTO = listOfTweetDto.get(index);
 
 		// la stå
 		if (index % 2 != 0) {
@@ -107,7 +107,7 @@ public class TweetsControllerAdapter extends BaseAdapter {
 		protected void onPostExecute(Drawable image) {
 
 			if (image != null) {
-				TweetDTO tweetDTO = listOfTweetDTO.get(index);
+				TweetDto tweetDTO = listOfTweetDto.get(index);
 				tweetDTO.setImgProfile(image);
 			}
 			

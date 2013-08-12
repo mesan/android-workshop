@@ -26,7 +26,7 @@ public class SearchForNewTweetsTask extends AbstractAsyncTask<String, Void, Twit
 
 	@Override
 	protected TwitterDto doInBackground(String... params) {
-		return new TwitterUtil(context).getTwitterDTO(params[0], true);
+		return new TwitterUtil(context).getTwitterDTO(params[0]);
 	}
 
 	@Override

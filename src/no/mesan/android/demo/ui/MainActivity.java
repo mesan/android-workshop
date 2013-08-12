@@ -1,11 +1,11 @@
 package no.mesan.android.demo.ui;
 
 import java.util.ArrayList;
+import java.util.List;
 
 import no.mesan.android.demo.R;
 import no.mesan.android.demo.model.application.Application;
-import no.mesan.android.demo.model.dto.TwitterDto;
-import no.mesan.android.demo.model.util.TwitterUtil;
+import no.mesan.android.demo.model.persistence.KeywordDao;
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
@@ -28,7 +28,7 @@ public class MainActivity extends Activity {
 	private ListView lstKeywords;
 
 	private ArrayList<String> keywords;
-	private TwitterUtil twitterUtil;
+	private KeywordDao keywordDao;
 
 	private ArrayAdapter<String> arrAdapter;
 
@@ -57,7 +57,14 @@ public class MainActivity extends Activity {
 	}
 
 	private void renderView() {
-		twitterUtil = new TwitterUtil(context);
+//		Oppgave 2.2
+// 		keywords = new ArrayList<String>();
+//		keywords.add("Mesan");
+//		keywords.add("Android");
+//		keywords.add("Dritfett");
+//		arrAdapter.notifyDataSetChanged();
+		keywordDao = new KeywordDao(context);
+
 		populateList();
 	}
 
@@ -66,7 +73,7 @@ public class MainActivity extends Activity {
 		btnSearch.setOnClickListener(new View.OnClickListener() {
 
 			public void onClick(View v) {
-				getKeywordAndSendToActivity();
+				executeSearch();
 			}
 		});
 		txtKeyword.setOnKeyListener(new View.OnKeyListener() {
@@ -74,7 +81,7 @@ public class MainActivity extends Activity {
 			public boolean onKey(View v, int keyCode, KeyEvent event) {
 
 				if (keyCode == KeyEvent.KEYCODE_ENTER && event.getAction() == KeyEvent.ACTION_DOWN) {
-					return getKeywordAndSendToActivity();
+					return executeSearch();	
 				}
 				return false;
 			}
@@ -87,6 +94,13 @@ public class MainActivity extends Activity {
 			}
 		});
 	}
+	
+	private boolean executeSearch() {
+		saveKeywordToDatabase();
+		populateList();
+		getKeywordAndSendToActivity();
+		return getKeywordAndSendToActivity();
+	}
 
 	private boolean getKeywordAndSendToActivity() {
 		String keyword = txtKeyword.getText().toString();
@@ -98,12 +112,17 @@ public class MainActivity extends Activity {
 		}
 		return false;
 	}
+	
+	private void saveKeywordToDatabase() {
+		String keyword = txtKeyword.getText().toString();
+		keywordDao.insertKeyword(keyword);
+	}
 
 	private void populateList() {
 		keywords.clear();
-		ArrayList<TwitterDto> allTweets = twitterUtil.getAllTwitterDTOs();
-		for (TwitterDto t : allTweets) {
-			keywords.add(t.getKeyword());
+		List<String> allKeywords = keywordDao.getAllKeywords();
+		for (String keyword : allKeywords) {
+			keywords.add(keyword);
 		}
 		arrAdapter.notifyDataSetChanged();
 	}

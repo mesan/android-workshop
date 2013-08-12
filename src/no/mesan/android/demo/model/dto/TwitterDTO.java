@@ -53,5 +53,4 @@ public class TwitterDto implements Comparable<TwitterDto>, Serializable {
 	}
 	
 	
-
 }

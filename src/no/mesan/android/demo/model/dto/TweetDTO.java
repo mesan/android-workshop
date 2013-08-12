@@ -17,6 +17,7 @@ public class TweetDto implements Serializable {
 		
 	}
 
+	
 	public TweetDto(String content, String profileName, String profileUrl,
 			Date date) {
 		setContent(content);

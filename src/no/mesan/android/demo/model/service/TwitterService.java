@@ -2,6 +2,7 @@ package no.mesan.android.demo.model.service;
 
 import java.io.BufferedReader;
 import java.io.IOException;
+import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.text.DateFormat;
 import java.text.ParseException;
@@ -15,14 +16,21 @@ import no.mesan.android.demo.model.application.Application;
 import no.mesan.android.demo.model.dto.TweetDto;
 import no.mesan.android.demo.model.dto.TwitterDto;
 
+import org.apache.http.HttpEntity;
 import org.apache.http.HttpResponse;
 import org.apache.http.StatusLine;
+import org.apache.http.client.methods.HttpGet;
+import org.apache.http.client.methods.HttpPost;
+import org.apache.http.entity.StringEntity;
+import org.apache.http.impl.client.DefaultHttpClient;
+import org.apache.http.params.BasicHttpParams;
 import org.apache.http.util.EntityUtils;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
 import android.content.Context;
+import android.util.Base64;
 import android.util.Log;
 
 /**
@@ -33,9 +41,14 @@ import android.util.Log;
  */
 public class TwitterService {
 
-	private static final String TWITTER_SEARCH_URL = "http://search.twitter.com/search.json?result_type=recent&q=";
+	
+	private static final String TWITTER_OAUTH_URL = "https://api.twitter.com/oauth2/token";
+	private static final String TWITTER_SEARCH_URL = "https://api.twitter.com/1.1/search/tweets.json?result_type=recent&q=";
 	private static final String TWITTER_TRENDING_TOPICS = "https://api.twitter.com/1/trends/1.json";
 
+	private static final String CONSUMER_KEY = "7XvSvTHM2cQtPr96sXlWA";
+	private static final String CONSUMER_SECRET = "mcejw2xhDBM8XhfcOQsBGCzKiYwX2Vfv56BA0qKE0";
+	
 	private Context context;
 
 	public TwitterService(Context context) {
@@ -57,23 +70,85 @@ public class TwitterService {
 
 		return searchOffline(keyword);
 	}
+	
+	private String getBearerToken() {
+		
+		try {
+			DefaultHttpClient httpclient = new DefaultHttpClient(new BasicHttpParams());
+		
+			HttpPost httppost = new HttpPost(TWITTER_OAUTH_URL);
+	
+			String apiString = CONSUMER_KEY + ":" + CONSUMER_SECRET;
+			String authorization = "Basic " + Base64.encodeToString(apiString.getBytes(), Base64.NO_WRAP);
+	
+			httppost.setHeader("Authorization", authorization);
+			httppost.setHeader("Content-Type", "application/x-www-form-urlencoded;charset=UTF-8");
+			httppost.setEntity(new StringEntity("grant_type=client_credentials"));
+	
+			InputStream inputStream = null;
+			HttpResponse response = httpclient.execute(httppost);
+//			HttpEntity entity = response.getEntity();
+//	
+//			inputStream = entity.getContent();
+//			BufferedReader reader = new BufferedReader(new InputStreamReader(inputStream, "UTF-8"), 8);
+//			StringBuilder sb = new StringBuilder();
+//	
+//			String line = null;
+//			while ((line = reader.readLine()) != null)
+//			{
+//			    sb.append(line + "\n");
+//			}
+			
+			JSONObject jsonObject = new JSONObject(EntityUtils.toString(response.getEntity()));
+			String bearerToken = "Bearer " + jsonObject.getString("access_token");
+			return bearerToken;
+			
+		} catch(Exception e) {
+			e.printStackTrace();
+			return null;
+		}
+	}
 
 	private TwitterDto searchWeb(String keyword) {
 		try {
-			// Execute the request
-			Request request = new Request();
-			HttpResponse response = request.sendGetRequestForUrl(TWITTER_SEARCH_URL + keyword);
-
-			StatusLine status = response.getStatusLine();
-
-			if (status.getStatusCode() == 200) {
-
-				return parseTwitterJson(EntityUtils.toString(response.getEntity()), keyword);
-			}
-		} catch (IOException ioex) {
-			Log.e(TwitterService.class.getSimpleName(), ioex.getMessage(), ioex);
+			DefaultHttpClient httpclient = new DefaultHttpClient(new BasicHttpParams());
+			HttpGet httpget = new HttpGet(TWITTER_SEARCH_URL + keyword);
+			httpget.setHeader("Authorization", getBearerToken());
+			httpget.setHeader("Content-type", "application/json");
+	
+			InputStream inputStream = null;
+			HttpResponse response = httpclient.execute(httpget);
+//			HttpEntity entity = response.getEntity();
+//	
+//			inputStream = entity.getContent();
+//			BufferedReader reader = new BufferedReader(new InputStreamReader(inputStream, "UTF-8"), 8);
+//			StringBuilder sb = new StringBuilder();
+//	
+//			String line = null;
+//			while ((line = reader.readLine()) != null)
+//			{
+//			 sb.append(line + "\n");
+//			}
+//			System.out.println(">>>>>>>>>>>>>>" + sb.toString());
+			return parseTwitterJson(EntityUtils.toString(response.getEntity()), keyword);
+		} catch (Exception e) {
+			e.printStackTrace();
+			return null;
 		}
-		return null;
+//		try {
+//			// Execute the request
+//			Request request = new Request();
+//			HttpResponse response = request.sendGetRequestForUrl(TWITTER_SEARCH_URL + keyword);
+//
+//			StatusLine status = response.getStatusLine();
+//
+//			if (status.getStatusCode() == 200) {
+//
+//				return parseTwitterJson(EntityUtils.toString(response.getEntity()), keyword);
+//			}
+//		} catch (IOException ioex) {
+//			Log.e(TwitterService.class.getSimpleName(), ioex.getMessage(), ioex);
+//		}
 	}
 
 	private TwitterDto searchOffline(String keyword) {
@@ -123,13 +198,13 @@ public class TwitterService {
 			twitterDto = new TwitterDto();
 
 			JSONObject twitterObject = new JSONObject(json);
-			JSONArray resultArray = twitterObject.optJSONArray("results");
+			JSONArray resultArray = twitterObject.optJSONArray("statuses");
 			int resultSize = resultArray.length();
 
 			ArrayList<TweetDto> tweetList = new ArrayList<TweetDto>();
 			TweetDto tweetDto = null;
 			JSONObject tweet = null;
-			DateFormat formatter = new SimpleDateFormat("EEE, dd MMM yyyy HH:mm:ss Z", Locale.US);
+			DateFormat formatter = new SimpleDateFormat("EEE MMM dd HH:mm:ss Z", Locale.US);
 			formatter.setTimeZone(TimeZone.getTimeZone("UTC"));
 
 			for (int i = 0; i < resultSize; i++) {
