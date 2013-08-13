@@ -3,8 +3,7 @@ package no.mesan.android.demo.ui.widget;
 import java.util.List;
 
 import no.mesan.android.demo.R;
-import no.mesan.android.demo.task.SearchForTrendingTopicsTask;
-import no.mesan.android.demo.task.TaskResult;
+import no.mesan.android.demo.model.util.TwitterUtil;
 import no.mesan.android.demo.ui.MainActivity;
 import android.app.Notification;
 import android.app.NotificationManager;
@@ -15,6 +14,7 @@ import android.appwidget.AppWidgetProvider;
 import android.content.ComponentName;
 import android.content.Context;
 import android.content.Intent;
+import android.os.AsyncTask;
 import android.os.IBinder;
 import android.widget.RemoteViews;
 
@@ -33,28 +33,23 @@ public class TwitterWidget extends AppWidgetProvider {
 		
 		private Context context;
 		
-		private TaskResult<List<String>> trendingTopicsResult = new TaskResult<List<String>>() {
-			
-			@Override
-			public void handleResult(List<String> result) {
+		public void updateWidget(List<String> result) {
+			// Build the widget update for today
+			RemoteViews updateViews = buildUpdate(result);
 
-				// Build the widget update for today
-				RemoteViews updateViews = buildUpdate(result);
+			// Push update for this widget to the home screen
+			ComponentName thisWidget = new ComponentName(context, TwitterWidget.class);			
+			AppWidgetManager manager = AppWidgetManager.getInstance(context);
 
-				// Push update for this widget to the home screen
-				ComponentName thisWidget = new ComponentName(context, TwitterWidget.class);			
-				AppWidgetManager manager = AppWidgetManager.getInstance(context);
-
-				manager.updateAppWidget(thisWidget, updateViews);
-			}
-		};
+			manager.updateAppWidget(thisWidget, updateViews);
+		}
 		
 		private String mostPopularWord = "";
 		
 		@Override
 		public void onStart(Intent intent, int startId) {
 			context = this;
-			new SearchForTrendingTopicsTask(context).executeWithCallback(trendingTopicsResult);
+			new SearchForTrendingTopicsTask(context).execute();
 		}
 
 		/**
@@ -134,6 +129,25 @@ public class TwitterWidget extends AppWidgetProvider {
 		public IBinder onBind(Intent intent) {
 			// We don't need to bind to this service
 			return null;
+		}
+		
+		private class SearchForTrendingTopicsTask extends AsyncTask<Void, Void, List<String>> {
+			private Context context;
+			
+			public SearchForTrendingTopicsTask(Context context) {
+				this.context = context;
+			}
+
+			@Override
+			protected List<String> doInBackground(Void... params) {
+				return new TwitterUtil(context).getTrendingTopics();
+			}	
+			
+			@Override
+			protected void onPostExecute(List<String> result) {
+				updateWidget(result);
+				super.onPostExecute(result);
+			}
 		}
 	}
 	

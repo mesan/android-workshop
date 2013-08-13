@@ -4,10 +4,10 @@ import java.util.List;
 
 import no.mesan.android.demo.R;
 import no.mesan.android.demo.model.dto.FlickrDto;
-import no.mesan.android.demo.task.DownloadImageTask;
-import no.mesan.android.demo.task.TaskResult;
+import no.mesan.android.demo.model.service.Request;
 import android.content.Context;
 import android.graphics.drawable.Drawable;
+import android.os.AsyncTask;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -74,21 +74,36 @@ public class GalleryAdapter extends BaseAdapter {
 
 		return galleryItemView;
 	}
-	
-	private void loadImage(final FlickrDto flickrDto) {
-		new DownloadImageTask().executeWithCallback(new TaskResult<Drawable>() {
-
-			@Override
-			public void handleResult(Drawable result) {
-				flickrDto.setImage(result);
-				notifyDataSetChanged();
-			}
-		}, flickrDto.getImageUrl());
-	}
-
+		
 	static class ViewHolder {
 		ImageView imageViewFlickr;
 		ProgressBar progressBarImage;
 		TextView textViewImageTitle;
+	}
+	
+	private void loadImage(final FlickrDto flickrDto) {
+		new DownloadImageTask(flickrDto).execute(flickrDto.getImageUrl());
+		
+	}
+	
+	private class DownloadImageTask extends AsyncTask<String, Void, Drawable> {
+
+		private FlickrDto flickrDto;
+		
+		public DownloadImageTask(FlickrDto flickrDto) {
+			this.flickrDto = flickrDto;
+		}
+		
+		@Override
+		protected Drawable doInBackground(String... params) {
+			return new Request().getImageFromWeb(params[0]);
+		}
+
+		@Override
+		protected void onPostExecute(Drawable result) {
+			flickrDto.setImage(result);
+			notifyDataSetChanged();
+			super.onPostExecute(result);
+		}
 	}
 }

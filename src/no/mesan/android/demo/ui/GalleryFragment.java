@@ -5,11 +5,13 @@ import java.util.List;
 
 import no.mesan.android.demo.R;
 import no.mesan.android.demo.model.dto.FlickrDto;
-import no.mesan.android.demo.task.SearchForFlickrImagesTask;
-import no.mesan.android.demo.task.TaskResult;
+import no.mesan.android.demo.model.util.FlickrUtil;
+//import no.mesan.android.demo.task.TaskResult;
 import no.mesan.android.demo.view.GalleryAdapter;
 import android.app.Fragment;
+import android.app.ProgressDialog;
 import android.content.Context;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -26,16 +28,6 @@ public class GalleryFragment extends Fragment {
 	private List<FlickrDto> flickrImageList;
 	private GalleryAdapter galleryAdapter;
 	
-	private TaskResult<List<FlickrDto>> searchForFlickrImagesResult = new TaskResult<List<FlickrDto>>() {
-		
-		@Override
-		public void handleResult(List<FlickrDto> result) {
-			flickrImageList.clear();
-			flickrImageList.addAll(result);
-			galleryAdapter.notifyDataSetChanged();
-		}
-	};
-	
 	@Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 		viewer = inflater.inflate(R.layout.fragment_gallery, container, false);
@@ -46,7 +38,7 @@ public class GalleryFragment extends Fragment {
 		initGui();
 		return viewer;
 	}
-
+	
 	private void initGui() {
 		gridViewFlickrImages = (GridView) viewer.findViewById(R.id.gridViewFlickrImages);
 		flickrImageList = new ArrayList<FlickrDto>();
@@ -54,6 +46,45 @@ public class GalleryFragment extends Fragment {
 		gridViewFlickrImages.setAdapter(galleryAdapter);
 		
 		// Get images
-		new SearchForFlickrImagesTask(context).executeWithCallback(searchForFlickrImagesResult, keyword.toString());
+//		new SearchForFlickrImagesTask(context).executeWithCallback(searchForFlickrImagesResult, keyword.toString());
+		new SearchForFlickrImagesTask(context).execute(keyword.toString());
 	}
+	
+	private void updateGallery(List<FlickrDto> result) {
+		flickrImageList.clear();
+		flickrImageList.addAll(result);
+		galleryAdapter.notifyDataSetChanged();
+	}
+	
+	private class SearchForFlickrImagesTask extends AsyncTask<String, Void, List<FlickrDto>> {
+
+		private ProgressDialog progressDialog;
+		private Context context;
+		
+
+		public SearchForFlickrImagesTask(Context context) {
+			this.context = context;
+		}
+
+		@Override
+		protected void onPreExecute() {
+			String title = context.getString(R.string.task_progress_title_gallery);
+			String body = context.getString(R.string.task_progress_body_gallery);
+			progressDialog = ProgressDialog.show(context, title, body, true, true);
+			super.onPreExecute();
+		}
+
+		@Override
+		protected List<FlickrDto> doInBackground(String... params) {
+			return new FlickrUtil(context).getFlickrImagesByKeywordFromWeb(params[0]);
+		}
+
+		@Override
+		protected void onPostExecute(List<FlickrDto> result) {
+			progressDialog.dismiss();
+			updateGallery(result);
+			super.onPostExecute(result);
+		}
+	}
+
 }

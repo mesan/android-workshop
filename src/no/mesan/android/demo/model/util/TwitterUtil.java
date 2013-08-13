@@ -14,11 +14,9 @@ import android.content.Context;
  */
 public class TwitterUtil {
 
-//	private TwitterDao twitterDao;
 	private Context context;
 
 	public TwitterUtil(Context context) {
-//		twitterDao = new TwitterDao(context);
 		this.context = context;
 	}
 

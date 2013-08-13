@@ -2,7 +2,6 @@ package no.mesan.android.demo.model.service;
 
 import java.io.BufferedReader;
 import java.io.IOException;
-import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.text.DateFormat;
 import java.text.ParseException;
@@ -16,7 +15,6 @@ import no.mesan.android.demo.model.application.Application;
 import no.mesan.android.demo.model.dto.TweetDto;
 import no.mesan.android.demo.model.dto.TwitterDto;
 
-import org.apache.http.HttpEntity;
 import org.apache.http.HttpResponse;
 import org.apache.http.StatusLine;
 import org.apache.http.client.methods.HttpGet;
@@ -85,19 +83,7 @@ public class TwitterService {
 			httppost.setHeader("Content-Type", "application/x-www-form-urlencoded;charset=UTF-8");
 			httppost.setEntity(new StringEntity("grant_type=client_credentials"));
 	
-			InputStream inputStream = null;
 			HttpResponse response = httpclient.execute(httppost);
-//			HttpEntity entity = response.getEntity();
-//	
-//			inputStream = entity.getContent();
-//			BufferedReader reader = new BufferedReader(new InputStreamReader(inputStream, "UTF-8"), 8);
-//			StringBuilder sb = new StringBuilder();
-//	
-//			String line = null;
-//			while ((line = reader.readLine()) != null)
-//			{
-//			    sb.append(line + "\n");
-//			}
 			
 			JSONObject jsonObject = new JSONObject(EntityUtils.toString(response.getEntity()));
 			String bearerToken = "Bearer " + jsonObject.getString("access_token");
@@ -116,39 +102,14 @@ public class TwitterService {
 			httpget.setHeader("Authorization", getBearerToken());
 			httpget.setHeader("Content-type", "application/json");
 	
-			InputStream inputStream = null;
 			HttpResponse response = httpclient.execute(httpget);
-//			HttpEntity entity = response.getEntity();
-//	
-//			inputStream = entity.getContent();
-//			BufferedReader reader = new BufferedReader(new InputStreamReader(inputStream, "UTF-8"), 8);
-//			StringBuilder sb = new StringBuilder();
-//	
-//			String line = null;
-//			while ((line = reader.readLine()) != null)
-//			{
-//			 sb.append(line + "\n");
-//			}
-//			System.out.println(">>>>>>>>>>>>>>" + sb.toString());
+			
 			return parseTwitterJson(EntityUtils.toString(response.getEntity()), keyword);
+			
 		} catch (Exception e) {
 			e.printStackTrace();
 			return null;
 		}
-//		try {
-//			// Execute the request
-//			Request request = new Request();
-//			HttpResponse response = request.sendGetRequestForUrl(TWITTER_SEARCH_URL + keyword);
-//
-//			StatusLine status = response.getStatusLine();
-//
-//			if (status.getStatusCode() == 200) {
-//
-//				return parseTwitterJson(EntityUtils.toString(response.getEntity()), keyword);
-//			}
-//		} catch (IOException ioex) {
-//			Log.e(TwitterService.class.getSimpleName(), ioex.getMessage(), ioex);
-//		}
 	}
 
 	private TwitterDto searchOffline(String keyword) {
@@ -213,9 +174,12 @@ public class TwitterService {
 				tweet = resultArray.optJSONObject(i);
 
 				tweetDto.setContent(tweet.optString("text"));
-				tweetDto.setProfileName(tweet.optString("from_user"));
-
-				tweetDto.setProfileUrl(tweet.optString("profile_image_url"));
+				
+				JSONObject user = (tweet.optJSONObject("user"));
+				tweetDto.setProfileUrl(user.optString("profile_image_url"));
+				tweetDto.setProfileName(user.optString("name"));
+				
+				
 
 				try {
 					tweetDto.setDate((Date) formatter.parse(tweet.optString("created_at")));

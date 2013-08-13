@@ -5,10 +5,10 @@ import java.util.ArrayList;
 import no.mesan.android.demo.R;
 import no.mesan.android.demo.model.application.Application;
 import no.mesan.android.demo.model.dto.TweetDto;
-import no.mesan.android.demo.task.DownloadImageTask;
-import no.mesan.android.demo.task.TaskResult;
+import no.mesan.android.demo.model.service.Request;
 import android.content.Context;
 import android.graphics.drawable.Drawable;
+import android.os.AsyncTask;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -82,23 +82,34 @@ public class TweetsAdapter extends BaseAdapter {
 		return tweetListItemView;
 	}
 	
+	
 	private void loadImage(final TweetDto tweetDto) {
-		new DownloadImageTask().executeWithCallback(new TaskResult<Drawable>() {
-
-			@Override
-			public void handleResult(Drawable result) {
-				if (result != null) {
-					tweetDto.setImgProfile(result);
-					
-					// Update rows
-					notifyDataSetChanged();
-				}
-			}
-		}, tweetDto.getProfileUrl());
+		new DownloadImageTask(tweetDto).execute(tweetDto.getProfileUrl());
 	}
 
 	static class ViewHolder {
 		TextView txtProfileName, txtTweetText, txtTweetDate;
 		ImageView imgProfileImage;
+	}
+	
+	private class DownloadImageTask extends AsyncTask<String, Void, Drawable> {
+
+		private TweetDto tweetDto;
+		
+		public DownloadImageTask(TweetDto tweetDto) {
+			this.tweetDto = tweetDto;
+		}
+		
+		@Override
+		protected Drawable doInBackground(String... params) { 
+			return new Request().getImageFromWeb(params[0]);	
+		}
+		
+		@Override
+		protected void onPostExecute(Drawable result) {
+			tweetDto.setImgProfile(result);
+			notifyDataSetChanged();
+			super.onPostExecute(result);
+		}
 	}
 }
