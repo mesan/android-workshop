@@ -119,7 +119,7 @@ public class TwitterWidget extends AppWidgetProvider {
 	         .setTicker(tickerText)
 	         .setWhen(when)
 	         .setAutoCancel(true)
-	         .getNotification();
+	         .build();
 			
 			// Notify
 			notificationManager.notify(1, notification);
