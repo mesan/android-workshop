@@ -1,7 +1,37 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:background="@drawable/image_background_main" >
 
-    
+    <Button
+        android:id="@+id/btnSearch"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentRight="true"
+        android:layout_margin="5dp"
+        android:text="@string/search"
+        android:textColor="@color/white" 
+        android:background="@color/twitter_dark_blue"/>
+
+    <EditText
+    	android:id="@+id/txtKeyword"
+    	android:layout_width="match_parent"
+    	android:layout_height="wrap_content"
+    	android:layout_alignBottom="@+id/btnSearch"
+    	android:layout_alignTop="@+id/btnSearch"
+    	android:layout_margin="5dp"
+    	android:layout_toLeftOf="@id/btnSearch"
+    	android:background="@color/white"
+    	android:hint="@string/search_hint"
+    	android:inputType="text"
+    	android:paddingLeft="5dp"
+    	android:textCursorDrawable="@null" />
+
+    <ListView
+        android:id="@+id/lstKeywords"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_below="@id/btnSearch" />
+
 </RelativeLayout>

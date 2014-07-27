@@ -10,6 +10,8 @@ import no.mesan.android.demo.view.TweetsAdapter;
 import android.app.Fragment;
 import android.app.ProgressDialog;
 import android.content.Context;
+import android.content.Intent;
+import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -37,7 +39,7 @@ public class TweetsFragment extends Fragment {
 		viewer = inflater.inflate(R.layout.fragment_tweets, container, false);
 		context = viewer.getContext();
 		
-		// Oppgave 3.3
+		keyword = getActivity().getIntent().getStringExtra(MainActivity.INTENT_KEYWORD);
 		
 		initGui();
 		initListeners();
@@ -46,11 +48,13 @@ public class TweetsFragment extends Fragment {
 	}
 	
 	private void initGui() {
-		// Oppgave 4.1
+		lstTweets = (ListView) viewer.findViewById(R.id.lstTweets);
+		tweetList = new ArrayList<TweetDto>();
+		tweetsAdapter = new TweetsAdapter(context, tweetList);
+		lstTweets.setAdapter(tweetsAdapter);
 		
-		// Oppgave 4.3
-		
-		// Oppgave 4.2
+		// Get tweets
+		new SearchForNewTweetsTask(context).execute(keyword.toString());
 			
 	}
 	
@@ -58,7 +62,9 @@ public class TweetsFragment extends Fragment {
 		lstTweets.setOnItemClickListener(new OnItemClickListener() {
 
 			public void onItemClick(AdapterView<?> arg0, View arg1, int index, long id) {
-				// Oppgave 4.8
+				Uri uri = Uri.parse(URL + tweetList.get(index).getProfileName());
+				Intent intent = new Intent(Intent.ACTION_VIEW, uri);
+				startActivity(intent);
 			}
 		});
 	}

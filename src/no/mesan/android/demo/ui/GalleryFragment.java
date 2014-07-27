@@ -1,10 +1,12 @@
 package no.mesan.android.demo.ui;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import no.mesan.android.demo.R;
 import no.mesan.android.demo.model.dto.FlickrDto;
 import no.mesan.android.demo.model.util.FlickrUtil;
+
 import no.mesan.android.demo.view.GalleryAdapter;
 import android.app.Fragment;
 import android.app.ProgressDialog;
@@ -36,15 +38,23 @@ public class GalleryFragment extends Fragment {
 		initGui();
 		return viewer;
 	}
-
+	
 	private void initGui() {
-		// Oppgave 5.1	
+		gridViewFlickrImages = (GridView) viewer.findViewById(R.id.gridViewFlickrImages);
+		flickrImageList = new ArrayList<FlickrDto>();
+		galleryAdapter = new GalleryAdapter(context, flickrImageList);
+		gridViewFlickrImages.setAdapter(galleryAdapter);
 		
-		// Oppgave 5.2
+		// Get images
+		new SearchForFlickrImagesTask(context).execute(keyword.toString());
 	}
 	
 	private void updateGallery(List<FlickrDto> result) {
-		// Oppgave 5.3
+		flickrImageList.clear();
+		if (result != null) {
+			flickrImageList.addAll(result);
+		}
+		galleryAdapter.notifyDataSetChanged();
 	}
 	
 	private class SearchForFlickrImagesTask extends AsyncTask<String, Void, List<FlickrDto>> {
