@@ -165,7 +165,7 @@ public class TwitterService {
 			ArrayList<TweetDto> tweetList = new ArrayList<TweetDto>();
 			TweetDto tweetDto = null;
 			JSONObject tweet = null;
-			DateFormat formatter = new SimpleDateFormat("EEE MMM dd HH:mm:ss Z", Locale.US);
+			DateFormat formatter = new SimpleDateFormat("EEE MMM dd HH:mm:ss Z yyyy", Locale.US);
 			formatter.setTimeZone(TimeZone.getTimeZone("UTC"));
 
 			for (int i = 0; i < resultSize; i++) {
@@ -179,8 +179,6 @@ public class TwitterService {
 				tweetDto.setProfileUrl(user.optString("profile_image_url"));
 				tweetDto.setProfileName(user.optString("name"));
 				
-				
-
 				try {
 					tweetDto.setDate((Date) formatter.parse(tweet.optString("created_at")));
 				} catch (ParseException pex) {
