@@ -28,7 +28,7 @@ public class FlickrService {
 	
 	private Context context;
 	private static final String IMAGE_SIZE = "url_m";
-	private static final String FLICKR_SEARCH_API_URL = "http://api.flickr.com/services/rest/?method=flickr.photos.search&nojsoncallback=1&format=json&api_key=6b3b39e81d8f4b5f527250506e146d4b&sort=interestingness-asc&extras=" + IMAGE_SIZE + "&per_page=10&tags=";
+	private static final String FLICKR_SEARCH_API_URL = "https://api.flickr.com/services/rest/?method=flickr.photos.search&nojsoncallback=1&format=json&api_key=6b3b39e81d8f4b5f527250506e146d4b&sort=interestingness-asc&extras=" + IMAGE_SIZE + "&per_page=10&tags=";
 	
 	public FlickrService(Context context){
 		this.context = context;
