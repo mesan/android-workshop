@@ -181,8 +181,7 @@ public class TwitterService {
 				
 				
 
-				try {
-					String date = tweet.optString("created_at");
+				try {					
 					tweetDto.setDate((Date) formatter.parse(tweet.optString("created_at")));
 				} catch (ParseException pex) {
 					Log.i(TwitterService.class.getSimpleName(), "unparseable date", pex);
