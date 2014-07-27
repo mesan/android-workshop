@@ -25,7 +25,8 @@ public class TweetsAdapter extends BaseAdapter {
 	public TweetsAdapter(Context context, ArrayList<TweetDto> listOfTweetDTO) {
 		this.context = context;
 		this.tweetDtoList = listOfTweetDTO;
-		layoutInflater = LayoutInflater.from(context);
+
+		// Oppgave 4.5 - TODO: Instansiér layoutInflateren.
 	}
 
 	public int getCount() {
@@ -44,8 +45,8 @@ public class TweetsAdapter extends BaseAdapter {
 		ViewHolder holder;
 
 		if (tweetListItemView == null) {
-			tweetListItemView = layoutInflater.inflate(R.layout.layout_tweets_list_item, parent, false);
-
+			// Oppgave 4.5 - TODO: inflate layout og knytt til tweetListItemView
+			
 			holder = new ViewHolder();
 			holder.txtProfileName = (TextView) tweetListItemView.findViewById(R.id.txtProfileName);
 			holder.txtTweetText = (TextView) tweetListItemView.findViewById(R.id.txtTweetText);
@@ -59,21 +60,17 @@ public class TweetsAdapter extends BaseAdapter {
 
 		tweetDto = tweetDtoList.get(index);
 
-		// la stÃ¥
+		// la stå
 		if (index % 2 != 0) {
 			tweetListItemView.setBackgroundResource(R.drawable.tweets_gradient_list_element_darker);
 		} else {
 			tweetListItemView.setBackgroundResource(R.drawable.tweets_gradient_list_element);
 		}
 
-		// fjernes. Teksten skal settes i oppgaven
-		holder.txtProfileName.setText(tweetDto.getProfileName());
-		holder.txtTweetText.setText(tweetDto.getContent());
-		holder.txtTweetDate.setText(Application.formatDateToTimeDiff(tweetDto.getDate()));
+		// Oppgave 4.6 / 4.7 - TODO: Populér navn, tweet og dato
 
-		// la stÃ¥
 		if (!tweetDto.hasImage() && Application.isNetworkAvailable(context)) {
-			tweetDto.setImgProfile(context.getResources().getDrawable(R.drawable.twitter_01));			
+			tweetDto.setImgProfile(context.getResources().getDrawable(R.drawable.twitter_01));
 			loadImage(tweetDto);
 		}
 
@@ -81,7 +78,6 @@ public class TweetsAdapter extends BaseAdapter {
 
 		return tweetListItemView;
 	}
-	
 	
 	private void loadImage(final TweetDto tweetDto) {
 		new DownloadImageTask(tweetDto).execute(tweetDto.getProfileUrl());

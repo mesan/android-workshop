@@ -31,13 +31,16 @@ public class ResultActivity extends Activity  {
         setContentView(viewPager);
 
         final ActionBar bar = getActionBar();
-        bar.setNavigationMode(ActionBar.NAVIGATION_MODE_TABS);
+        
+        // Oppgave 3.1
+        
         bar.setDisplayOptions(0, ActionBar.DISPLAY_SHOW_TITLE);
-        bar.setDisplayHomeAsUpEnabled(true);
+
+        // Oppgave 3.5
 
         tabsAdapter = new TabsAdapter(this, viewPager);
-        tabsAdapter.addTab(bar.newTab().setText(getString(R.string.tab_tweets)), TweetsFragment.class, null);
-        tabsAdapter.addTab(bar.newTab().setText(getString(R.string.tab_gallery)), GalleryFragment.class, null);
+        
+        // Oppgave 3.2
 
         if (savedInstanceState != null) {
             bar.setSelectedNavigationItem(savedInstanceState.getInt("tab", 0));

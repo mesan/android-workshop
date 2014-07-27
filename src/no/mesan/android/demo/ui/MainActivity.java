@@ -4,28 +4,17 @@ import java.util.ArrayList;
 import java.util.List;
 
 import no.mesan.android.demo.R;
-import no.mesan.android.demo.model.application.Application;
 import no.mesan.android.demo.model.persistence.KeywordDao;
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
-import android.view.KeyEvent;
-import android.view.View;
-import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
-import android.widget.Button;
-import android.widget.EditText;
-import android.widget.ListView;
 
 public class MainActivity extends Activity {
 
 	public static final String INTENT_KEYWORD = "keyword";
 	public static final String INTENT_GET_FROM_HISTORY = "history";
-
-	private EditText txtKeyword;
-	private Button btnSearch;
-	private ListView lstKeywords;
 
 	private ArrayList<String> keywords;
 	private KeywordDao keywordDao;
@@ -48,83 +37,46 @@ public class MainActivity extends Activity {
 	}
 
 	private void initLayout() {
-		txtKeyword = (EditText) findViewById(R.id.txtKeyword);
-		btnSearch = (Button) findViewById(R.id.btnSearch);
-		lstKeywords = (ListView) findViewById(R.id.lstKeywords);
+		
+		// Oppgave 1.4
+		
+		// Oppgave 2.2
+		
 		keywords = new ArrayList<String>();
 		arrAdapter = new ArrayAdapter<String>(context, R.layout.layout_tweet_keyword_list_item, keywords);
-		lstKeywords.setAdapter(arrAdapter);
 	}
 
-	private void renderView() {
-//		Oppgave 2.2
-// 		keywords = new ArrayList<String>();
-//		keywords.add("Mesan");
-//		keywords.add("Android");
-//		keywords.add("Dritfett");
-//		arrAdapter.notifyDataSetChanged();
-		keywordDao = new KeywordDao(context);
-
-		populateList();
+	private void renderView() {		
+		// Oppgave 2.4a
 	}
 
 	private void initListeners() {
 
-		btnSearch.setOnClickListener(new View.OnClickListener() {
+		// Oppgave 1.5
+		
+		// Oppgave 2.3 og 2.3a
 
-			public void onClick(View v) {
-				executeSearch();
-			}
-		});
-		txtKeyword.setOnKeyListener(new View.OnKeyListener() {
-
-			public boolean onKey(View v, int keyCode, KeyEvent event) {
-
-				if (keyCode == KeyEvent.KEYCODE_ENTER && event.getAction() == KeyEvent.ACTION_DOWN) {
-					return executeSearch();	
-				}
-				return false;
-			}
-		});
-
-		lstKeywords.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-
-			public void onItemClick(AdapterView<?> arg0, View view, int pos, long id) {
-				goToActivity(view.getContext(), keywords.get(pos), true);
-			}
-		});
+		// Oppgave 2.4b
 	}
 	
-	private boolean executeSearch() {
-		saveKeywordToDatabase();
-		populateList();
-		getKeywordAndSendToActivity();
-		return getKeywordAndSendToActivity();
-	}
 
 	private boolean getKeywordAndSendToActivity() {
-		String keyword = txtKeyword.getText().toString();
-		if (!"".equals(keyword)) {
-			txtKeyword.setText("");
-			Application.hideKeyboard(context, txtKeyword);
-			goToActivity(context, keyword, false);
-			return true;
-		}
+		
+		// Oppgave 3.3
+		
 		return false;
-	}
-	
-	private void saveKeywordToDatabase() {
-		String keyword = txtKeyword.getText().toString();
-		keywordDao.insertKeyword(keyword);
 	}
 
 	private void populateList() {
 		keywords.clear();
-		List<String> allKeywords = keywordDao.getAllKeywords();
-		for (String keyword : allKeywords) {
-			keywords.add(keyword);
+		if (keywordDao != null) {
+			List<String> allKeywords = keywordDao.getAllKeywords();
+			for (String keyword : allKeywords) {
+				keywords.add(keyword);
+			}
+			arrAdapter.notifyDataSetChanged();
 		}
-		arrAdapter.notifyDataSetChanged();
+		
 	}
 
 	private void goToActivity(final Context context, final String keyword, final boolean getFromHistory) {
