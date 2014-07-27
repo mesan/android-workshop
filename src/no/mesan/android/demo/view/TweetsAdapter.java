@@ -59,19 +59,17 @@ public class TweetsAdapter extends BaseAdapter {
 
 		tweetDto = tweetDtoList.get(index);
 
-		// la stå
 		if (index % 2 != 0) {
 			tweetListItemView.setBackgroundResource(R.drawable.tweets_gradient_list_element_darker);
 		} else {
 			tweetListItemView.setBackgroundResource(R.drawable.tweets_gradient_list_element);
 		}
 
-		// fjernes. Teksten skal settes i oppgaven
 		holder.txtProfileName.setText(tweetDto.getProfileName());
 		holder.txtTweetText.setText(tweetDto.getContent());
 		holder.txtTweetDate.setText(Application.formatDateToTimeDiff(tweetDto.getDate()));
 
-		// la stå
+
 		if (!tweetDto.hasImage() && Application.isNetworkAvailable(context)) {
 			tweetDto.setImgProfile(context.getResources().getDrawable(R.drawable.twitter_01));			
 			loadImage(tweetDto);
