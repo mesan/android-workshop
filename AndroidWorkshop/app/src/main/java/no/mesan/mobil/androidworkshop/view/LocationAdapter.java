@@ -27,6 +27,7 @@ public class LocationAdapter extends RecyclerView.Adapter<LocationAdapter.ViewHo
         public ViewHolder(View view) {
             super(view);
             textViewLocation = (TextView) view.findViewById(R.id.textViewLocation);
+            view.setOnClickListener(this);
         }
 
         @Override
