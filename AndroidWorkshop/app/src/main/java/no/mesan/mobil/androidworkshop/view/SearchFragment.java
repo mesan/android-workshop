@@ -106,7 +106,7 @@ public class SearchFragment extends Fragment {
                  addLocation(location);
                  saveLocations();
                  hideKeyboard();
-                 goToCurrentWeatherFragment(location);
+                 goToForecastFragment(location);
              }
          });
     }

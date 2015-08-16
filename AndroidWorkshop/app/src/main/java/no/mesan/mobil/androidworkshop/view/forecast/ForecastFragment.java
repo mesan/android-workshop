@@ -59,15 +59,8 @@ public class ForecastFragment extends Fragment {
         new FiveDayForecastTask(new ResponseListener<FiveDayForecast>() {
             @Override
             public void success(FiveDayForecast weatherInfoList) {
-                Log.i("KLOVN", weatherInfoList.toString());
 
-                List<Weather> weatherList = new ArrayList<>();
-
-                for (WeatherInfo weatherInfo : weatherInfoList.getList()) {
-                    weatherList.addAll(weatherInfo.getWeather());
-                }
-
-                adapter.setWeather(weatherList);
+                adapter.setWeather(weatherInfoList.getList());
             }
 
             @Override
