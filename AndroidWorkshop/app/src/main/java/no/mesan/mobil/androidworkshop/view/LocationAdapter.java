@@ -7,6 +7,7 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 
 import java.util.ArrayList;
+import java.util.LinkedHashSet;
 import java.util.List;
 import java.util.Set;
 
@@ -29,8 +30,8 @@ public class LocationAdapter extends RecyclerView.Adapter<LocationAdapter.ViewHo
     }
 
     // Provide a suitable constructor (depends on the kind of dataset)
-    public LocationAdapter(List<String> locations) {
-        this.locations = locations;
+    public LocationAdapter(LinkedHashSet<String> locations) {
+        this.locations = new ArrayList<>(locations);
     }
 
     public void addLocation(String location) {

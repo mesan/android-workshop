@@ -19,6 +19,7 @@ import android.widget.EditText;
 
 import java.util.ArrayList;
 import java.util.HashSet;
+import java.util.LinkedHashSet;
 import java.util.List;
 import java.util.Set;
 
@@ -35,7 +36,7 @@ public class SearchFragment extends Fragment {
     private SharedPreferences sharedPreferences;
     private LocationAdapter adapter;
 
-    private Set<String> locations;
+    private LinkedHashSet<String> locations;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -56,7 +57,7 @@ public class SearchFragment extends Fragment {
 
     private void initLocationHistory() {
         sharedPreferences = getActivity().getSharedPreferences(PREFERENCES_NAME, Context.MODE_APPEND);
-        locations = new HashSet<>(sharedPreferences.getStringSet("locations", new HashSet<String>()));
+        locations = new LinkedHashSet<>(sharedPreferences.getStringSet("locations", new HashSet<String>()));
     }
 
     private void initViews(View view) {
@@ -66,7 +67,7 @@ public class SearchFragment extends Fragment {
     }
 
     private void initAdapters() {
-        adapter = new LocationAdapter(new ArrayList<>(locations));
+        adapter = new LocationAdapter(locations);
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(getActivity());
         linearLayoutManager.setOrientation(LinearLayoutManager.VERTICAL);
         recyclerViewLocations.setLayoutManager(linearLayoutManager);
