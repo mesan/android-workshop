@@ -9,9 +9,11 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import no.mesan.mobil.androidworkshop.R;
+import no.mesan.mobil.androidworkshop.model.Weather;
 import no.mesan.mobil.androidworkshop.model.WeatherInfo;
 import no.mesan.mobil.androidworkshop.task.FiveDayForecastTask;
 import no.mesan.mobil.androidworkshop.task.ResponseListener;
@@ -55,8 +57,13 @@ public class ForecastFragment extends Fragment {
         new FiveDayForecastTask(new ResponseListener<List<WeatherInfo>>() {
             @Override
             public void success(List<WeatherInfo> weatherInfoList) {
-//                List<F>
-//                adapter.setWeather(weatherInfoList);
+                List<Weather> weatherList = new ArrayList<>();
+
+                for (WeatherInfo weatherInfo : weatherInfoList) {
+                    weatherList.addAll(weatherInfo.getWeather());
+                }
+
+                adapter.setWeather(weatherList);
             }
 
             @Override
