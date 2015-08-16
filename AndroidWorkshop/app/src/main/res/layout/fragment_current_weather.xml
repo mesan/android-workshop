@@ -1,7 +1,39 @@
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools" android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="no.mesan.mobil.androidworkshop.view.CurrentWeatherFragment"
-    android:background="@android:color/white">
+    tools:context="no.mesan.mobil.androidworkshop.view.currentWeather.CurrentWeatherFragment"
+    android:background="@android:color/white"
+    android:padding="10dp"
+    android:clickable="true">
 
-</FrameLayout>
+    <TextView
+        android:id="@+id/textViewLocation"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentLeft="true"
+        android:textSize="25dp"/>
+
+    <TextView
+        android:id="@+id/textViewDate"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_toRightOf="@id/textViewLocation"
+        android:layout_marginLeft="10dp"
+        android:textSize="25dp"/>
+
+    <ImageView
+        android:id="@+id/imageViewWeatherIcon"
+        android:layout_width="100dp"
+        android:layout_height="100dp"
+        android:layout_below="@id/textViewLocation"
+        android:layout_alignParentLeft="true" />
+
+    <TextView
+        android:id="@+id/textViewTemperature"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignBottom="@id/imageViewWeatherIcon"
+        android:layout_toRightOf="@id/imageViewWeatherIcon"/>
+
+</RelativeLayout>

@@ -11,6 +11,7 @@ public class WeatherInfo {
     private WeatherMain main;
     private Temp temp;
     private List<Weather> weather;
+    private String name;
 
     public List<Weather> getWeather() {
         return weather;
@@ -36,6 +37,14 @@ public class WeatherInfo {
         this.dt = dt;
     }
 
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
     public Temp getTemp() {
         return temp;
     }
@@ -51,6 +60,7 @@ public class WeatherInfo {
                 ", main=" + main +
                 ", temp=" + temp +
                 ", weather=" + weather +
+                ", name='" + name + '\'' +
                 '}';
     }
 }
