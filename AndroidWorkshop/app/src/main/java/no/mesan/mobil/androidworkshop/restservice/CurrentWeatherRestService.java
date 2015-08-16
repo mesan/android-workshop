@@ -6,6 +6,6 @@ import retrofit.http.Query;
 
 public interface CurrentWeatherRestService {
 
-    @GET("/weather")
+    @GET("/weather?units=metric")
     CurrentWeather getCurrentWeather(@Query("q") String location);
 }
