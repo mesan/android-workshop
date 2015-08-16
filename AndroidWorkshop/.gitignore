@@ -8,6 +8,8 @@
 .project
 .gradle
 
+local.properties
+
 # Covers JetBrains IDEs: IntelliJ, RubyMine, PhpStorm, AppCode, PyCharm
 
 *.iml
