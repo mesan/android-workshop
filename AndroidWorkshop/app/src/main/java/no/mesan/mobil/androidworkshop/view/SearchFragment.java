@@ -4,26 +4,34 @@ package no.mesan.mobil.androidworkshop.view;
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.os.Bundle;
-import android.app.Fragment;
+import android.support.v4.app.Fragment;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
 
+import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
 import no.mesan.mobil.androidworkshop.R;
 
 public class SearchFragment extends Fragment {
+    private static final String PREFERENCES_NAME = "Preferences";
 
     private EditText editTextLocation;
     private Button buttonSearch;
+    private RecyclerView recyclerViewLocations;
+
+    private SharedPreferences sharedPreferences;
+    private LocationAdapter adapter;
 
     private Set<String> locations;
-
-    private static final String PREFERENCES_NAME = "Preferences";
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -36,26 +44,41 @@ public class SearchFragment extends Fragment {
 
         initLocationHistory();
         initViews(view);
+        initAdapters();
         initListeners();
 
         return view;
     }
 
     private void initLocationHistory() {
-        SharedPreferences prefs = getActivity().getSharedPreferences(PREFERENCES_NAME, Context.MODE_PRIVATE);
-        locations = prefs.getStringSet("locations", null);
+        sharedPreferences = getActivity().getSharedPreferences(PREFERENCES_NAME, Context.MODE_PRIVATE);
+        locations = sharedPreferences.getStringSet("locations", new HashSet<String>());
     }
 
     private void initViews(View view) {
         editTextLocation = (EditText) view.findViewById(R.id.editTextLocation);
         buttonSearch = (Button) view.findViewById(R.id.buttonSearch);
+        recyclerViewLocations = (RecyclerView) view.findViewById(R.id.recyclerViewLocations);
+    }
+
+    private void initAdapters() {
+        adapter = new LocationAdapter(new ArrayList<>(locations));
+        LinearLayoutManager linearLayoutManager = new LinearLayoutManager(getActivity());
+        linearLayoutManager.setOrientation(LinearLayoutManager.VERTICAL);
+        recyclerViewLocations.setLayoutManager(linearLayoutManager);
+        recyclerViewLocations.setAdapter(adapter);
     }
 
     private void initListeners() {
          buttonSearch.setOnClickListener(new View.OnClickListener() {
              @Override
              public void onClick(View view) {
-                 locations.add(editTextLocation.getText().toString());
+                 String location = editTextLocation.getText().toString();
+                 locations.add(location);
+                 adapter.addLocation(location);
+                 SharedPreferences.Editor editor = sharedPreferences.edit();
+                 editor.putStringSet("locations", locations);
+                 editor.apply();
              }
          });
     }
