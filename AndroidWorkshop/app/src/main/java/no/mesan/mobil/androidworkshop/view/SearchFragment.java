@@ -3,6 +3,9 @@ package no.mesan.mobil.androidworkshop.view;
 
 import android.content.Context;
 import android.content.SharedPreferences;
+import android.graphics.Color;
+import android.graphics.PorterDuff;
+import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
@@ -67,6 +70,11 @@ public class SearchFragment extends Fragment {
         linearLayoutManager.setOrientation(LinearLayoutManager.VERTICAL);
         recyclerViewLocations.setLayoutManager(linearLayoutManager);
         recyclerViewLocations.setAdapter(adapter);
+        Drawable drawable = getResources().getDrawable(R.drawable.abc_list_divider_mtrl_alpha);
+
+        drawable.setColorFilter(getResources().getColor(R.color.red_dark), PorterDuff.Mode.SRC_IN);
+        DividerItemDecoration dividerItemDecoration = new DividerItemDecoration(drawable);
+        recyclerViewLocations.addItemDecoration(dividerItemDecoration);
     }
 
     private void initListeners() {
