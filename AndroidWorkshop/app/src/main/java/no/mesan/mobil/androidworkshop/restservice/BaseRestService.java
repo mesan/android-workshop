@@ -31,8 +31,8 @@ public class BaseRestService {
         return getRestAdapter().create(CurrentWeatherRestService.class);
     }
 
-    public static FiveDayForecastRestService getFiveDayForecastRestService() {
-        return getRestAdapter().create(FiveDayForecastRestService.class);
+    public static ForecastRestService getFiveDayForecastRestService() {
+        return getRestAdapter().create(ForecastRestService.class);
     }
 
     private static RestAdapter getRestAdapter() {

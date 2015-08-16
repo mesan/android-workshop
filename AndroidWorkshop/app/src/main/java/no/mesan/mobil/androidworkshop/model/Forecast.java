@@ -5,7 +5,7 @@ import java.util.List;
 /**
  * Created by Thomas on 16.08.2015.
  */
-public class FiveDayForecast {
+public class Forecast {
 
     private List<WeatherInfo> list;
 
@@ -19,7 +19,7 @@ public class FiveDayForecast {
 
     @Override
     public String toString() {
-        return "FiveDayForecast{" +
+        return "Forecast{" +
                 "list=" + list +
                 '}';
     }
