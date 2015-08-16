@@ -7,7 +7,7 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import no.mesan.mobil.androidworkshop.R;
-import no.mesan.mobil.androidworkshop.model.CurrentWeather;
+import no.mesan.mobil.androidworkshop.model.WeatherInfo;
 import no.mesan.mobil.androidworkshop.task.CurrentWeatherTask;
 import no.mesan.mobil.androidworkshop.task.ResponseListener;
 
@@ -27,10 +27,10 @@ public class CurrentWeatherFragment extends Fragment {
     }
 
     private void getCurrentWeather() {
-        new CurrentWeatherTask(new ResponseListener<CurrentWeather>() {
+        new CurrentWeatherTask(new ResponseListener<WeatherInfo>() {
             @Override
-            public void success(CurrentWeather currentWeather) {
-                System.out.println(currentWeather);
+            public void success(WeatherInfo weatherInfo) {
+                System.out.println(weatherInfo);
             }
 
             @Override
