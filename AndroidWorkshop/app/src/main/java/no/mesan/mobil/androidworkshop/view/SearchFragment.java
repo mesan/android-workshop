@@ -88,6 +88,12 @@ public class SearchFragment extends Fragment {
     private void goToCurrentWeatherFragment(String location) {
         Bundle bundle = new Bundle();
         bundle.putString(LOCATION_KEY, location);
+        ((MainActivity) getActivity()).goToFragment(CurrentWeatherFragment.class, bundle);
+    }
+
+    private void goToForecastFragment(String location) {
+        Bundle bundle = new Bundle();
+        bundle.putString(LOCATION_KEY, location);
         ((MainActivity) getActivity()).goToFragment(ForecastFragment.class, bundle);
     }
 
@@ -98,7 +104,7 @@ public class SearchFragment extends Fragment {
                  String location = editTextLocation.getText().toString();
                  addLocation(location);
                  saveLocations();
-                 goToCurrentWeatherFragment(location);
+                 goToForecastFragment(location);
              }
          });
     }
