@@ -3,7 +3,6 @@ package no.mesan.mobil.androidworkshop.view;
 
 import android.content.Context;
 import android.content.SharedPreferences;
-import android.graphics.Color;
 import android.graphics.PorterDuff;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
@@ -20,9 +19,9 @@ import android.widget.RadioGroup;
 
 import java.util.HashSet;
 import java.util.LinkedHashSet;
-import java.util.Set;
 
 import no.mesan.mobil.androidworkshop.R;
+import no.mesan.mobil.androidworkshop.view.currentWeather.CurrentWeatherFragment;
 import no.mesan.mobil.androidworkshop.view.forecast.ForecastFragment;
 
 public class SearchFragment extends Fragment {
