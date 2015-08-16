@@ -13,6 +13,7 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
@@ -104,7 +105,8 @@ public class SearchFragment extends Fragment {
                  String location = editTextLocation.getText().toString();
                  addLocation(location);
                  saveLocations();
-                 goToForecastFragment(location);
+                 hideKeyboard();
+                 goToCurrentWeatherFragment(location);
              }
          });
     }
@@ -118,5 +120,14 @@ public class SearchFragment extends Fragment {
         SharedPreferences.Editor editor = sharedPreferences.edit();
         editor.putStringSet("locations", locations);
         editor.apply();
+    }
+
+    private void hideKeyboard() {
+        // Check if no view has focus:
+        View view = getActivity().getCurrentFocus();
+        if (view != null) {
+            InputMethodManager inputManager = (InputMethodManager) getActivity().getSystemService(Context.INPUT_METHOD_SERVICE);
+            inputManager.hideSoftInputFromWindow(view.getWindowToken(), InputMethodManager.HIDE_NOT_ALWAYS);
+        }
     }
 }
