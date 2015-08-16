@@ -47,17 +47,12 @@ public class ForecastAdapter extends RecyclerView.Adapter<ForecastAdapter.ViewHo
     @Override
     public void onBindViewHolder(ViewHolder viewHolder, int i) {
         WeatherInfo weatherInfo = weatherList.get(i);
-
         Weather weather = weatherInfo.getWeather().get(0);
 
-        Picasso.with(context).load("http://openweathermap.org/img/w/" + weather.getIcon() + ".png").into(viewHolder.imageViewForecast);
-
         DateTime dateTime = weatherInfo.getDt();
-
         boolean shouldShowDate = false;
 
-        if (dateTime.getDayOfMonth() != dayOfMonth) {
-            dayOfMonth = dateTime.getDayOfMonth();
+        if (i == 0 || dateTime.getDayOfMonth() != weatherList.get(i-1).getDt().getDayOfMonth()) {
             shouldShowDate = true;
         }
 
@@ -69,8 +64,9 @@ public class ForecastAdapter extends RecyclerView.Adapter<ForecastAdapter.ViewHo
             temp = weatherInfo.getTemp().getDay();
         }
 
+        Picasso.with(context).load("http://openweathermap.org/img/w/" + weather.getIcon() + ".png").into(viewHolder.imageViewForecast);
         viewHolder.textViewTemperature.setText((Math.round(temp*10.0) / 10.0) + "" + ((char) 0x00B0) + "C");
-        viewHolder.textViewWhen.setText((shouldShowDate ? dateTime.getDayOfMonth() + ". " + months[dateTime.getMonthOfYear()-1] + " - " : "") + "kl " + dateTime.getHourOfDay());
+        viewHolder.textViewWhen.setText("Kl " + dateTime.getHourOfDay() + (shouldShowDate ? " - " + dateTime.getDayOfMonth() + ". " + months[dateTime.getMonthOfYear()-1] : ""));
         viewHolder.textViewWind.setText(weather.getDescription());
     }
 
@@ -80,8 +76,6 @@ public class ForecastAdapter extends RecyclerView.Adapter<ForecastAdapter.ViewHo
     }
 
     public void setWeather(List<WeatherInfo> weatherList) {
-        Log.i("KLOVN", weatherList.toString());
-
         this.weatherList.clear();
         this.weatherList.addAll(weatherList);
 
