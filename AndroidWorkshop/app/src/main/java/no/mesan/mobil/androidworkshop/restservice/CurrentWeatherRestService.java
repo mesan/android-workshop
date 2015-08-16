@@ -1,6 +1,6 @@
-package restservice;
+package no.mesan.mobil.androidworkshop.restservice;
 
-import model.CurrentWeather;
+import no.mesan.mobil.androidworkshop.model.CurrentWeather;
 import retrofit.http.GET;
 import retrofit.http.Query;
 

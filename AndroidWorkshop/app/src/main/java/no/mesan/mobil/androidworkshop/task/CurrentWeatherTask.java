@@ -1,10 +1,9 @@
-package task;
+package no.mesan.mobil.androidworkshop.task;
 
 import android.os.AsyncTask;
-
-import model.CurrentWeather;
-import restservice.BaseRestService;
-import restservice.CurrentWeatherRestService;
+import no.mesan.mobil.androidworkshop.model.CurrentWeather;
+import no.mesan.mobil.androidworkshop.restservice.BaseRestService;
+import no.mesan.mobil.androidworkshop.restservice.CurrentWeatherRestService;
 
 public class CurrentWeatherTask extends AsyncTask<Void, Void, CurrentWeather> {
 

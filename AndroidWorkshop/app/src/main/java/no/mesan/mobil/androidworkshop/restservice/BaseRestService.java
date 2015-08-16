@@ -1,4 +1,4 @@
-package restservice;
+package no.mesan.mobil.androidworkshop.restservice;
 
 import android.util.Log;
 

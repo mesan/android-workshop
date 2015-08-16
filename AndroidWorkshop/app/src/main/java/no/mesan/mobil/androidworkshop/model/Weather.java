@@ -1,4 +1,4 @@
-package model;
+package no.mesan.mobil.androidworkshop.model;
 
 public class Weather {
     private long id;

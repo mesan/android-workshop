@@ -1,4 +1,4 @@
-package task;
+package no.mesan.mobil.androidworkshop.task;
 
 public interface ResponseListener<T> {
 
