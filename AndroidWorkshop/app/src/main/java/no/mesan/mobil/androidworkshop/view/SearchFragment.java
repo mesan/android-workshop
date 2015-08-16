@@ -85,8 +85,8 @@ public class SearchFragment extends Fragment {
              @Override
              public void onClick(View view) {
                  String location = editTextLocation.getText().toString();
-                 addLocation(location);
-                 saveLocations();
+//                 addLocation(location);
+//                 saveLocations();
                  Bundle bundle = new Bundle();
 //
 //                 bundle.putString("location", location);
