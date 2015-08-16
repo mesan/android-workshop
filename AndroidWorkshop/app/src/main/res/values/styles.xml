@@ -3,6 +3,7 @@
     <!-- Base application theme. -->
     <style name="AppTheme" parent="Theme.AppCompat.Light.NoActionBar">
         <item name="drawerArrowStyle">@style/DrawerArrowStyle</item>
+        <item name="android:activatedBackgroundIndicator">@color/red_transparent</item>
 
         <!-- Set AppCompat’s color theming attrs -->
         <item name="colorPrimary">@color/red</item>

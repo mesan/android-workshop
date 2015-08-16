@@ -71,9 +71,6 @@ public class MainActivity extends AppCompatActivity
             case 2:
                 title = getString(R.string.title_section2);
                 break;
-            case 3:
-                title = getString(R.string.title_section3);
-                break;
         }
     }
 
