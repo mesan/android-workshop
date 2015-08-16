@@ -55,7 +55,8 @@ public class ForecastFragment extends Fragment {
         new FiveDayForecastTask(new ResponseListener<List<WeatherInfo>>() {
             @Override
             public void success(List<WeatherInfo> weatherInfoList) {
-                adapter.setWeather(weatherInfoList);
+//                List<F>
+//                adapter.setWeather(weatherInfoList);
             }
 
             @Override
