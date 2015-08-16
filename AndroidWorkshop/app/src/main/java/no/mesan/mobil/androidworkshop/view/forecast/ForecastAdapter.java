@@ -23,7 +23,7 @@ import no.mesan.mobil.androidworkshop.model.WeatherInfo;
 public class ForecastAdapter extends RecyclerView.Adapter<ForecastAdapter.ViewHolder>  {
 
     private final Context context;
-    private List<WeatherInfo> weatherList = new ArrayList<>();
+    private List<Weather> weatherList = new ArrayList<>();
 
     public ForecastAdapter(Context context) {
         this.context = context;
@@ -39,13 +39,13 @@ public class ForecastAdapter extends RecyclerView.Adapter<ForecastAdapter.ViewHo
 
     @Override
     public void onBindViewHolder(ViewHolder viewHolder, int i) {
-        WeatherInfo weather = weatherList.get(i);
+        Weather weather = weatherList.get(i);
 
-        Picasso.with(context).load("http://openweathermap.org/img/w/" + weather.getWeather().getIcon() + ".png").into(viewHolder.imageViewForecast);
+        Picasso.with(context).load("http://openweathermap.org/img/w/" + weather.getIcon() + ".png").into(viewHolder.imageViewForecast);
 
-        viewHolder.textViewTemperature.setText(weather.getWeather().getDescription());
-        viewHolder.textViewWhen.setText(weather.getWeather().getDescription());
-        viewHolder.textViewWind.setText(weather.getWeather().getDescription());
+        viewHolder.textViewTemperature.setText(weather.getDescription());
+        viewHolder.textViewWhen.setText(weather.getDescription());
+        viewHolder.textViewWind.setText(weather.getDescription());
     }
 
     @Override
@@ -53,7 +53,7 @@ public class ForecastAdapter extends RecyclerView.Adapter<ForecastAdapter.ViewHo
         return weatherList.size();
     }
 
-    public void setWeather(List<WeatherInfo> weatherList) {
+    public void setWeather(List<Weather> weatherList) {
         this.weatherList.clear();
         this.weatherList.addAll(weatherList);
 

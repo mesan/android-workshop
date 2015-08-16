@@ -3,20 +3,20 @@ package no.mesan.mobil.androidworkshop.model;
 import java.util.List;
 
 public class WeatherInfo {
-    private List<Weather> weatherArray;
+    private List<Weather> weather;
 
-    public List<Weather> getWeatherArray() {
-        return weatherArray;
+    public List<Weather> getWeather() {
+        return weather;
     }
 
-    public void setWeatherArray(List<Weather> weatherArray) {
-        this.weatherArray = weatherArray;
+    public void setWeather(List<Weather> weather) {
+        this.weather = weather;
     }
 
     @Override
     public String toString() {
         return "WeatherInfo{" +
-                "weatherArray=" + weatherArray +
+                "weather=" + weather +
                 '}';
     }
 }

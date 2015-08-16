@@ -24,6 +24,7 @@ import java.util.List;
 import java.util.Set;
 
 import no.mesan.mobil.androidworkshop.R;
+import no.mesan.mobil.androidworkshop.view.forecast.ForecastFragment;
 
 public class SearchFragment extends Fragment {
     private static final String PREFERENCES_NAME = "Preferences";
@@ -86,8 +87,8 @@ public class SearchFragment extends Fragment {
 
     private void goToCurrentWeatherFragment(String location) {
         Bundle bundle = new Bundle();
-        bundle.putString("location", location);
-        ((MainActivity) getActivity()).goToFragment(CurrentWeatherFragment.class, bundle);
+        bundle.putString(LOCATION_KEY, location);
+        ((MainActivity) getActivity()).goToFragment(ForecastFragment.class, bundle);
     }
 
     private void initListeners() {
