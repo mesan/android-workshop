@@ -45,8 +45,6 @@ public class SearchFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
 
-
-
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_search, container, false);
 
@@ -75,7 +73,7 @@ public class SearchFragment extends Fragment {
         adapter = new LocationAdapter(locations, new LocationItemClickListener() {
             @Override
             public void onClick(String location) {
-                goToCurrentWeatherFragment(location);
+                showWeatherForLocation(location);
             }
         });
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(getActivity());
@@ -110,18 +108,24 @@ public class SearchFragment extends Fragment {
                  adapter.addLocation(location);
                  saveLocations();
                  hideKeyboard();
-                 switch (radioGroupSearchMode.getCheckedRadioButtonId()) {
-                     case R.id.radioButtonCurrentWeather:
-                         goToCurrentWeatherFragment(location);
-                         break;
-                     case R.id.radioButtonFiveDayForecast:
-                         goToForecastFragment(location, ForecastType.FIVE);
-                         break;
-                     default:
-                         goToForecastFragment(location, ForecastType.SIXTEEN);
-                 }
+
+                 showWeatherForLocation(location);
+
              }
          });
+    }
+
+    private void showWeatherForLocation(String location) {
+        switch (radioGroupSearchMode.getCheckedRadioButtonId()) {
+            case R.id.radioButtonCurrentWeather:
+                goToCurrentWeatherFragment(location);
+                break;
+            case R.id.radioButtonFiveDayForecast:
+                goToForecastFragment(location, ForecastType.FIVE);
+                break;
+            default:
+                goToForecastFragment(location, ForecastType.SIXTEEN);
+        }
     }
 
     private void saveLocations() {
