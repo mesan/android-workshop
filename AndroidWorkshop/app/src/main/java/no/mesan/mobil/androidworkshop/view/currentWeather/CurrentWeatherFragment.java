@@ -14,6 +14,8 @@ import no.mesan.mobil.androidworkshop.R;
 import no.mesan.mobil.androidworkshop.model.WeatherInfo;
 import no.mesan.mobil.androidworkshop.task.CurrentWeatherTask;
 import no.mesan.mobil.androidworkshop.task.ResponseListener;
+import no.mesan.mobil.androidworkshop.util.DateFormatter;
+import no.mesan.mobil.androidworkshop.util.TemperatureFormatter;
 import no.mesan.mobil.androidworkshop.view.SearchFragment;
 
 public class CurrentWeatherFragment extends Fragment {
@@ -67,6 +69,7 @@ public class CurrentWeatherFragment extends Fragment {
     private void updateViews(WeatherInfo weatherInfo) {
         Picasso.with(getActivity()).load("http://openweathermap.org/img/w/" + weatherInfo.getWeather().get(0).getIcon() + ".png").into(imageViewWeatherIcon);
         textViewLocation.setText(weatherInfo.getName());
-        textViewTemperature.setText(String.valueOf(weatherInfo.getMain().getTemp()));
+        textViewTemperature.setText(TemperatureFormatter.format(weatherInfo.getMain().getTemp()));
+        textViewDate.setText(DateFormatter.formatDate(weatherInfo.getDt()));
     }
 }

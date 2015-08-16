@@ -19,6 +19,8 @@ import java.util.List;
 import no.mesan.mobil.androidworkshop.R;
 import no.mesan.mobil.androidworkshop.model.Weather;
 import no.mesan.mobil.androidworkshop.model.WeatherInfo;
+import no.mesan.mobil.androidworkshop.util.DateFormatter;
+import no.mesan.mobil.androidworkshop.util.TemperatureFormatter;
 
 /**
  * Created by Thomas on 16.08.2015.
@@ -65,8 +67,8 @@ public class ForecastAdapter extends RecyclerView.Adapter<ForecastAdapter.ViewHo
         }
 
         Picasso.with(context).load("http://openweathermap.org/img/w/" + weather.getIcon() + ".png").into(viewHolder.imageViewForecast);
-        viewHolder.textViewTemperature.setText((Math.round(temp*10.0) / 10.0) + "" + ((char) 0x00B0) + "C");
-        viewHolder.textViewWhen.setText("Kl " + dateTime.getHourOfDay() + (shouldShowDate ? " - " + dateTime.getDayOfMonth() + ". " + months[dateTime.getMonthOfYear()-1] : ""));
+        viewHolder.textViewTemperature.setText(TemperatureFormatter.format(temp));
+        viewHolder.textViewWhen.setText("Kl " + dateTime.getHourOfDay() + (shouldShowDate ? " - " + DateFormatter.formatDate(dateTime) : ""));
         viewHolder.textViewWind.setText(weather.getDescription());
     }
 
