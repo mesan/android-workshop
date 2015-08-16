@@ -55,8 +55,8 @@ public class SearchFragment extends Fragment {
     }
 
     private void initLocationHistory() {
-        sharedPreferences = getActivity().getSharedPreferences(PREFERENCES_NAME, Context.MODE_PRIVATE);
-        locations = sharedPreferences.getStringSet("locations", new HashSet<String>());
+        sharedPreferences = getActivity().getSharedPreferences(PREFERENCES_NAME, Context.MODE_APPEND);
+        locations = new HashSet<>(sharedPreferences.getStringSet("locations", new HashSet<String>()));
     }
 
     private void initViews(View view) {
@@ -83,12 +83,24 @@ public class SearchFragment extends Fragment {
              @Override
              public void onClick(View view) {
                  String location = editTextLocation.getText().toString();
-                 locations.add(location);
-                 adapter.addLocation(location);
-                 SharedPreferences.Editor editor = sharedPreferences.edit();
-                 editor.putStringSet("locations", locations);
-                 editor.apply();
+                 addLocation(location);
+                 saveLocations();
+                 Bundle bundle = new Bundle();
+
+                 bundle.putString("location", location);
+                 ((MainActivity) getActivity()).goToFragment(CurrentWeatherFragment.class, bundle);
              }
          });
+    }
+
+    private void addLocation(String location) {
+        locations.add(location);
+        adapter.addLocation(location);
+    }
+
+    private void saveLocations() {
+        SharedPreferences.Editor editor = sharedPreferences.edit();
+        editor.putStringSet("locations", locations);
+        editor.apply();
     }
 }
