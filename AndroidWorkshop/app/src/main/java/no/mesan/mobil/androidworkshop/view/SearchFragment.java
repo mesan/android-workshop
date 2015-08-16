@@ -91,6 +91,12 @@ public class SearchFragment extends Fragment {
         ((MainActivity) getActivity()).goToFragment(CurrentWeatherFragment.class, bundle);
     }
 
+    private void goToForecastFragment(String location) {
+        Bundle bundle = new Bundle();
+        bundle.putString(LOCATION_KEY, location);
+        ((MainActivity) getActivity()).goToFragment(ForecastFragment.class, bundle);
+    }
+
     private void initListeners() {
          buttonSearch.setOnClickListener(new View.OnClickListener() {
              @Override
