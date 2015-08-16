@@ -1,33 +1,33 @@
 package no.mesan.mobil.androidworkshop.task;
 
 import android.os.AsyncTask;
-import no.mesan.mobil.androidworkshop.model.CurrentWeather;
+import no.mesan.mobil.androidworkshop.model.WeatherInfo;
 import no.mesan.mobil.androidworkshop.restservice.BaseRestService;
 import no.mesan.mobil.androidworkshop.restservice.CurrentWeatherRestService;
 
-public class CurrentWeatherTask extends AsyncTask<Void, Void, CurrentWeather> {
+public class CurrentWeatherTask extends AsyncTask<String, Void, WeatherInfo> {
 
-    private ResponseListener<CurrentWeather> responseListener;
+    private ResponseListener<WeatherInfo> responseListener;
 
-    public CurrentWeatherTask(ResponseListener<CurrentWeather> responseListener) {
+    public CurrentWeatherTask(ResponseListener<WeatherInfo> responseListener) {
         this.responseListener = responseListener;
     }
 
     @Override
-    protected CurrentWeather doInBackground(Void... voids) {
+    protected WeatherInfo doInBackground(String... location) {
         CurrentWeatherRestService currentWeatherRestService = BaseRestService.getCurrentWeatherRestService();
-        return currentWeatherRestService.getCurrentWeather("Oslo");
+        return currentWeatherRestService.getCurrentWeather(location[0]);
     }
 
     @Override
-    protected void onPostExecute(CurrentWeather currentWeather) {
-        super.onPostExecute(currentWeather);
+    protected void onPostExecute(WeatherInfo weatherInfo) {
+        super.onPostExecute(weatherInfo);
 
-        if (currentWeather == null) {
+        if (weatherInfo == null) {
             responseListener.error();
         }
         else {
-            responseListener.success(currentWeather);
+            responseListener.success(weatherInfo);
         }
     }
 }

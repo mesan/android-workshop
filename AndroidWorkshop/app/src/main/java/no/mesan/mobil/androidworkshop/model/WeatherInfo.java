@@ -1,6 +1,6 @@
 package no.mesan.mobil.androidworkshop.model;
 
-public class CurrentWeather {
+public class WeatherInfo {
     public Weather getWeather() {
         return weather;
     }
@@ -13,7 +13,7 @@ public class CurrentWeather {
 
     @Override
     public String toString() {
-        return "CurrentWeather{" +
+        return "WeatherInfo{" +
                 "weather=" + weather +
                 '}';
     }

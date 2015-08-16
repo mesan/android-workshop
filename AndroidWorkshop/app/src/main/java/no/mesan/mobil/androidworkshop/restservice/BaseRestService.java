@@ -31,6 +31,10 @@ public class BaseRestService {
         return getRestAdapter().create(CurrentWeatherRestService.class);
     }
 
+    public static FiveDayForecastRestService getFiveDayForecastRestService() {
+        return getRestAdapter().create(FiveDayForecastRestService.class);
+    }
+
     private static RestAdapter getRestAdapter() {
         Gson gson = new GsonBuilder()
                 .registerTypeAdapter(DateTime.class, new DateTimeDeserializer())
