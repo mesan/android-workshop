@@ -30,7 +30,8 @@
         android:id="@+id/editTextLocation"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:hint="@string/location"/>
+        android:hint="@string/location"
+        android:textColor="@color/black"/>
     <Button
         android:id="@+id/buttonSearch"
         android:layout_width="match_parent"
