@@ -68,7 +68,12 @@ public class SearchFragment extends Fragment {
     }
 
     private void initAdapters() {
-        adapter = new LocationAdapter(locations);
+        adapter = new LocationAdapter(locations, new LocationItemClickListener() {
+            @Override
+            public void onClick(String location) {
+                goToCurrentWeatherFragment(location);
+            }
+        });
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(getActivity());
         linearLayoutManager.setOrientation(LinearLayoutManager.VERTICAL);
         recyclerViewLocations.setLayoutManager(linearLayoutManager);
@@ -80,21 +85,20 @@ public class SearchFragment extends Fragment {
         recyclerViewLocations.addItemDecoration(dividerItemDecoration);
     }
 
+    private void goToCurrentWeatherFragment(String location) {
+        Bundle bundle = new Bundle();
+        bundle.putString(LOCATION_KEY, location);
+        ((MainActivity) getActivity()).goToFragment(ForecastFragment.class, bundle);
+    }
+
     private void initListeners() {
          buttonSearch.setOnClickListener(new View.OnClickListener() {
              @Override
              public void onClick(View view) {
                  String location = editTextLocation.getText().toString();
-//                 addLocation(location);
-//                 saveLocations();
-                 Bundle bundle = new Bundle();
-//
-//                 bundle.putString("location", location);
-//                 ((MainActivity) getActivity()).goToFragment(CurrentWeatherFragment.class, bundle);
-
-
-                 bundle.putString(LOCATION_KEY, location);
-                 ((MainActivity) getActivity()).goToFragment(ForecastFragment.class, bundle);
+                 addLocation(location);
+                 saveLocations();
+                 goToCurrentWeatherFragment(location);
              }
          });
     }

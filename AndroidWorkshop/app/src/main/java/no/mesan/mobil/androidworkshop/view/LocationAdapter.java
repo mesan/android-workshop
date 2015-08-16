@@ -9,17 +9,18 @@ import android.widget.TextView;
 import java.util.ArrayList;
 import java.util.LinkedHashSet;
 import java.util.List;
-import java.util.Set;
 
 import no.mesan.mobil.androidworkshop.R;
 
 public class LocationAdapter extends RecyclerView.Adapter<LocationAdapter.ViewHolder> {
     private List<String> locations = new ArrayList<>();
 
+    private LocationItemClickListener locationItemClickListener;
+
     // Provide a reference to the views for each data item
     // Complex data items may need more than one view per item, and
     // you provide access to all the views for a data item in a view holder
-    public static class ViewHolder extends RecyclerView.ViewHolder {
+    public class ViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
         // each data item is just a string in this case
         public TextView textViewLocation;
 
@@ -27,11 +28,17 @@ public class LocationAdapter extends RecyclerView.Adapter<LocationAdapter.ViewHo
             super(view);
             textViewLocation = (TextView) view.findViewById(R.id.textViewLocation);
         }
+
+        @Override
+        public void onClick(View view) {
+            locationItemClickListener.onClick(textViewLocation.getText().toString());
+        }
     }
 
     // Provide a suitable constructor (depends on the kind of dataset)
-    public LocationAdapter(LinkedHashSet<String> locations) {
+    public LocationAdapter(LinkedHashSet<String> locations, LocationItemClickListener locationItemClickListener) {
         this.locations = new ArrayList<>(locations);
+        this.locationItemClickListener = locationItemClickListener;
     }
 
     public void addLocation(String location) {
