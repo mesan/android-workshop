@@ -5,19 +5,14 @@ import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-import java.util.ArrayList;
-import java.util.List;
-
 import no.mesan.mobil.androidworkshop.R;
-import no.mesan.mobil.androidworkshop.model.FiveDayForecast;
-import no.mesan.mobil.androidworkshop.model.Weather;
-import no.mesan.mobil.androidworkshop.model.WeatherInfo;
-import no.mesan.mobil.androidworkshop.task.FiveDayForecastTask;
+import no.mesan.mobil.androidworkshop.model.Forecast;
+import no.mesan.mobil.androidworkshop.model.ForecastType;
+import no.mesan.mobil.androidworkshop.task.ForecastTask;
 import no.mesan.mobil.androidworkshop.task.ResponseListener;
 import no.mesan.mobil.androidworkshop.view.SearchFragment;
 
@@ -28,6 +23,7 @@ public class ForecastFragment extends Fragment {
 
     private RecyclerView recyclerView;
     private ForecastAdapter adapter;
+    private ForecastType forecastType;
 
     private String location;
 
@@ -39,6 +35,7 @@ public class ForecastFragment extends Fragment {
         view = inflater.inflate(R.layout.fragment_forecast, container, false);
 
         location = getArguments().getString(SearchFragment.LOCATION_KEY, "Oslo");
+        forecastType = ForecastType.valueOf(getArguments().getString(SearchFragment.FORECAST_TYPE, ForecastType.FIVE.name()));
 
         initGui();
         initData();
@@ -56,9 +53,9 @@ public class ForecastFragment extends Fragment {
 
     private void initData() {
 
-        new FiveDayForecastTask(new ResponseListener<FiveDayForecast>() {
+        new ForecastTask(new ResponseListener<Forecast>() {
             @Override
-            public void success(FiveDayForecast weatherInfoList) {
+            public void success(Forecast weatherInfoList) {
 
                 adapter.setWeather(weatherInfoList.getList());
             }
@@ -67,6 +64,6 @@ public class ForecastFragment extends Fragment {
             public void error() {
 
             }
-        }).execute(location);
+        }, forecastType).execute(location);
     }
 }

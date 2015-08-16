@@ -21,6 +21,7 @@ public class CurrentWeatherFragment extends Fragment {
     private ImageView imageViewWeatherIcon;
     private TextView textViewLocation;
     private TextView textViewTemperature;
+    private TextView textViewDate;
 
     public CurrentWeatherFragment() {
         // Required empty public constructor
@@ -41,8 +42,9 @@ public class CurrentWeatherFragment extends Fragment {
     }
 
     private void initViews(View view) {
-        imageViewWeatherIcon = (ImageView) view.findViewById(R.id.imageViewWeatherIcon);
         textViewLocation = (TextView) view.findViewById(R.id.textViewLocation);
+        textViewDate = (TextView) view.findViewById(R.id.textViewDate);
+        imageViewWeatherIcon = (ImageView) view.findViewById(R.id.imageViewWeatherIcon);
         textViewTemperature = (TextView) view.findViewById(R.id.textViewTemperature);
     }
 
@@ -65,6 +67,6 @@ public class CurrentWeatherFragment extends Fragment {
     private void updateViews(WeatherInfo weatherInfo) {
         Picasso.with(getActivity()).load("http://openweathermap.org/img/w/" + weatherInfo.getWeather().get(0).getIcon() + ".png").into(imageViewWeatherIcon);
         textViewLocation.setText(weatherInfo.getName());
-        textViewTemperature.setText(weatherInfo.getWeather().get(0).getMain().getTemp());
+        textViewTemperature.setText(String.valueOf(weatherInfo.getMain().getTemp()));
     }
 }

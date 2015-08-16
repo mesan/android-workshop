@@ -11,6 +11,8 @@ import android.widget.TextView;
 
 import com.squareup.picasso.Picasso;
 
+import org.joda.time.DateTime;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -25,9 +27,13 @@ public class ForecastAdapter extends RecyclerView.Adapter<ForecastAdapter.ViewHo
 
     private final Context context;
     private List<WeatherInfo> weatherList = new ArrayList<>();
+    private int dayOfMonth;
+
+    private String[] months;
 
     public ForecastAdapter(Context context) {
         this.context = context;
+        months = context.getResources().getStringArray(R.array.months);
     }
 
     @Override
@@ -46,8 +52,25 @@ public class ForecastAdapter extends RecyclerView.Adapter<ForecastAdapter.ViewHo
 
         Picasso.with(context).load("http://openweathermap.org/img/w/" + weather.getIcon() + ".png").into(viewHolder.imageViewForecast);
 
-        viewHolder.textViewTemperature.setText(weatherInfo.getMain().getTemp() + " grader");
-        viewHolder.textViewWhen.setText(weatherInfo.getDt().toString());
+        DateTime dateTime = weatherInfo.getDt();
+
+        boolean shouldShowDate = false;
+
+        if (dateTime.getDayOfMonth() != dayOfMonth) {
+            dayOfMonth = dateTime.getDayOfMonth();
+            shouldShowDate = true;
+        }
+
+        double temp = 0;
+
+        if (weatherInfo.getMain() != null) {
+            temp = weatherInfo.getMain().getTemp();
+        } else if (weatherInfo.getTemp() != null) {
+            temp = weatherInfo.getTemp().getDay();
+        }
+
+        viewHolder.textViewTemperature.setText((Math.round(temp*10.0) / 10.0) + "" + ((char) 0x00B0) + "C");
+        viewHolder.textViewWhen.setText((shouldShowDate ? dateTime.getDayOfMonth() + ". " + months[dateTime.getMonthOfYear()-1] + " - " : "") + "kl " + dateTime.getHourOfDay());
         viewHolder.textViewWind.setText(weather.getDescription());
     }
 

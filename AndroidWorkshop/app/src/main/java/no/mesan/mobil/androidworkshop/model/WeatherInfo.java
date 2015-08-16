@@ -9,6 +9,7 @@ import no.mesan.mobil.androidworkshop.restservice.DateTimeDeserializer;
 public class WeatherInfo {
     private DateTime dt;
     private WeatherMain main;
+    private Temp temp;
     private List<Weather> weather;
     private String name;
 
@@ -44,11 +45,20 @@ public class WeatherInfo {
         this.name = name;
     }
 
+    public Temp getTemp() {
+        return temp;
+    }
+
+    public void setTemp(Temp temp) {
+        this.temp = temp;
+    }
+
     @Override
     public String toString() {
         return "WeatherInfo{" +
                 "dt=" + dt +
                 ", main=" + main +
+                ", temp=" + temp +
                 ", weather=" + weather +
                 ", name='" + name + '\'' +
                 '}';

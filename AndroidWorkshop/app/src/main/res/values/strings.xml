@@ -20,4 +20,19 @@
     <string name="current_weather">Været akkurat nå</string>
     <string name="five_day_forecast">Fem dagers varsel</string>
     <string name="sixteen_day_forecast">16 dagers varsel</string>
+
+    <string-array name="months">
+        <item>jan</item>
+        <item>feb</item>
+        <item>mar</item>
+        <item>apr</item>
+        <item>mai</item>
+        <item>jun</item>
+        <item>jul</item>
+        <item>aug</item>
+        <item>sep</item>
+        <item>okt</item>
+        <item>nov</item>
+        <item>des</item>
+    </string-array>
 </resources>

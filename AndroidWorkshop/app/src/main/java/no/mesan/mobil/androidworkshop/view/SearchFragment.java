@@ -22,11 +22,13 @@ import java.util.LinkedHashSet;
 
 import no.mesan.mobil.androidworkshop.R;
 import no.mesan.mobil.androidworkshop.view.currentWeather.CurrentWeatherFragment;
+import no.mesan.mobil.androidworkshop.model.ForecastType;
 import no.mesan.mobil.androidworkshop.view.forecast.ForecastFragment;
 
 public class SearchFragment extends Fragment {
     private static final String PREFERENCES_NAME = "Preferences";
     public static final String LOCATION_KEY = "locationKey";
+    public static final String FORECAST_TYPE = "forecastType";
 
     private RadioGroup radioGroupSearchMode;
 
@@ -92,9 +94,10 @@ public class SearchFragment extends Fragment {
         ((MainActivity) getActivity()).goToFragment(CurrentWeatherFragment.class, bundle);
     }
 
-    private void goToForecastFragment(String location) {
+    private void goToForecastFragment(String location, ForecastType forecastType) {
         Bundle bundle = new Bundle();
         bundle.putString(LOCATION_KEY, location);
+        bundle.putString(FORECAST_TYPE, forecastType.name());
         ((MainActivity) getActivity()).goToFragment(ForecastFragment.class, bundle);
     }
 
@@ -110,8 +113,11 @@ public class SearchFragment extends Fragment {
                      case R.id.radioButtonCurrentWeather:
                          goToCurrentWeatherFragment(location);
                          break;
+                     case R.id.radioButtonFiveDayForecast:
+                         goToForecastFragment(location, ForecastType.FIVE);
+                         break;
                      default:
-                         goToForecastFragment(location);
+                         goToForecastFragment(location, ForecastType.SIXTEEN);
                  }
              }
          });
