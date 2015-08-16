@@ -27,7 +27,7 @@ public class BaseRestService {
         }
     };
 
-    public static CurrentWeatherRestService getCurrentWeather() {
+    public static CurrentWeatherRestService getCurrentWeatherRestService() {
         return getRestAdapter().create(CurrentWeatherRestService.class);
     }
 
