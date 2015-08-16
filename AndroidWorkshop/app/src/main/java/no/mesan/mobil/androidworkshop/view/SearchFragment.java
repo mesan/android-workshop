@@ -88,7 +88,7 @@ public class SearchFragment extends Fragment {
     private void goToCurrentWeatherFragment(String location) {
         Bundle bundle = new Bundle();
         bundle.putString(LOCATION_KEY, location);
-        ((MainActivity) getActivity()).goToFragment(ForecastFragment.class, bundle);
+        ((MainActivity) getActivity()).goToFragment(CurrentWeatherFragment.class, bundle);
     }
 
     private void initListeners() {

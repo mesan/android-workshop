@@ -38,7 +38,6 @@ public class BaseRestService {
     private static RestAdapter getRestAdapter() {
         Gson gson = new GsonBuilder()
                 .registerTypeAdapter(DateTime.class, new DateTimeDeserializer())
-                .excludeFieldsWithoutExposeAnnotation()
                 .create();
 
         return new RestAdapter.Builder()
