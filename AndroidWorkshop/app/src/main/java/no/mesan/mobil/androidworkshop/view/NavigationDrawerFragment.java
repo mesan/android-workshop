@@ -1,4 +1,4 @@
-package no.mesan.mobil.androidworkshop;
+package no.mesan.mobil.androidworkshop.view;
 
 import android.support.v7.app.AppCompatActivity;
 import android.app.Activity;
@@ -21,6 +21,8 @@ import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
 import android.widget.Toast;
+
+import no.mesan.mobil.androidworkshop.R;
 
 /**
  * Fragment used for managing interactions for and presentation of a navigation drawer.
