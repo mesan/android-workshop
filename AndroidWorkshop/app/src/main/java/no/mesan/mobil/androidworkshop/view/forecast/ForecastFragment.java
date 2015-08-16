@@ -5,6 +5,7 @@ import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -13,6 +14,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import no.mesan.mobil.androidworkshop.R;
+import no.mesan.mobil.androidworkshop.model.FiveDayForecast;
 import no.mesan.mobil.androidworkshop.model.Weather;
 import no.mesan.mobil.androidworkshop.model.WeatherInfo;
 import no.mesan.mobil.androidworkshop.task.FiveDayForecastTask;
@@ -54,22 +56,17 @@ public class ForecastFragment extends Fragment {
 
     private void initData() {
 
-        new FiveDayForecastTask(new ResponseListener<List<WeatherInfo>>() {
+        new FiveDayForecastTask(new ResponseListener<FiveDayForecast>() {
             @Override
-            public void success(List<WeatherInfo> weatherInfoList) {
-                List<Weather> weatherList = new ArrayList<>();
+            public void success(FiveDayForecast weatherInfoList) {
 
-                for (WeatherInfo weatherInfo : weatherInfoList) {
-                    weatherList.addAll(weatherInfo.getWeather());
-                }
-
-                adapter.setWeather(weatherList);
+                adapter.setWeather(weatherInfoList.getList());
             }
 
             @Override
             public void error() {
 
             }
-        });
+        }).execute(location);
     }
 }

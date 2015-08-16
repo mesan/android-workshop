@@ -2,6 +2,7 @@ package no.mesan.mobil.androidworkshop.view.forecast;
 
 import android.content.Context;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -23,7 +24,7 @@ import no.mesan.mobil.androidworkshop.model.WeatherInfo;
 public class ForecastAdapter extends RecyclerView.Adapter<ForecastAdapter.ViewHolder>  {
 
     private final Context context;
-    private List<Weather> weatherList = new ArrayList<>();
+    private List<WeatherInfo> weatherList = new ArrayList<>();
 
     public ForecastAdapter(Context context) {
         this.context = context;
@@ -32,19 +33,21 @@ public class ForecastAdapter extends RecyclerView.Adapter<ForecastAdapter.ViewHo
     @Override
     public ViewHolder onCreateViewHolder(ViewGroup parent, int i) {
         View view = LayoutInflater.from(context)
-                .inflate(R.layout.location_item, parent, false);
+                .inflate(R.layout.forecast_item, parent, false);
 
         return new ViewHolder(view);
     }
 
     @Override
     public void onBindViewHolder(ViewHolder viewHolder, int i) {
-        Weather weather = weatherList.get(i);
+        WeatherInfo weatherInfo = weatherList.get(i);
+
+        Weather weather = weatherInfo.getWeather().get(0);
 
         Picasso.with(context).load("http://openweathermap.org/img/w/" + weather.getIcon() + ".png").into(viewHolder.imageViewForecast);
 
-        viewHolder.textViewTemperature.setText(weather.getDescription());
-        viewHolder.textViewWhen.setText(weather.getDescription());
+        viewHolder.textViewTemperature.setText(weatherInfo.getMain().getTemp() + " grader");
+        viewHolder.textViewWhen.setText(weatherInfo.getDt().toString());
         viewHolder.textViewWind.setText(weather.getDescription());
     }
 
@@ -53,7 +56,9 @@ public class ForecastAdapter extends RecyclerView.Adapter<ForecastAdapter.ViewHo
         return weatherList.size();
     }
 
-    public void setWeather(List<Weather> weatherList) {
+    public void setWeather(List<WeatherInfo> weatherList) {
+        Log.i("KLOVN", weatherList.toString());
+
         this.weatherList.clear();
         this.weatherList.addAll(weatherList);
 
