@@ -5,6 +5,27 @@
     android:orientation="vertical"
     android:padding="10dp">
 
+    <RadioGroup
+        android:id="@+id/radioGroupSearchMode"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+        <RadioButton
+            android:id="@+id/radioButtonCurrentWeather"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/current_weather"
+            android:checked="true"/>
+        <RadioButton
+            android:id="@+id/radioButtonFiveDayForecast"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/five_day_forecast"/>
+        <RadioButton
+            android:id="@+id/radioButton16DayForecast"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/sixteen_day_forecast"/>
+    </RadioGroup>
     <EditText
         android:id="@+id/editTextLocation"
         android:layout_width="match_parent"

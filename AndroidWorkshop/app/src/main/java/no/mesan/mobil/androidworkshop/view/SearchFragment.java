@@ -3,7 +3,6 @@ package no.mesan.mobil.androidworkshop.view;
 
 import android.content.Context;
 import android.content.SharedPreferences;
-import android.graphics.Color;
 import android.graphics.PorterDuff;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
@@ -14,14 +13,12 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.inputmethod.InputMethodManager;
-import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.RadioGroup;
 
-import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.LinkedHashSet;
-import java.util.List;
 import java.util.Set;
 
 import no.mesan.mobil.androidworkshop.R;
@@ -31,14 +28,15 @@ public class SearchFragment extends Fragment {
     private static final String PREFERENCES_NAME = "Preferences";
     public static final String LOCATION_KEY = "locationKey";
 
+    private RadioGroup radioGroupSearchMode;
+
     private EditText editTextLocation;
     private Button buttonSearch;
     private RecyclerView recyclerViewLocations;
 
+
     private SharedPreferences sharedPreferences;
     private LocationAdapter adapter;
-
-    private LinkedHashSet<String> locations;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -49,7 +47,6 @@ public class SearchFragment extends Fragment {
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_search, container, false);
 
-        initLocationHistory();
         initViews(view);
         initAdapters();
         initListeners();
@@ -57,18 +54,21 @@ public class SearchFragment extends Fragment {
         return view;
     }
 
-    private void initLocationHistory() {
+    private LinkedHashSet<String> getLocationHistory() {
         sharedPreferences = getActivity().getSharedPreferences(PREFERENCES_NAME, Context.MODE_APPEND);
-        locations = new LinkedHashSet<>(sharedPreferences.getStringSet("locations", new HashSet<String>()));
+        return new LinkedHashSet<>(sharedPreferences.getStringSet("locations", new HashSet<String>()));
     }
 
     private void initViews(View view) {
+        radioGroupSearchMode = (RadioGroup) view.findViewById(R.id.radioGroupSearchMode);
+
         editTextLocation = (EditText) view.findViewById(R.id.editTextLocation);
         buttonSearch = (Button) view.findViewById(R.id.buttonSearch);
         recyclerViewLocations = (RecyclerView) view.findViewById(R.id.recyclerViewLocations);
     }
 
     private void initAdapters() {
+        LinkedHashSet<String> locations = getLocationHistory();
         adapter = new LocationAdapter(locations, new LocationItemClickListener() {
             @Override
             public void onClick(String location) {
@@ -103,22 +103,23 @@ public class SearchFragment extends Fragment {
              @Override
              public void onClick(View view) {
                  String location = editTextLocation.getText().toString();
-                 addLocation(location);
+                 adapter.addLocation(location);
                  saveLocations();
                  hideKeyboard();
-                 goToCurrentWeatherFragment(location);
+                 switch (radioGroupSearchMode.getCheckedRadioButtonId()) {
+                     case R.id.radioButtonCurrentWeather:
+                         goToCurrentWeatherFragment(location);
+                         break;
+                     default:
+                         goToForecastFragment(location);
+                 }
              }
          });
     }
 
-    private void addLocation(String location) {
-        locations.add(location);
-        adapter.addLocation(location);
-    }
-
     private void saveLocations() {
         SharedPreferences.Editor editor = sharedPreferences.edit();
-        editor.putStringSet("locations", locations);
+        editor.putStringSet("locations", adapter.getLocations());
         editor.apply();
     }
 
