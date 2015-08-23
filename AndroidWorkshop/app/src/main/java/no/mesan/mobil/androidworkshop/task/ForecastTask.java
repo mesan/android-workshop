@@ -20,7 +20,7 @@ public class ForecastTask extends AsyncTask<String, Void, Forecast> {
     @Override
     protected Forecast doInBackground(String... location) {
         ForecastRestService forecastRestService = BaseRestService.getFiveDayForecastRestService();
-        if (forecastType.ordinal() == ForecastType.SIXTEEN.ordinal()) {
+        if (forecastType.ordinal() == ForecastType.LONG.ordinal()) {
             return forecastRestService.get16DayForecast(location[0]);
         }
         return forecastRestService.getFiveDayForecast(location[0]);

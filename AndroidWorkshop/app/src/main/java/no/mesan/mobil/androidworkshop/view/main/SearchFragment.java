@@ -1,4 +1,4 @@
-package no.mesan.mobil.androidworkshop.view;
+package no.mesan.mobil.androidworkshop.view.main;
 
 
 import android.content.Context;
@@ -21,9 +21,8 @@ import java.util.HashSet;
 import java.util.LinkedHashSet;
 
 import no.mesan.mobil.androidworkshop.R;
-import no.mesan.mobil.androidworkshop.view.currentWeather.CurrentWeatherFragment;
 import no.mesan.mobil.androidworkshop.model.ForecastType;
-import no.mesan.mobil.androidworkshop.view.forecast.ForecastFragment;
+import no.mesan.mobil.androidworkshop.view.DividerItemDecoration;
 
 public class SearchFragment extends Fragment {
     private static final String PREFERENCES_NAME = "Preferences";
@@ -35,7 +34,6 @@ public class SearchFragment extends Fragment {
     private EditText editTextLocation;
     private Button buttonSearch;
     private RecyclerView recyclerViewLocations;
-
 
     private SharedPreferences sharedPreferences;
     private LocationAdapter adapter;
@@ -86,19 +84,6 @@ public class SearchFragment extends Fragment {
         recyclerViewLocations.addItemDecoration(dividerItemDecoration);
     }
 
-    private void goToCurrentWeatherFragment(String location) {
-        Bundle bundle = new Bundle();
-        bundle.putString(LOCATION_KEY, location);
-        ((MainActivity) getActivity()).goToFragment(CurrentWeatherFragment.class, bundle);
-    }
-
-    private void goToForecastFragment(String location, ForecastType forecastType) {
-        Bundle bundle = new Bundle();
-        bundle.putString(LOCATION_KEY, location);
-        bundle.putString(FORECAST_TYPE, forecastType.name());
-        ((MainActivity) getActivity()).goToFragment(ForecastFragment.class, bundle);
-    }
-
     private void initListeners() {
          buttonSearch.setOnClickListener(new View.OnClickListener() {
              @Override
@@ -115,16 +100,20 @@ public class SearchFragment extends Fragment {
     }
 
     private void showWeatherForLocation(String location) {
+        ForecastType forecastType;
+
         switch (radioGroupSearchMode.getCheckedRadioButtonId()) {
             case R.id.radioButtonCurrentWeather:
-                goToCurrentWeatherFragment(location);
+                forecastType = ForecastType.MINI;
                 break;
             case R.id.radioButtonFiveDayForecast:
-                goToForecastFragment(location, ForecastType.FIVE);
+                forecastType = ForecastType.FIVE;
                 break;
             default:
-                goToForecastFragment(location, ForecastType.SIXTEEN);
+                forecastType = ForecastType.LONG;
         }
+
+        ((MainActivity) getActivity()).goToForecastActivity(location, forecastType);
     }
 
     private void saveLocations() {

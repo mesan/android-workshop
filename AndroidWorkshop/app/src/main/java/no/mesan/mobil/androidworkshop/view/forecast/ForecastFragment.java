@@ -12,13 +12,11 @@ import android.view.ViewGroup;
 import no.mesan.mobil.androidworkshop.R;
 import no.mesan.mobil.androidworkshop.model.Forecast;
 import no.mesan.mobil.androidworkshop.model.ForecastType;
+import no.mesan.mobil.androidworkshop.model.WeatherInfo;
 import no.mesan.mobil.androidworkshop.task.ForecastTask;
 import no.mesan.mobil.androidworkshop.task.ResponseListener;
-import no.mesan.mobil.androidworkshop.view.SearchFragment;
+import no.mesan.mobil.androidworkshop.view.main.SearchFragment;
 
-/**
- * Created by Thomas on 16.08.2015.
- */
 public class ForecastFragment extends Fragment {
 
     private RecyclerView recyclerView;
@@ -47,7 +45,14 @@ public class ForecastFragment extends Fragment {
         recyclerView = (RecyclerView) view.findViewById(R.id.recyclerViewForecast);
         recyclerView.setLayoutManager(new LinearLayoutManager(view.getContext()));
 
-        adapter = new ForecastAdapter(view.getContext());
+        adapter = new ForecastAdapter(view.getContext(), new ForecastClickListener() {
+            @Override
+            public void onClick(WeatherInfo weatherInfo) {
+                Bundle bundle = new Bundle();
+                bundle.putParcelable(MiniForecastFragment.WEATHER_INFO, weatherInfo);
+                ((ForecastActivity) getActivity()).goToFragment(MiniForecastFragment.class, true, bundle);
+            }
+        });
         recyclerView.setAdapter(adapter);
     }
 

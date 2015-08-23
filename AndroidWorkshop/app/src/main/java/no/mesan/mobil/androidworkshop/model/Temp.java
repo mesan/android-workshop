@@ -1,9 +1,9 @@
 package no.mesan.mobil.androidworkshop.model;
 
-/**
- * Created by Thomas on 16.08.2015.
- */
-public class Temp {
+import android.os.Parcel;
+import android.os.Parcelable;
+
+public class Temp implements Parcelable {
     private double day;
     private double min;
     private double max;
@@ -58,4 +58,41 @@ public class Temp {
     public void setMorn(double morn) {
         this.morn = morn;
     }
+
+    protected Temp(Parcel in) {
+        day = in.readDouble();
+        min = in.readDouble();
+        max = in.readDouble();
+        night = in.readDouble();
+        eve = in.readDouble();
+        morn = in.readDouble();
+    }
+
+    @Override
+    public int describeContents() {
+        return 0;
+    }
+
+    @Override
+    public void writeToParcel(Parcel dest, int flags) {
+        dest.writeDouble(day);
+        dest.writeDouble(min);
+        dest.writeDouble(max);
+        dest.writeDouble(night);
+        dest.writeDouble(eve);
+        dest.writeDouble(morn);
+    }
+
+    @SuppressWarnings("unused")
+    public static final Parcelable.Creator<Temp> CREATOR = new Parcelable.Creator<Temp>() {
+        @Override
+        public Temp createFromParcel(Parcel in) {
+            return new Temp(in);
+        }
+
+        @Override
+        public Temp[] newArray(int size) {
+            return new Temp[size];
+        }
+    };
 }

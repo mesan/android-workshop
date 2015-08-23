@@ -1,4 +1,4 @@
-package no.mesan.mobil.androidworkshop.view.currentWeather;
+package no.mesan.mobil.androidworkshop.view.forecast;
 
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
@@ -12,22 +12,17 @@ import com.squareup.picasso.Picasso;
 
 import no.mesan.mobil.androidworkshop.R;
 import no.mesan.mobil.androidworkshop.model.WeatherInfo;
-import no.mesan.mobil.androidworkshop.task.CurrentWeatherTask;
-import no.mesan.mobil.androidworkshop.task.ResponseListener;
 import no.mesan.mobil.androidworkshop.util.DateFormatter;
 import no.mesan.mobil.androidworkshop.util.TemperatureFormatter;
-import no.mesan.mobil.androidworkshop.view.SearchFragment;
 
-public class CurrentWeatherFragment extends Fragment {
+public class MiniForecastFragment extends Fragment {
+
+    public static final String WEATHER_INFO = "weatherInfo";
 
     private ImageView imageViewWeatherIcon;
     private TextView textViewLocation;
     private TextView textViewTemperature;
     private TextView textViewDate;
-
-    public CurrentWeatherFragment() {
-        // Required empty public constructor
-    }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -36,9 +31,11 @@ public class CurrentWeatherFragment extends Fragment {
         View view = inflater.inflate(R.layout.fragment_current_weather, container, false);
         initViews(view);
 
-        String location = getArguments().getString(SearchFragment.LOCATION_KEY);
-        getCurrentWeather(location);
-
+        Bundle bundle = getArguments();
+        if (bundle != null) {
+            WeatherInfo weatherInfo = bundle.getParcelable(WEATHER_INFO);
+            updateViews(weatherInfo);
+        }
 
         return view;
     }
@@ -50,26 +47,12 @@ public class CurrentWeatherFragment extends Fragment {
         textViewTemperature = (TextView) view.findViewById(R.id.textViewTemperature);
     }
 
-    private void getCurrentWeather(String location) {
-
-        new CurrentWeatherTask(new ResponseListener<WeatherInfo>() {
-            @Override
-            public void success(WeatherInfo weatherInfo) {
-                System.out.println(weatherInfo);
-                updateViews(weatherInfo);
-            }
-
-            @Override
-            public void error() {
-
-            }
-        }).execute(location);
-    }
-
     private void updateViews(WeatherInfo weatherInfo) {
-        Picasso.with(getActivity()).load("http://openweathermap.org/img/w/" + weatherInfo.getWeather().get(0).getIcon() + ".png").into(imageViewWeatherIcon);
-        textViewLocation.setText(weatherInfo.getName());
-        textViewTemperature.setText(TemperatureFormatter.format(weatherInfo.getMain().getTemp()));
-        textViewDate.setText(DateFormatter.formatDate(weatherInfo.getDt()));
+        if (weatherInfo != null && weatherInfo.getWeather() != null) {
+            Picasso.with(getActivity()).load("http://openweathermap.org/img/w/" + weatherInfo.getWeather().get(0).getIcon() + ".png").into(imageViewWeatherIcon);
+            textViewLocation.setText(weatherInfo.getName());
+            textViewTemperature.setText(TemperatureFormatter.format(weatherInfo.getMain().getTemp()));
+            textViewDate.setText(DateFormatter.formatDate(weatherInfo.getDt()));
+        }
     }
 }

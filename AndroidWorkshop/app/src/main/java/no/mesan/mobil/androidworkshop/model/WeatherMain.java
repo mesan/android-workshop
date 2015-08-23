@@ -1,9 +1,9 @@
 package no.mesan.mobil.androidworkshop.model;
 
-/**
- * Created by Thomas on 16.08.2015.
- */
-public class WeatherMain {
+import android.os.Parcel;
+import android.os.Parcelable;
+
+public class WeatherMain implements Parcelable {
     private double temp;
 
     public double getTemp() {
@@ -20,4 +20,31 @@ public class WeatherMain {
                 "temp=" + temp +
                 '}';
     }
+
+    protected WeatherMain(Parcel in) {
+        temp = in.readDouble();
+    }
+
+    @Override
+    public int describeContents() {
+        return 0;
+    }
+
+    @Override
+    public void writeToParcel(Parcel dest, int flags) {
+        dest.writeDouble(temp);
+    }
+
+    @SuppressWarnings("unused")
+    public static final Parcelable.Creator<WeatherMain> CREATOR = new Parcelable.Creator<WeatherMain>() {
+        @Override
+        public WeatherMain createFromParcel(Parcel in) {
+            return new WeatherMain(in);
+        }
+
+        @Override
+        public WeatherMain[] newArray(int size) {
+            return new WeatherMain[size];
+        }
+    };
 }

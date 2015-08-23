@@ -1,6 +1,9 @@
 package no.mesan.mobil.androidworkshop.model;
 
-public class Weather {
+import android.os.Parcel;
+import android.os.Parcelable;
+
+public class Weather implements Parcelable {
     private long id;
     private String main;
     private String description;
@@ -47,4 +50,37 @@ public class Weather {
                 ", icon='" + icon + '\'' +
                 '}';
     }
+
+    protected Weather(Parcel in) {
+        id = in.readLong();
+        main = in.readString();
+        description = in.readString();
+        icon = in.readString();
+    }
+
+    @Override
+    public int describeContents() {
+        return 0;
+    }
+
+    @Override
+    public void writeToParcel(Parcel dest, int flags) {
+        dest.writeLong(id);
+        dest.writeString(main);
+        dest.writeString(description);
+        dest.writeString(icon);
+    }
+
+    @SuppressWarnings("unused")
+    public static final Parcelable.Creator<Weather> CREATOR = new Parcelable.Creator<Weather>() {
+        @Override
+        public Weather createFromParcel(Parcel in) {
+            return new Weather(in);
+        }
+
+        @Override
+        public Weather[] newArray(int size) {
+            return new Weather[size];
+        }
+    };
 }

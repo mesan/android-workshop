@@ -14,6 +14,7 @@ import com.squareup.picasso.Picasso;
 import org.joda.time.DateTime;
 
 import java.util.ArrayList;
+import java.util.LinkedHashSet;
 import java.util.List;
 
 import no.mesan.mobil.androidworkshop.R;
@@ -21,20 +22,20 @@ import no.mesan.mobil.androidworkshop.model.Weather;
 import no.mesan.mobil.androidworkshop.model.WeatherInfo;
 import no.mesan.mobil.androidworkshop.util.DateFormatter;
 import no.mesan.mobil.androidworkshop.util.TemperatureFormatter;
+import no.mesan.mobil.androidworkshop.view.main.LocationItemClickListener;
 
-/**
- * Created by Thomas on 16.08.2015.
- */
-public class ForecastAdapter extends RecyclerView.Adapter<ForecastAdapter.ViewHolder>  {
+public class ForecastAdapter extends RecyclerView.Adapter<ForecastAdapter.ViewHolder> {
 
     private final Context context;
+    private ForecastClickListener forecastClickListener;
     private List<WeatherInfo> weatherList = new ArrayList<>();
     private int dayOfMonth;
 
     private String[] months;
 
-    public ForecastAdapter(Context context) {
+    public ForecastAdapter(Context context, ForecastClickListener forecastClickListener) {
         this.context = context;
+        this.forecastClickListener = forecastClickListener;
         months = context.getResources().getStringArray(R.array.months);
     }
 
@@ -54,7 +55,7 @@ public class ForecastAdapter extends RecyclerView.Adapter<ForecastAdapter.ViewHo
         DateTime dateTime = weatherInfo.getDt();
         boolean shouldShowDate = false;
 
-        if (i == 0 || dateTime.getDayOfMonth() != weatherList.get(i-1).getDt().getDayOfMonth()) {
+        if (i == 0 || dateTime.getDayOfMonth() != weatherList.get(i - 1).getDt().getDayOfMonth()) {
             shouldShowDate = true;
         }
 
@@ -84,7 +85,7 @@ public class ForecastAdapter extends RecyclerView.Adapter<ForecastAdapter.ViewHo
         notifyDataSetChanged();
     }
 
-    public static class ViewHolder extends RecyclerView.ViewHolder {
+    public class ViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
         public ImageView imageViewForecast;
         public TextView textViewWhen;
         public TextView textViewTemperature;
@@ -96,6 +97,14 @@ public class ForecastAdapter extends RecyclerView.Adapter<ForecastAdapter.ViewHo
             textViewWhen = (TextView) itemView.findViewById(R.id.textViewWhen);
             textViewTemperature = (TextView) itemView.findViewById(R.id.textViewTemperature);
             textViewWind = (TextView) itemView.findViewById(R.id.textViewWind);
+
+            itemView.setOnClickListener(this);
+        }
+
+        @Override
+        public void onClick(View view) {
+            int position = getAdapterPosition();
+            forecastClickListener.onClick(weatherList.get(position));
         }
     }
 }

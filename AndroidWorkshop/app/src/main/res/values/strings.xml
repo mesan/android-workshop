@@ -18,7 +18,7 @@
     <string name="previous_searches">Tidligere søk</string>
     <string name="current_weather">Været akkurat nå</string>
     <string name="five_day_forecast">Fem dagers varsel</string>
-    <string name="sixteen_day_forecast">16 dagers varsel</string>
+    <string name="long_term_forecast">Langtidsvarsel</string>
 
     <string-array name="months">
         <item>jan</item>
@@ -34,4 +34,8 @@
         <item>nov</item>
         <item>des</item>
     </string-array>
+    <string name="title_activity_weather_result">WeatherResultActivity</string>
+
+    <string name="hello_world">Hello world!</string>
+    <string name="title_activity_forecast">ForecastActivity</string>
 </resources>

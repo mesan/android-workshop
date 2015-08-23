@@ -1,13 +1,14 @@
 <resources>
 
     <!-- Base application theme. -->
-    <style name="AppTheme" parent="Theme.AppCompat.Light.NoActionBar">
+    <style name="AppTheme" parent="Theme.AppCompat.NoActionBar">
         <item name="drawerArrowStyle">@style/DrawerArrowStyle</item>
         <item name="android:activatedBackgroundIndicator">@color/red_transparent</item>
 
         <!-- Set AppCompat’s color theming attrs -->
         <item name="colorPrimary">@color/red</item>
         <item name="colorPrimaryDark">@color/red_dark</item>
+        <item name="android:textColor">@android:color/white</item>
         <item name="android:textColorPrimary">@android:color/white</item>
     </style>
 

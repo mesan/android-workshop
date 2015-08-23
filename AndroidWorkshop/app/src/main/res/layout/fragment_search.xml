@@ -1,7 +1,7 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools" android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="no.mesan.mobil.androidworkshop.view.SearchFragment"
+    tools:context="no.mesan.mobil.androidworkshop.view.main.SearchFragment"
     android:orientation="vertical"
     android:padding="10dp">
 
@@ -24,7 +24,7 @@
             android:id="@+id/radioButton16DayForecast"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="@string/sixteen_day_forecast"/>
+            android:text="@string/long_term_forecast"/>
     </RadioGroup>
     <EditText
         android:id="@+id/editTextLocation"

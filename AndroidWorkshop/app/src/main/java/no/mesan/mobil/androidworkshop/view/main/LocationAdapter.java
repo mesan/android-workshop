@@ -1,4 +1,4 @@
-package no.mesan.mobil.androidworkshop.view;
+package no.mesan.mobil.androidworkshop.view.main;
 
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -16,6 +16,11 @@ public class LocationAdapter extends RecyclerView.Adapter<LocationAdapter.ViewHo
     private List<String> locations = new ArrayList<>();
 
     private LocationItemClickListener locationItemClickListener;
+
+    public LocationAdapter(LinkedHashSet<String> locations, LocationItemClickListener locationItemClickListener) {
+        this.locations = new ArrayList<>(locations);
+        this.locationItemClickListener = locationItemClickListener;
+    }
 
     public LinkedHashSet<String> getLocations() {
         return new LinkedHashSet<>(locations);
@@ -40,12 +45,6 @@ public class LocationAdapter extends RecyclerView.Adapter<LocationAdapter.ViewHo
         }
     }
 
-    // Provide a suitable constructor (depends on the kind of dataset)
-    public LocationAdapter(LinkedHashSet<String> locations, LocationItemClickListener locationItemClickListener) {
-        this.locations = new ArrayList<>(locations);
-        this.locationItemClickListener = locationItemClickListener;
-    }
-
     public void addLocation(String location) {
         locations.add(0, location);
         notifyItemInserted(0);
@@ -53,8 +52,8 @@ public class LocationAdapter extends RecyclerView.Adapter<LocationAdapter.ViewHo
 
     // Create new views (invoked by the layout manager)
     @Override
-    public LocationAdapter.ViewHolder onCreateViewHolder(ViewGroup parent,
-                                                   int viewType) {
+    public ViewHolder onCreateViewHolder(ViewGroup parent,
+                                         int viewType) {
         // create a new view
         View v = LayoutInflater.from(parent.getContext())
                 .inflate(R.layout.location_item, parent, false);

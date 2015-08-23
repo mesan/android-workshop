@@ -7,6 +7,8 @@ import com.google.gson.GsonBuilder;
 
 import org.joda.time.DateTime;
 
+import no.mesan.mobil.androidworkshop.model.WeatherInfo;
+import no.mesan.mobil.androidworkshop.task.ResponseListener;
 import retrofit.ErrorHandler;
 import retrofit.RestAdapter;
 import retrofit.RetrofitError;
