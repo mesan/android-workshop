@@ -51,7 +51,16 @@ public class MiniForecastFragment extends Fragment {
         if (weatherInfo != null && weatherInfo.getWeather() != null) {
             Picasso.with(getActivity()).load("http://openweathermap.org/img/w/" + weatherInfo.getWeather().get(0).getIcon() + ".png").into(imageViewWeatherIcon);
             textViewLocation.setText(weatherInfo.getName());
-            textViewTemperature.setText(TemperatureFormatter.format(weatherInfo.getMain().getTemp()));
+
+            double temp;
+            if (weatherInfo.getMain() != null) {
+                temp = weatherInfo.getMain().getTemp();
+            }
+            else {
+                temp = weatherInfo.getTemp().getDay();
+            }
+
+            textViewTemperature.setText(TemperatureFormatter.format(temp));
             textViewDate.setText(DateFormatter.formatDate(weatherInfo.getDt()));
         }
     }
