@@ -3,6 +3,7 @@ package no.mesan.mobil.androidworkshop.view.forecast;
 import android.graphics.Matrix;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentActivity;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -41,7 +42,8 @@ public class MiniForecastFragment extends Fragment {
         Bundle bundle = getArguments();
         if (bundle != null) {
             WeatherInfo weatherInfo = bundle.getParcelable(WEATHER_INFO);
-            updateViews(weatherInfo);
+            String location = bundle.getString(ForecastActivity.LOCATION);
+            updateViews(weatherInfo, location);
         }
 
         return view;
@@ -57,10 +59,11 @@ public class MiniForecastFragment extends Fragment {
         textViewWindSpeed = (TextView) view.findViewById(R.id.textViewWindSpeed);
     }
 
-    private void updateViews(WeatherInfo weatherInfo) {
+    private void updateViews(WeatherInfo weatherInfo, String location) {
         if (weatherInfo != null && weatherInfo.getWeather() != null) {
             Picasso.with(getActivity()).load("http://openweathermap.org/img/w/" + weatherInfo.getWeather().get(0).getIcon() + ".png").into(imageViewWeatherIcon);
-            textViewLocation.setText(weatherInfo.getName());
+
+            textViewLocation.setText(location);
 
             double temp;
             if (weatherInfo.getMain() != null) {

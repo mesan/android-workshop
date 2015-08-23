@@ -4,7 +4,17 @@ import java.util.List;
 
 public class Forecast {
 
+    private City city;
+
     private List<WeatherInfo> list;
+
+    public City getCity() {
+        return city;
+    }
+
+    public void setCity(City city) {
+        this.city = city;
+    }
 
     public List<WeatherInfo> getList() {
         return list;

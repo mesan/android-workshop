@@ -55,7 +55,7 @@ public class ForecastActivity extends BaseActivity {
         }
     }
 
-    private void getCurrentWeather(String location) {
+    private void getCurrentWeather(final String location) {
 
         new CurrentWeatherTask(new ResponseListener<WeatherInfo>() {
             @Override
@@ -63,6 +63,7 @@ public class ForecastActivity extends BaseActivity {
                 System.out.println(weatherInfo);
                 Bundle bundle = new Bundle();
                 bundle.putParcelable(MiniForecastFragment.WEATHER_INFO, weatherInfo);
+                bundle.putString(LOCATION, weatherInfo.getName());
                 goToFragment(MiniForecastFragment.class, false, bundle);
             }
 

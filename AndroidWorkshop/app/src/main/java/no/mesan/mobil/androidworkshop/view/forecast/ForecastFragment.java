@@ -3,6 +3,7 @@ package no.mesan.mobil.androidworkshop.view.forecast;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -32,7 +33,7 @@ public class ForecastFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         view = inflater.inflate(R.layout.fragment_forecast, container, false);
 
-        location = getArguments().getString(SearchFragment.LOCATION_KEY, "Oslo");
+        location = getArguments().getString(ForecastActivity.LOCATION, "Oslo");
         forecastType = ForecastType.valueOf(getArguments().getString(SearchFragment.FORECAST_TYPE, ForecastType.FIVE.name()));
 
         initGui();
@@ -49,6 +50,7 @@ public class ForecastFragment extends Fragment {
             @Override
             public void onClick(WeatherInfo weatherInfo) {
                 Bundle bundle = new Bundle();
+                bundle.putString(ForecastActivity.LOCATION, location);
                 bundle.putParcelable(MiniForecastFragment.WEATHER_INFO, weatherInfo);
                 ((ForecastActivity) getActivity()).goToFragment(MiniForecastFragment.class, true, bundle);
             }
@@ -62,6 +64,7 @@ public class ForecastFragment extends Fragment {
             @Override
             public void success(Forecast weatherInfoList) {
                 adapter.setWeather(weatherInfoList.getList());
+                location = weatherInfoList.getCity().getName();
             }
 
             @Override
