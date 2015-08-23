@@ -5,27 +5,7 @@
     android:orientation="vertical"
     android:padding="10dp">
 
-    <RadioGroup
-        android:id="@+id/radioGroupSearchMode"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content">
-        <RadioButton
-            android:id="@+id/radioButtonCurrentWeather"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="@string/current_weather"
-            android:checked="true"/>
-        <RadioButton
-            android:id="@+id/radioButtonFiveDayForecast"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="@string/five_day_forecast"/>
-        <RadioButton
-            android:id="@+id/radioButton16DayForecast"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="@string/long_term_forecast"/>
-    </RadioGroup>
+
     <EditText
         android:id="@+id/editTextLocation"
         android:layout_width="match_parent"
@@ -38,11 +18,42 @@
         android:layout_height="wrap_content"
         android:text="@string/search"/>
 
+
+    <RadioGroup
+        android:id="@+id/radioGroupSearchMode"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="15dp"
+        android:orientation="horizontal">
+        <RadioButton
+            android:id="@+id/radioButtonCurrentWeather"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/current_weather"
+            android:checked="true"
+            android:layout_weight="1"/>
+        <RadioButton
+            android:id="@+id/radioButtonFiveDayForecast"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/five_day_forecast"
+            android:layout_weight="1"/>
+        <RadioButton
+            android:id="@+id/radioButton16DayForecast"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/long_term_forecast"
+            android:layout_weight="1"/>
+    </RadioGroup>
+
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="10dp"
+        android:layout_marginTop="15dp"
+        android:textStyle="bold"
+        android:textSize="18sp"
         android:text="@string/previous_searches"/>
+
     <android.support.v7.widget.RecyclerView
         android:id="@+id/recyclerViewLocations"
         android:layout_width="match_parent"

@@ -16,8 +16,8 @@
     <string name="location">Navn på sted eller adresse</string>
     <string name="search">Søk</string>
     <string name="previous_searches">Tidligere søk</string>
-    <string name="current_weather">Været akkurat nå</string>
-    <string name="five_day_forecast">Fem dagers varsel</string>
+    <string name="current_weather">Nå</string>
+    <string name="five_day_forecast">5-dagers</string>
     <string name="long_term_forecast">Langtidsvarsel</string>
 
     <string-array name="months">

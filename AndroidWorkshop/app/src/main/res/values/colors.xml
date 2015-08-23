@@ -4,4 +4,7 @@
     <color name="red">#cc0000</color>
     <color name="red_dark">#660000</color>
     <color name="black">#000000</color>
+    <color name="grey">#CCCCCC</color>
+
+    <color name="accentColor">#2196F3</color>
 </resources>
