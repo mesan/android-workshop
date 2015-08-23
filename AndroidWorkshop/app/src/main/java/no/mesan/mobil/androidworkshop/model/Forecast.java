@@ -2,9 +2,6 @@ package no.mesan.mobil.androidworkshop.model;
 
 import java.util.List;
 
-/**
- * Created by Thomas on 16.08.2015.
- */
 public class Forecast {
 
     private List<WeatherInfo> list;

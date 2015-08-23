@@ -9,8 +9,12 @@ import java.util.Locale;
 public class DateFormatter {
 
     public static String formatDate(DateTime dateTime) {
-        dateTime = dateTime.plusMonths(2);
         DateTimeFormatter dateTimeFormatter = DateTimeFormat.forPattern("dd. MMMM yyyy").withLocale(new Locale("nb", "NO"));
+        return dateTimeFormatter.print(dateTime);
+    }
+
+    public static String formatTime(DateTime dateTime) {
+        DateTimeFormatter dateTimeFormatter = DateTimeFormat.forPattern("HH:mm");
         return dateTimeFormatter.print(dateTime);
     }
 }
