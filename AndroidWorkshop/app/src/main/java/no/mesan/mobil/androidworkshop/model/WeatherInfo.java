@@ -16,6 +16,9 @@ public class WeatherInfo implements Parcelable {
     private Temp temp;
     private List<Weather> weather;
     private String name;
+    private double speed;
+    private int deg;
+    private Wind wind;
 
     public DateTime getDt() {
         return dt;
@@ -57,6 +60,30 @@ public class WeatherInfo implements Parcelable {
         this.name = name;
     }
 
+    public double getSpeed() {
+        return speed;
+    }
+
+    public void setSpeed(double speed) {
+        this.speed = speed;
+    }
+
+    public int getDeg() {
+        return deg;
+    }
+
+    public void setDeg(int deg) {
+        this.deg = deg;
+    }
+
+    public Wind getWind() {
+        return wind;
+    }
+
+    public void setWind(Wind wind) {
+        this.wind = wind;
+    }
+
     protected WeatherInfo(Parcel in) {
         dt = (DateTime) in.readValue(DateTime.class.getClassLoader());
         main = (WeatherMain) in.readValue(WeatherMain.class.getClassLoader());
@@ -68,6 +95,8 @@ public class WeatherInfo implements Parcelable {
             weather = null;
         }
         name = in.readString();
+        speed = in.readDouble();
+        deg = in.readInt();
     }
 
     @Override
@@ -87,6 +116,8 @@ public class WeatherInfo implements Parcelable {
             dest.writeList(weather);
         }
         dest.writeString(name);
+        dest.writeDouble(speed);
+        dest.writeInt(deg);
     }
 
     @SuppressWarnings("unused")
