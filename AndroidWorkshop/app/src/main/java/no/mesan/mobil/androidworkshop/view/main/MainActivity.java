@@ -10,10 +10,9 @@ import android.support.v7.widget.Toolbar;
 import android.util.Log;
 
 import no.mesan.mobil.androidworkshop.R;
-import no.mesan.mobil.androidworkshop.model.ForecastType;
 import no.mesan.mobil.androidworkshop.view.BaseActivity;
 import no.mesan.mobil.androidworkshop.view.NavigationDrawerFragment;
-import no.mesan.mobil.androidworkshop.view.forecast.ForecastActivity;
+
 
 public class MainActivity extends BaseActivity
         implements NavigationDrawerFragment.NavigationDrawerCallbacks {
@@ -61,26 +60,6 @@ public class MainActivity extends BaseActivity
         // Oppgave 7
     }
 
-    /* Hjelpemetode for å åpne et nytt fragment, med bundle med argumenter */
-    public void goToFragment(Class<? extends Fragment> fragment, Bundle bundle) {
-        FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
-
-        try {
-            Fragment fragmentInstance = fragment.newInstance();
-            fragmentInstance.setArguments(bundle);
-            transaction.replace(R.id.container, fragmentInstance, fragment.getName());
-            transaction.addToBackStack(null);
-            transaction.commitAllowingStateLoss();
-        } catch (Exception e) {
-            Log.e(getClass().getName(), "Failed to create fragment instance: ", e);
-        }
-    }
-
-    /* Hjelpemetode for å åpne et nytt fragment, uten bundle med argumenter*/
-    public void goToFragment(Class<? extends Fragment> fragment) {
-        goToFragment(fragment, null);
-    }
-
     public void onSectionAttached(int number) {
         switch (number) {
             case 1:
@@ -90,11 +69,5 @@ public class MainActivity extends BaseActivity
                 title = getString(R.string.title_section2);
                 break;
         }
-    }
-
-
-    public void goToForecastActivity(String location) {
-        // Oppgave 3 og oppgave 6.
-        // Gå til Activity for værvarsel. Send med stedet det ble søkt på
     }
 }

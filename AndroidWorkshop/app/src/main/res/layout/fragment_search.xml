@@ -5,29 +5,6 @@
     android:orientation="vertical"
     android:padding="10dp">
 
+    <!-- Oppgave 1a - Legg inn søkefelt og knapp -->
 
-    <EditText
-        android:id="@+id/editTextLocation"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:hint="@string/location"
-        android:textColor="@color/black"/>
-    <Button
-        android:id="@+id/buttonSearch"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="@string/search"/>
-
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="15dp"
-        android:textStyle="bold"
-        android:textSize="18sp"
-        android:text="@string/previous_searches"/>
-
-    <android.support.v7.widget.RecyclerView
-        android:id="@+id/recyclerViewLocations"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent" />
 </LinearLayout>
