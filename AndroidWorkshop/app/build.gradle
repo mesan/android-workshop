@@ -18,11 +18,7 @@ android {
         }
     }
 
-    sourceSets {
-        test {
-            setRoot('test')
-        }
-    }
+
 }
 
 dependencies {
