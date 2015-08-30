@@ -29,7 +29,6 @@ public class ForecastActivity extends BaseActivity {
         // to be our ActionBar
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
-        //toolbar.setTitle(title);
 
         ActionBar actionBar = getSupportActionBar();
         actionBar.setHomeButtonEnabled(true);
@@ -39,8 +38,6 @@ public class ForecastActivity extends BaseActivity {
         upArrow.setColorFilter(getResources().getColor(android.R.color.white), PorterDuff.Mode.SRC_ATOP);
         getSupportActionBar().setHomeAsUpIndicator(upArrow);
 
-
-        // Oppgave 3 + 6
         if (getIntent() != null) {
             String location = getIntent().getStringExtra(LOCATION);
             goToFragment(ForecastFragment.class, false, getIntent().getExtras());
