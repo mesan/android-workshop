@@ -33,15 +33,12 @@ public class MainActivity extends BaseActivity
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        // Your normal setup. Blah blah ...
-
-        // As we're using a Toolbar, we should retrieve it and set it
-        // to be our ActionBar
+        // Set our toolbar as ActionBar
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
         toolbar.setTitle(title);
 
-        // Now retrieve the DrawerLayout so that we can set the status bar color.
+        // Set the status bar color.
         // This only takes effect on Lollipop, or when using translucentStatusBar
         // on KitKat.
         DrawerLayout drawerLayout = (DrawerLayout) findViewById(R.id.drawer_layout);
@@ -57,7 +54,6 @@ public class MainActivity extends BaseActivity
                 (DrawerLayout) findViewById(R.id.drawer_layout));
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setHomeButtonEnabled(true);
-
     }
 
     @Override
@@ -96,6 +92,7 @@ public class MainActivity extends BaseActivity
         }
     }
 
+    // Oppgave 3 og oppgave 6
     public void goToForecastActivity(String location, ForecastType forecastType) {
         Intent intent = new Intent(this, ForecastActivity.class);
         intent.putExtra(ForecastActivity.LOCATION, location);

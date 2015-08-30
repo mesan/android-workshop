@@ -66,6 +66,7 @@ public class SearchFragment extends Fragment {
         recyclerViewLocations = (RecyclerView) view.findViewById(R.id.recyclerViewLocations);
     }
 
+    // Oppgave 3 og 6
     private void initAdapters() {
         LinkedHashSet<String> locations = getLocationHistory();
         adapter = new LocationAdapter(locations, new LocationItemClickListener() {
@@ -74,6 +75,7 @@ public class SearchFragment extends Fragment {
                 showWeatherForLocation(location);
             }
         });
+
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(getActivity());
         linearLayoutManager.setOrientation(LinearLayoutManager.VERTICAL);
         recyclerViewLocations.setLayoutManager(linearLayoutManager);
@@ -86,6 +88,9 @@ public class SearchFragment extends Fragment {
     }
 
     private void initListeners() {
+
+        // Oppgave 3 - Lage lytter for søkeknapp
+        // Oppgave 6 - Endre lytter for søkeknapp
          buttonSearch.setOnClickListener(new View.OnClickListener() {
              @Override
              public void onClick(View view) {
@@ -95,11 +100,11 @@ public class SearchFragment extends Fragment {
                  hideKeyboard();
 
                  showWeatherForLocation(location);
-
              }
          });
     }
 
+    // Oppgave 3 + 6
     private void showWeatherForLocation(String location) {
         ForecastType forecastType;
 
