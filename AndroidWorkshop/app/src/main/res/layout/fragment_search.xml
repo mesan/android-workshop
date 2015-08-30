@@ -18,27 +18,6 @@
         android:layout_height="wrap_content"
         android:text="@string/search"/>
 
-
-    <RadioGroup
-        android:id="@+id/radioGroupSearchMode"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="15dp"
-        android:orientation="horizontal">
-        <RadioButton
-            android:id="@+id/radioButtonCurrentWeather"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/current_weather"
-            android:layout_weight="1" />
-        <RadioButton
-            android:id="@+id/radioButtonFiveDayForecast"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/five_day_forecast"
-            android:layout_weight="1"/>
-    </RadioGroup>
-
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"

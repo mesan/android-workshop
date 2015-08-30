@@ -15,22 +15,17 @@ import android.view.ViewGroup;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.RadioButton;
 import android.widget.RadioGroup;
 
 import java.util.HashSet;
 import java.util.LinkedHashSet;
 
 import no.mesan.mobil.androidworkshop.R;
-import no.mesan.mobil.androidworkshop.model.ForecastType;
 import no.mesan.mobil.androidworkshop.view.DividerItemDecoration;
 
 public class SearchFragment extends Fragment {
     private static final String PREFERENCES_NAME = "Preferences";
-    public static final String LOCATION_KEY = "locationKey";
     public static final String FORECAST_TYPE = "forecastType";
-
-    private RadioGroup radioGroupSearchMode;
 
     private EditText editTextLocation;
     private Button buttonSearch;
@@ -59,8 +54,6 @@ public class SearchFragment extends Fragment {
     }
 
     private void initViews(View view) {
-        radioGroupSearchMode = (RadioGroup) view.findViewById(R.id.radioGroupSearchMode);
-
         editTextLocation = (EditText) view.findViewById(R.id.editTextLocation);
         buttonSearch = (Button) view.findViewById(R.id.buttonSearch);
         recyclerViewLocations = (RecyclerView) view.findViewById(R.id.recyclerViewLocations);
