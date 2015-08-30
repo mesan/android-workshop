@@ -1,6 +1,5 @@
 package no.mesan.mobil.androidworkshop.view.main;
 
-import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
@@ -10,10 +9,8 @@ import android.support.v7.widget.Toolbar;
 import android.util.Log;
 
 import no.mesan.mobil.androidworkshop.R;
-import no.mesan.mobil.androidworkshop.model.ForecastType;
 import no.mesan.mobil.androidworkshop.view.BaseActivity;
 import no.mesan.mobil.androidworkshop.view.NavigationDrawerFragment;
-import no.mesan.mobil.androidworkshop.view.forecast.ForecastActivity;
 
 public class MainActivity extends BaseActivity
         implements NavigationDrawerFragment.NavigationDrawerCallbacks {

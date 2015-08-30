@@ -6,6 +6,8 @@ import android.content.SharedPreferences;
 import android.graphics.PorterDuff;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
+import android.support.design.widget.CoordinatorLayout;
+import android.support.design.widget.Snackbar;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -32,6 +34,7 @@ public class SearchFragment extends Fragment {
 
     private SharedPreferences sharedPreferences;
     private LocationAdapter adapter;
+    private CoordinatorLayout coordinatorLayoutView;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -43,8 +46,8 @@ public class SearchFragment extends Fragment {
         initViews(view);
 
         /* Oppgave 2b
-         * Kommenter denne inn igjen når recyclerviewet er bundet opp */
-        initAdapters();
+         * Kommenter denne inn igjen når recyclerviewet er bundet opp i initViews */
+        // initAdapters();
         initListeners();
 
         return view;
@@ -56,6 +59,8 @@ public class SearchFragment extends Fragment {
     }
 
     private void initViews(View view) {
+        coordinatorLayoutView = (CoordinatorLayout) view.findViewById(R.id.snackbarPosition);
+
         editTextLocation = (EditText) view.findViewById(R.id.editTextLocation);
         buttonSearch = (Button) view.findViewById(R.id.buttonSearch);
 
@@ -87,13 +92,18 @@ public class SearchFragment extends Fragment {
     }
 
     private void initListeners() {
-        // Oppgave 3 - Lage lytter for søkeknapp
-        // Oppgave 6 - Endre lytter for søkeknapp
-    }
+        // Oppgave 1b
+        buttonSearch.setOnClickListener(new View.OnClickListener() {
 
-    // Oppgave 3 + 6
-    private void showWeatherForLocation(String location) {
-        // Gå til listesiden
+            @Override
+            public void onClick(View view) {
+                String location = editTextLocation.getText().toString();
+                Snackbar.make(coordinatorLayoutView, "Du har søkt på " + location,
+                        Snackbar.LENGTH_LONG).show();
+                hideKeyboard();
+                editTextLocation.setText("");
+            }
+        });
     }
 
     private void saveLocations() {
@@ -106,8 +116,10 @@ public class SearchFragment extends Fragment {
         // Check if no view has focus:
         View view = getActivity().getCurrentFocus();
         if (view != null) {
-            InputMethodManager inputManager = (InputMethodManager) getActivity().getSystemService(Context.INPUT_METHOD_SERVICE);
-            inputManager.hideSoftInputFromWindow(view.getWindowToken(), InputMethodManager.HIDE_NOT_ALWAYS);
+            InputMethodManager inputManager = (InputMethodManager) getActivity()
+                    .getSystemService(Context.INPUT_METHOD_SERVICE);
+            inputManager.hideSoftInputFromWindow(view.getWindowToken(),
+                    InputMethodManager.HIDE_NOT_ALWAYS);
         }
     }
 }
