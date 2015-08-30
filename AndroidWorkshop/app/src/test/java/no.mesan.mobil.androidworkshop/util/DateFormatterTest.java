@@ -2,7 +2,10 @@ package no.mesan.mobil.androidworkshop.util;
 
 import junit.framework.Assert;
 
+import net.danlew.android.joda.JodaTimeAndroid;
+
 import org.joda.time.DateTime;
+import org.junit.Before;
 import org.junit.Test;
 
 /* For useful information, visit

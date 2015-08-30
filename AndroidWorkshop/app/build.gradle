@@ -31,4 +31,7 @@ dependencies {
     compile 'net.danlew:android.joda:2.7.1'
     testCompile 'junit:junit:4.12'
 
+    // To avoid android-context when running unit tests
+    testCompile 'joda-time:joda-time:2.8.2'
+
 }
