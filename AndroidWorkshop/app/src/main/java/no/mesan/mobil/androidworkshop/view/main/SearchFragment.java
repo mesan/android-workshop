@@ -41,6 +41,9 @@ public class SearchFragment extends Fragment {
         View view = inflater.inflate(R.layout.fragment_search, container, false);
 
         initViews(view);
+
+        /* Oppgave 2b
+         * Kommenter denne inn igjen når recyclerviewet er bundet opp */
         initAdapters();
         initListeners();
 
@@ -55,7 +58,9 @@ public class SearchFragment extends Fragment {
     private void initViews(View view) {
         editTextLocation = (EditText) view.findViewById(R.id.editTextLocation);
         buttonSearch = (Button) view.findViewById(R.id.buttonSearch);
-        recyclerViewLocations = (RecyclerView) view.findViewById(R.id.recyclerViewLocations);
+
+        // Oppgave 2b Koble opp recyclerview
+
     }
 
     // Oppgave 3 og 6
@@ -70,8 +75,10 @@ public class SearchFragment extends Fragment {
 
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(getActivity());
         linearLayoutManager.setOrientation(LinearLayoutManager.VERTICAL);
+
         recyclerViewLocations.setLayoutManager(linearLayoutManager);
         recyclerViewLocations.setAdapter(adapter);
+
         Drawable drawable = getResources().getDrawable(R.drawable.abc_list_divider_mtrl_alpha);
 
         drawable.setColorFilter(getResources().getColor(R.color.red_dark), PorterDuff.Mode.SRC_IN);
