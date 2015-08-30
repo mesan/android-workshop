@@ -37,7 +37,6 @@ public class ForecastActivity extends BaseActivity {
         upArrow.setColorFilter(getResources().getColor(android.R.color.white), PorterDuff.Mode.SRC_ATOP);
         getSupportActionBar().setHomeAsUpIndicator(upArrow);
 
-
         if (getIntent() != null) {
             String location = getIntent().getStringExtra(LOCATION);
             String forecastTypeName = getIntent().getStringExtra(FORECAST_TYPE);
