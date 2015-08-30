@@ -74,7 +74,7 @@ public class MiniForecastFragment extends Fragment {
             }
 
             double speed;
-            int deg;
+            double deg;
             Wind wind = weatherInfo.getWind();
             if (wind != null) {
                 speed = wind.getSpeed();
@@ -91,7 +91,7 @@ public class MiniForecastFragment extends Fragment {
             textViewWindSpeed.setText(speed + " m/s");
 
             Log.d("Degree", "" + deg);
-            imageViewWindDirection.animate().rotation(deg).setDuration(1000).setInterpolator(new OvershootInterpolator());
+            imageViewWindDirection.animate().rotation((int) deg).setDuration(1000).setInterpolator(new OvershootInterpolator());
         }
     }
 }
