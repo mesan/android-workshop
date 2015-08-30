@@ -64,7 +64,7 @@ public class SearchFragment extends Fragment {
         adapter = new LocationAdapter(locations, new LocationItemClickListener() {
             @Override
             public void onClick(String location) {
-                showWeatherForLocation(location);
+                // Oppgave 3 - gå til listesiden
             }
         });
 
@@ -80,29 +80,13 @@ public class SearchFragment extends Fragment {
     }
 
     private void initListeners() {
-
         // Oppgave 3 - Lage lytter for søkeknapp
         // Oppgave 6 - Endre lytter for søkeknapp
-         buttonSearch.setOnClickListener(new View.OnClickListener() {
-             @Override
-             public void onClick(View view) {
-                 String location = editTextLocation.getText().toString();
-
-                 // Make sure location string is not empty
-                 if (!location.isEmpty()) {
-                     adapter.addLocation(location);
-                     saveLocations();
-                     hideKeyboard();
-
-                     showWeatherForLocation(location);
-                 }
-             }
-         });
     }
 
     // Oppgave 3 + 6
     private void showWeatherForLocation(String location) {
-        ((MainActivity) getActivity()).goToForecastActivity(location);
+        // Gå til listesiden
     }
 
     private void saveLocations() {

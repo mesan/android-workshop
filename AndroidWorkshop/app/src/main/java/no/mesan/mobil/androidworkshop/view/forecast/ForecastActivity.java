@@ -7,18 +7,11 @@ import android.support.v7.app.ActionBar;
 import android.support.v7.widget.Toolbar;
 
 import no.mesan.mobil.androidworkshop.R;
-import no.mesan.mobil.androidworkshop.model.ForecastType;
-import no.mesan.mobil.androidworkshop.model.WeatherInfo;
-import no.mesan.mobil.androidworkshop.task.CurrentWeatherTask;
-import no.mesan.mobil.androidworkshop.task.ResponseListener;
 import no.mesan.mobil.androidworkshop.view.BaseActivity;
 
 public class ForecastActivity extends BaseActivity {
 
     public static final String LOCATION = "location";
-    public static final String FORECAST_TYPE = "forecastType";
-
-    public static final String WEATHER_INFO = "weatherInfo";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -39,11 +32,8 @@ public class ForecastActivity extends BaseActivity {
         upArrow.setColorFilter(getResources().getColor(android.R.color.white), PorterDuff.Mode.SRC_ATOP);
         getSupportActionBar().setHomeAsUpIndicator(upArrow);
 
-
-        // Oppgave 3 + 6
         if (getIntent() != null) {
-            String location = getIntent().getStringExtra(LOCATION);
-            goToFragment(ForecastFragment.class, false, getIntent().getExtras());
+            // Oppgave 3 + 6 - hent ut data, send dem videre til fragment
         }
     }
 }
