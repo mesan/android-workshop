@@ -5,7 +5,7 @@
     android:orientation="vertical"
     android:padding="10dp">
 
-    <!-- Oppgave 1a - Legg inn søkefelt og knapp -->
+    <!-- Oppgave 1b - Legg inn søkefelt og knapp -->
 
     <android.support.design.widget.CoordinatorLayout
         android:layout_width="match_parent"
