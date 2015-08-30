@@ -99,25 +99,14 @@ public class SearchFragment extends Fragment {
                  saveLocations();
                  hideKeyboard();
 
-                 showWeatherForLocation(location);
+                showWeatherForLocation(location);
              }
          });
     }
 
     // Oppgave 3 + 6
     private void showWeatherForLocation(String location) {
-        ForecastType forecastType;
-
-        switch (radioGroupSearchMode.getCheckedRadioButtonId()) {
-            case R.id.radioButtonCurrentWeather:
-                forecastType = ForecastType.NOW;
-                break;
-            default:
-                forecastType = ForecastType.FIVE_DAY;
-                break;
-        }
-
-        ((MainActivity) getActivity()).goToForecastActivity(location, forecastType);
+        ((MainActivity) getActivity()).goToForecastActivity(location);
     }
 
     private void saveLocations() {

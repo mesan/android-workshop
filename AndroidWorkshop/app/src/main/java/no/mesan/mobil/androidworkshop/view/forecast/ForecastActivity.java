@@ -38,20 +38,10 @@ public class ForecastActivity extends BaseActivity {
         getSupportActionBar().setHomeAsUpIndicator(upArrow);
 
 
+        // Oppgave 3 + 6
         if (getIntent() != null) {
             String location = getIntent().getStringExtra(LOCATION);
-            String forecastTypeName = getIntent().getStringExtra(FORECAST_TYPE);
-            if (forecastTypeName != null) {
-                ForecastType forecastType = ForecastType.valueOf(forecastTypeName);
-                switch (forecastType) {
-                    case NOW:
-                        getCurrentWeather(location);
-                        break;
-                    default:
-                        goToFragment(ForecastFragment.class, false, getIntent().getExtras());
-                        break;
-                }
-            }
+            goToFragment(ForecastFragment.class, false, getIntent().getExtras());
         }
     }
 
