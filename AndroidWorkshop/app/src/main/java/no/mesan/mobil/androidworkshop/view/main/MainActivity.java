@@ -92,7 +92,7 @@ public class MainActivity extends BaseActivity
         }
     }
 
-    // Oppgave 3 og oppgave 6
+    // Oppgave 3
     public void goToForecastActivity(String location) {
         Intent intent = new Intent(this, ForecastActivity.class);
         intent.putExtra(ForecastActivity.LOCATION, location);

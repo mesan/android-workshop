@@ -83,18 +83,11 @@ public class ForecastAdapter extends RecyclerView.Adapter<ForecastAdapter.ViewHo
         notifyDataSetChanged();
     }
 
-    public class ViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
+    public class ViewHolder extends RecyclerView.ViewHolder {
         public ViewHolder(View itemView) {
             super(itemView);
             // Oppgave 4c Initaliser views fra forecast_item
 
-            itemView.setOnClickListener(this);
-        }
-
-
-        @Override
-        public void onClick(View view) {
-            // Oppgave 5c
         }
     }
 }
