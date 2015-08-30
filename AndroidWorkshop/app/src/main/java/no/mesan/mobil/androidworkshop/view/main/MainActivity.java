@@ -10,13 +10,11 @@ import android.support.v7.widget.Toolbar;
 import android.util.Log;
 
 import no.mesan.mobil.androidworkshop.R;
-import no.mesan.mobil.androidworkshop.model.ForecastType;
 import no.mesan.mobil.androidworkshop.view.BaseActivity;
 import no.mesan.mobil.androidworkshop.view.NavigationDrawerFragment;
 import no.mesan.mobil.androidworkshop.view.forecast.ForecastActivity;
 
-public class MainActivity extends BaseActivity
-        implements NavigationDrawerFragment.NavigationDrawerCallbacks {
+public class MainActivity extends BaseActivity {
 
     /**
      * Fragment managing the behaviors, interactions and presentation of the navigation drawer.
@@ -56,11 +54,6 @@ public class MainActivity extends BaseActivity
         getSupportActionBar().setHomeButtonEnabled(true);
     }
 
-    @Override
-    public void onNavigationDrawerItemSelected(int position) {
-        // Oppgave 7
-    }
-
     /* Hjelpemetode for å åpne et nytt fragment, med bundle med argumenter */
     public void goToFragment(Class<? extends Fragment> fragment, Bundle bundle) {
         FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
@@ -92,7 +85,7 @@ public class MainActivity extends BaseActivity
         }
     }
 
-    // Oppgave 3 og oppgave 6
+    // Oppgave 6
     public void goToForecastActivity(String location) {
         Intent intent = new Intent(this, ForecastActivity.class);
         intent.putExtra(ForecastActivity.LOCATION, location);

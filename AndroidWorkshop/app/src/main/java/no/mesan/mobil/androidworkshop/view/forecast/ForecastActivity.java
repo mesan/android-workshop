@@ -38,7 +38,7 @@ public class ForecastActivity extends BaseActivity {
         getSupportActionBar().setHomeAsUpIndicator(upArrow);
 
 
-        // Oppgave 3 + 6
+        // Oppgave 6
         if (getIntent() != null) {
             String location = getIntent().getStringExtra(LOCATION);
             goToFragment(ForecastFragment.class, false, getIntent().getExtras());

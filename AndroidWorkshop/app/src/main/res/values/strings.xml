@@ -37,10 +37,4 @@
     
     <string name="title_activity_forecast">ForecastActivity</string>
     <string name="title_activity_about_app">AboutAppActivity</string>
-
-    <!--Til oppgave 7-->
-    <string name="title_about_app">Android Workshop</string>
-    <string name="about_app">Denne appen er laget som en del av Android-kurset i Mesaninen. Appen viser værvarselet for et sted akkurat nå eller for 5 dager fremover.</string>
-    <string name="copyright">© Faggruppen for mobil, 2015</string>
-    <string name="mobile_content_description">Bilde som representerer faggruppen for mobil</string>
 </resources>
