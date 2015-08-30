@@ -13,7 +13,7 @@
         android:layout_height="wrap_content"
         android:textSize="@dimen/abc_text_size_large_material"
         android:textStyle="bold"
-        android:text="@string/android_workshop"/>
+        android:text="@string/title_about_app"/>
     <TextView android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="@string/about_app" />

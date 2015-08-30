@@ -72,27 +72,10 @@ public class MainActivity extends BaseActivity
 
     @Override
     public void onNavigationDrawerItemSelected(int position) {
-        switch (position) {
-            case 0:
-                goToFragment(SearchFragment.class);
-                break;
-            case 1:
-                goToFragment(AboutAppFragment.class);
-                break;
-        }
+        // Oppgave 7
     }
 
-    public void onSectionAttached(int number) {
-        switch (number) {
-            case 1:
-                title = getString(R.string.title_section1);
-                break;
-            case 2:
-                title = getString(R.string.title_section2);
-                break;
-        }
-    }
-
+    /* Hjelpemetode for å åpne et nytt fragment, med bundle med argumenter */
     public void goToFragment(Class<? extends Fragment> fragment, Bundle bundle) {
         FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
 
@@ -107,8 +90,20 @@ public class MainActivity extends BaseActivity
         }
     }
 
+    /* Hjelpemetode for å åpne et nytt fragment, uten bundle med argumenter*/
     public void goToFragment(Class<? extends Fragment> fragment) {
         goToFragment(fragment, null);
+    }
+
+    public void onSectionAttached(int number) {
+        switch (number) {
+            case 1:
+                title = getString(R.string.title_section1);
+                break;
+            case 2:
+                title = getString(R.string.title_section2);
+                break;
+        }
     }
 
     public void goToForecastActivity(String location, ForecastType forecastType) {
