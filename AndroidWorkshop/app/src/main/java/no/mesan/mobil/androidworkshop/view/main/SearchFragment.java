@@ -88,11 +88,15 @@ public class SearchFragment extends Fragment {
              @Override
              public void onClick(View view) {
                  String location = editTextLocation.getText().toString();
-                 adapter.addLocation(location);
-                 saveLocations();
-                 hideKeyboard();
 
-                showWeatherForLocation(location);
+                 // Make sure location string is not empty
+                 if (!location.isEmpty()) {
+                     adapter.addLocation(location);
+                     saveLocations();
+                     hideKeyboard();
+
+                     showWeatherForLocation(location);
+                 }
              }
          });
     }
