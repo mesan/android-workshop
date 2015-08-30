@@ -9,6 +9,7 @@ import android.view.ViewGroup;
 
 import no.mesan.mobil.androidworkshop.R;
 
+// Oppgave 7
 public class AboutAppFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
