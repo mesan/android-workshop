@@ -32,6 +32,7 @@ public class ForecastFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         view = inflater.inflate(R.layout.fragment_forecast, container, false);
 
+        // Oppgave 3c Ta imot data
         location = getArguments().getString(ForecastActivity.LOCATION, "Oslo");
         forecastType = ForecastType.valueOf(getArguments().getString(SearchFragment.FORECAST_TYPE, ForecastType.FIVE_DAY.name()));
 
@@ -42,6 +43,8 @@ public class ForecastFragment extends Fragment {
     }
 
     private void initGui() {
+        // Oppgave 3d Lag tekstfelt og fyll inn stedet brukeren har søkt etter
+
         // Oppgave 4a
         recyclerView = (RecyclerView) view.findViewById(R.id.recyclerViewForecast);
         recyclerView.setLayoutManager(new LinearLayoutManager(view.getContext()));

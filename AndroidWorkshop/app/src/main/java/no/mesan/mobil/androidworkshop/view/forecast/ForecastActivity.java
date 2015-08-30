@@ -37,8 +37,12 @@ public class ForecastActivity extends BaseActivity {
         upArrow.setColorFilter(getResources().getColor(android.R.color.white), PorterDuff.Mode.SRC_ATOP);
         getSupportActionBar().setHomeAsUpIndicator(upArrow);
 
+        // Oppgave 3c - Hent ut data fra intent. Send data videre til fragmentet.
         if (getIntent() != null) {
+            // Oppgave 3
             String location = getIntent().getStringExtra(LOCATION);
+
+            // Oppgave 6
             String forecastTypeName = getIntent().getStringExtra(FORECAST_TYPE);
             if (forecastTypeName != null) {
                 ForecastType forecastType = ForecastType.valueOf(forecastTypeName);

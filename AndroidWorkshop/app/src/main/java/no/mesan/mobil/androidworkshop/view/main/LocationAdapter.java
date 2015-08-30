@@ -41,6 +41,7 @@ public class LocationAdapter extends RecyclerView.Adapter<LocationAdapter.ViewHo
 
         @Override
         public void onClick(View view) {
+            // Oppgave 3e - Gå til listesiden ved klikk på et element i lista
             locationItemClickListener.onClick(textViewLocation.getText().toString());
         }
     }
