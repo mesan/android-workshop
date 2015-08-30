@@ -6,23 +6,13 @@ import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v4.widget.DrawerLayout;
-import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
-import android.view.LayoutInflater;
-import android.view.View;
-import android.view.ViewGroup;
-import android.widget.TextView;
-
-import java.util.ArrayList;
-import java.util.LinkedHashSet;
-import java.util.List;
 
 import no.mesan.mobil.androidworkshop.R;
 import no.mesan.mobil.androidworkshop.model.ForecastType;
 import no.mesan.mobil.androidworkshop.view.BaseActivity;
 import no.mesan.mobil.androidworkshop.view.NavigationDrawerFragment;
-import no.mesan.mobil.androidworkshop.view.about.AboutAppFragment;
 import no.mesan.mobil.androidworkshop.view.forecast.ForecastActivity;
 
 public class MainActivity extends BaseActivity
