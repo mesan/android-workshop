@@ -42,6 +42,7 @@ public class ForecastFragment extends Fragment {
     }
 
     private void initGui() {
+        // Oppgave 4a
         recyclerView = (RecyclerView) view.findViewById(R.id.recyclerViewForecast);
         recyclerView.setLayoutManager(new LinearLayoutManager(view.getContext()));
 
@@ -52,6 +53,7 @@ public class ForecastFragment extends Fragment {
 
     private void initData() {
 
+        // Oppgave 4d - Bruk ForecastTask til å hente værdata
         new ForecastTask(new ResponseListener<Forecast>() {
             @Override
             public void success(Forecast weatherInfoList) {

@@ -64,10 +64,18 @@ public class ForecastAdapter extends RecyclerView.Adapter<ForecastAdapter.ViewHo
             temp = weatherInfo.getTemp().getDay();
         }
 
-        Picasso.with(context).load("http://openweathermap.org/img/w/" + weather.getIcon() + ".png").into(viewHolder.imageViewForecast);
+        String iconUrl = "http://openweathermap.org/img/w/" + weather.getIcon() + ".png";
+        String description = weather.getDescription();
+
+        /* Oppgave 4c
+         * Koden over henter ut en del informasjon fra weatherInfo-objektet.
+         * Vis frem denne informasjonen i gui.
+         * Bruk klassene DateFormatter og TemperatureFormatter til å formattere teksten for dateTime og temp.
+         */
+        Picasso.with(context).load(iconUrl).into(viewHolder.imageViewForecast);
         viewHolder.textViewTemperature.setText(TemperatureFormatter.format(temp));
         viewHolder.textViewWhen.setText("Kl " + dateTime.getHourOfDay() + (shouldShowDate ? " - " + DateFormatter.formatDate(dateTime) : ""));
-        viewHolder.textViewWind.setText(weather.getDescription());
+        viewHolder.textViewDescription.setText(description);
     }
 
     @Override
@@ -75,6 +83,7 @@ public class ForecastAdapter extends RecyclerView.Adapter<ForecastAdapter.ViewHo
         return weatherList.size();
     }
 
+    // Brukes i oppgave 4e
     public void setWeather(List<WeatherInfo> weatherList) {
         this.weatherList.clear();
         this.weatherList.addAll(weatherList);
@@ -86,14 +95,14 @@ public class ForecastAdapter extends RecyclerView.Adapter<ForecastAdapter.ViewHo
         public ImageView imageViewForecast;
         public TextView textViewWhen;
         public TextView textViewTemperature;
-        public TextView textViewWind;
+        public TextView textViewDescription;
 
         public ViewHolder(View itemView) {
             super(itemView);
             imageViewForecast = (ImageView) itemView.findViewById(R.id.imageViewForecast);
             textViewWhen = (TextView) itemView.findViewById(R.id.textViewWhen);
             textViewTemperature = (TextView) itemView.findViewById(R.id.textViewTemperature);
-            textViewWind = (TextView) itemView.findViewById(R.id.textViewWind);
+            textViewDescription = (TextView) itemView.findViewById(R.id.textViewDescription);
 
             itemView.setOnClickListener(this);
         }
