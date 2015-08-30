@@ -81,12 +81,6 @@ public class SearchFragment extends Fragment {
 
     private void initListeners() {
         // Oppgave 3 - Lage lytter for søkeknapp
-        // Oppgave 6 - Endre lytter for søkeknapp
-    }
-
-    // Oppgave 3 + 6
-    private void showWeatherForLocation(String location) {
-        // Gå til listesiden
     }
 
     private void saveLocations() {

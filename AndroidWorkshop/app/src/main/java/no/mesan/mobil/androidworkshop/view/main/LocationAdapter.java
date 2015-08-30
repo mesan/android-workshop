@@ -41,7 +41,8 @@ public class LocationAdapter extends RecyclerView.Adapter<LocationAdapter.ViewHo
 
         @Override
         public void onClick(View view) {
-            locationItemClickListener.onClick(textViewLocation.getText().toString());
+            // Oppgave 3e
+
         }
     }
 

@@ -6,6 +6,6 @@
     android:background="@android:color/white"
     android:clickable="true">
 
-    <!-- Oppgave 4b - Legg til RecyclerView -->
+    <!-- Oppgave 3d - Legg til TextView -->
 
 </LinearLayout>

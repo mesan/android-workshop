@@ -22,7 +22,6 @@ public class ForecastActivity extends BaseActivity {
         // to be our ActionBar
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
-        //toolbar.setTitle(title);
 
         ActionBar actionBar = getSupportActionBar();
         actionBar.setHomeButtonEnabled(true);
@@ -33,7 +32,7 @@ public class ForecastActivity extends BaseActivity {
         getSupportActionBar().setHomeAsUpIndicator(upArrow);
 
         if (getIntent() != null) {
-            // Oppgave 3 + 6 - hent ut data, send dem videre til fragment
+            // Oppgave 3 - hent ut data, send dem videre til fragment
         }
     }
 }

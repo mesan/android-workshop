@@ -19,11 +19,6 @@ import no.mesan.mobil.androidworkshop.view.main.SearchFragment;
 
 public class ForecastFragment extends Fragment {
 
-    private RecyclerView recyclerView;
-    private ForecastAdapter adapter;
-
-    private String location;
-
     private View view;
 
     @Nullable
@@ -31,21 +26,15 @@ public class ForecastFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         view = inflater.inflate(R.layout.fragment_forecast, container, false);
 
-        location = getArguments().getString(ForecastActivity.LOCATION, "Oslo");
+        // Oppgave 3c - Ta imot data
 
-        initGui();
-        initData();
+        initViews();
 
         return view;
     }
 
-    private void initGui() {
-        // Oppgave 4b - Lag recyclerview med adapter
-
-    }
-
-    private void initData() {
-        // Oppgave 4d - Bruk ForecastTask til å hente værdata
+    private void initViews() {
+        // Oppgave 3d initialiser tekstfelt og sett tekst
 
     }
 }
