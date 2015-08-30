@@ -18,7 +18,7 @@
         android:layout_height="wrap_content"
         android:text="@string/search"/>
 
-
+    <!-- Oppgave 6 -->
     <RadioGroup
         android:id="@+id/radioGroupSearchMode"
         android:layout_width="match_parent"

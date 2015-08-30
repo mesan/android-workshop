@@ -59,11 +59,12 @@ public class SearchFragment extends Fragment {
     }
 
     private void initViews(View view) {
-        radioGroupSearchMode = (RadioGroup) view.findViewById(R.id.radioGroupSearchMode);
-
         editTextLocation = (EditText) view.findViewById(R.id.editTextLocation);
         buttonSearch = (Button) view.findViewById(R.id.buttonSearch);
         recyclerViewLocations = (RecyclerView) view.findViewById(R.id.recyclerViewLocations);
+
+        // Oppgave 6
+        radioGroupSearchMode = (RadioGroup) view.findViewById(R.id.radioGroupSearchMode);
     }
 
     // Oppgave 3 og 6
