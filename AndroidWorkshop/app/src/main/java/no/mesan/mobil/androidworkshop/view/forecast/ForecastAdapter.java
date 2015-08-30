@@ -2,7 +2,6 @@ package no.mesan.mobil.androidworkshop.view.forecast;
 
 import android.content.Context;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -14,7 +13,6 @@ import com.squareup.picasso.Picasso;
 import org.joda.time.DateTime;
 
 import java.util.ArrayList;
-import java.util.LinkedHashSet;
 import java.util.List;
 
 import no.mesan.mobil.androidworkshop.R;
@@ -22,7 +20,6 @@ import no.mesan.mobil.androidworkshop.model.Weather;
 import no.mesan.mobil.androidworkshop.model.WeatherInfo;
 import no.mesan.mobil.androidworkshop.util.DateFormatter;
 import no.mesan.mobil.androidworkshop.util.TemperatureFormatter;
-import no.mesan.mobil.androidworkshop.view.main.LocationItemClickListener;
 
 public class ForecastAdapter extends RecyclerView.Adapter<ForecastAdapter.ViewHolder> {
 
@@ -105,8 +102,6 @@ public class ForecastAdapter extends RecyclerView.Adapter<ForecastAdapter.ViewHo
         @Override
         public void onClick(View view) {
             // Oppgave 5c
-            int position = getAdapterPosition();
-            forecastClickListener.onClick(weatherList.get(position));
         }
     }
 }

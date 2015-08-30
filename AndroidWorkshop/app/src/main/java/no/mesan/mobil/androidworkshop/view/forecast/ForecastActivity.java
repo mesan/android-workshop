@@ -18,6 +18,8 @@ public class ForecastActivity extends BaseActivity {
     public static final String LOCATION = "location";
     public static final String FORECAST_TYPE = "forecastType";
 
+    public static final String WEATHER_INFO = "weatherInfo";
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -43,24 +45,5 @@ public class ForecastActivity extends BaseActivity {
             String location = getIntent().getStringExtra(LOCATION);
             goToFragment(ForecastFragment.class, false, getIntent().getExtras());
         }
-    }
-
-    private void getCurrentWeather(final String location) {
-
-        new CurrentWeatherTask(new ResponseListener<WeatherInfo>() {
-            @Override
-            public void success(WeatherInfo weatherInfo) {
-                System.out.println(weatherInfo);
-                Bundle bundle = new Bundle();
-                bundle.putParcelable(MiniForecastFragment.WEATHER_INFO, weatherInfo);
-                bundle.putString(LOCATION, weatherInfo.getName());
-                goToFragment(MiniForecastFragment.class, false, bundle);
-            }
-
-            @Override
-            public void error() {
-
-            }
-        }).execute(location);
     }
 }

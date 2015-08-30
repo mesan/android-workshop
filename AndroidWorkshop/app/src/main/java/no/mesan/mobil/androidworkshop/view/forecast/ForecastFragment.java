@@ -45,15 +45,8 @@ public class ForecastFragment extends Fragment {
         recyclerView = (RecyclerView) view.findViewById(R.id.recyclerViewForecast);
         recyclerView.setLayoutManager(new LinearLayoutManager(view.getContext()));
 
-        adapter = new ForecastAdapter(view.getContext(), new ForecastClickListener() {
-            @Override
-            public void onClick(WeatherInfo weatherInfo) {
-                Bundle bundle = new Bundle();
-                bundle.putString(ForecastActivity.LOCATION, location);
-                bundle.putParcelable(MiniForecastFragment.WEATHER_INFO, weatherInfo);
-                ((ForecastActivity) getActivity()).goToFragment(MiniForecastFragment.class, true, bundle);
-            }
-        });
+        // Oppgave 5c: Send inn en ForecastClickListener til adapteret
+        adapter = new ForecastAdapter(view.getContext(), null);
         recyclerView.setAdapter(adapter);
     }
 
