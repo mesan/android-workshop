@@ -10,19 +10,14 @@ import no.mesan.mobil.androidworkshop.restservice.ForecastRestService;
 public class ForecastTask extends AsyncTask<String, Void, Forecast> {
 
     private ResponseListener<Forecast> responseListener;
-    private ForecastType forecastType;
 
-    public ForecastTask(ResponseListener<Forecast> responseListener, ForecastType forecastType) {
+    public ForecastTask(ResponseListener<Forecast> responseListener) {
         this.responseListener = responseListener;
-        this.forecastType = forecastType;
     }
 
     @Override
     protected Forecast doInBackground(String... location) {
         ForecastRestService forecastRestService = BaseRestService.getFiveDayForecastRestService();
-        if (forecastType.ordinal() == ForecastType.LONG.ordinal()) {
-            return forecastRestService.get16DayForecast(location[0]);
-        }
         return forecastRestService.getFiveDayForecast(location[0]);
     }
 

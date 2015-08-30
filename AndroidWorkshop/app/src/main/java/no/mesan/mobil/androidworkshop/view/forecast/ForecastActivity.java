@@ -44,7 +44,7 @@ public class ForecastActivity extends BaseActivity {
             if (forecastTypeName != null) {
                 ForecastType forecastType = ForecastType.valueOf(forecastTypeName);
                 switch (forecastType) {
-                    case MINI:
+                    case NOW:
                         getCurrentWeather(location);
                         break;
                     default:

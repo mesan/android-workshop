@@ -15,6 +15,7 @@ import android.view.ViewGroup;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.RadioButton;
 import android.widget.RadioGroup;
 
 import java.util.HashSet;
@@ -104,13 +105,11 @@ public class SearchFragment extends Fragment {
 
         switch (radioGroupSearchMode.getCheckedRadioButtonId()) {
             case R.id.radioButtonCurrentWeather:
-                forecastType = ForecastType.MINI;
-                break;
-            case R.id.radioButtonFiveDayForecast:
-                forecastType = ForecastType.FIVE;
+                forecastType = ForecastType.NOW;
                 break;
             default:
-                forecastType = ForecastType.LONG;
+                forecastType = ForecastType.FIVE_DAY;
+                break;
         }
 
         ((MainActivity) getActivity()).goToForecastActivity(location, forecastType);

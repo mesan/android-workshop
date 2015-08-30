@@ -3,7 +3,6 @@ package no.mesan.mobil.androidworkshop.view.forecast;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -34,7 +33,7 @@ public class ForecastFragment extends Fragment {
         view = inflater.inflate(R.layout.fragment_forecast, container, false);
 
         location = getArguments().getString(ForecastActivity.LOCATION, "Oslo");
-        forecastType = ForecastType.valueOf(getArguments().getString(SearchFragment.FORECAST_TYPE, ForecastType.FIVE.name()));
+        forecastType = ForecastType.valueOf(getArguments().getString(SearchFragment.FORECAST_TYPE, ForecastType.FIVE_DAY.name()));
 
         initGui();
         initData();
@@ -71,6 +70,6 @@ public class ForecastFragment extends Fragment {
             public void error() {
 
             }
-        }, forecastType).execute(location);
+        }).execute(location);
     }
 }

@@ -17,8 +17,7 @@
     <string name="search">Søk</string>
     <string name="previous_searches">Tidligere søk</string>
     <string name="current_weather">Nå</string>
-    <string name="five_day_forecast">5-dagers</string>
-    <string name="long_term_forecast">Langtidsvarsel</string>
+    <string name="five_day_forecast">5-dagersvarsel</string>
 
     <string-array name="months">
         <item>jan</item>
