@@ -21,7 +21,6 @@ public class ForecastFragment extends Fragment {
 
     private RecyclerView recyclerView;
     private ForecastAdapter adapter;
-    private ForecastType forecastType;
 
     private String location;
 
@@ -33,7 +32,6 @@ public class ForecastFragment extends Fragment {
         view = inflater.inflate(R.layout.fragment_forecast, container, false);
 
         location = getArguments().getString(ForecastActivity.LOCATION, "Oslo");
-        forecastType = ForecastType.valueOf(getArguments().getString(SearchFragment.FORECAST_TYPE, ForecastType.FIVE_DAY.name()));
 
         initGui();
         initData();
@@ -42,29 +40,12 @@ public class ForecastFragment extends Fragment {
     }
 
     private void initGui() {
-        // Oppgave 4a
-        recyclerView = (RecyclerView) view.findViewById(R.id.recyclerViewForecast);
-        recyclerView.setLayoutManager(new LinearLayoutManager(view.getContext()));
+        // Oppgave 4b - Lag recyclerview med adapter
 
-        // Oppgave 5c: Send inn en ForecastClickListener til adapteret
-        adapter = new ForecastAdapter(view.getContext(), null);
-        recyclerView.setAdapter(adapter);
     }
 
     private void initData() {
-
         // Oppgave 4d - Bruk ForecastTask til å hente værdata
-        new ForecastTask(new ResponseListener<Forecast>() {
-            @Override
-            public void success(Forecast weatherInfoList) {
-                adapter.setWeather(weatherInfoList.getList());
-                location = weatherInfoList.getCity().getName();
-            }
 
-            @Override
-            public void error() {
-
-            }
-        }).execute(location);
     }
 }

@@ -26,14 +26,10 @@ public class ForecastAdapter extends RecyclerView.Adapter<ForecastAdapter.ViewHo
     private final Context context;
     private ForecastClickListener forecastClickListener;
     private List<WeatherInfo> weatherList = new ArrayList<>();
-    private int dayOfMonth;
-
-    private String[] months;
 
     public ForecastAdapter(Context context, ForecastClickListener forecastClickListener) {
         this.context = context;
         this.forecastClickListener = forecastClickListener;
-        months = context.getResources().getStringArray(R.array.months);
     }
 
     @Override
@@ -72,10 +68,6 @@ public class ForecastAdapter extends RecyclerView.Adapter<ForecastAdapter.ViewHo
          * Vis frem denne informasjonen i gui.
          * Bruk klassene DateFormatter og TemperatureFormatter til å formattere teksten for dateTime og temp.
          */
-        Picasso.with(context).load(iconUrl).into(viewHolder.imageViewForecast);
-        viewHolder.textViewTemperature.setText(TemperatureFormatter.format(temp));
-        viewHolder.textViewWhen.setText("Kl " + dateTime.getHourOfDay() + (shouldShowDate ? " - " + DateFormatter.formatDate(dateTime) : ""));
-        viewHolder.textViewDescription.setText(description);
     }
 
     @Override
@@ -92,17 +84,9 @@ public class ForecastAdapter extends RecyclerView.Adapter<ForecastAdapter.ViewHo
     }
 
     public class ViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
-        public ImageView imageViewForecast;
-        public TextView textViewWhen;
-        public TextView textViewTemperature;
-        public TextView textViewDescription;
-
         public ViewHolder(View itemView) {
             super(itemView);
-            imageViewForecast = (ImageView) itemView.findViewById(R.id.imageViewForecast);
-            textViewWhen = (TextView) itemView.findViewById(R.id.textViewWhen);
-            textViewTemperature = (TextView) itemView.findViewById(R.id.textViewTemperature);
-            textViewDescription = (TextView) itemView.findViewById(R.id.textViewDescription);
+            // Oppgave 4c Initaliser views fra forecast_item
 
             itemView.setOnClickListener(this);
         }
