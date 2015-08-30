@@ -101,8 +101,10 @@ public class ForecastAdapter extends RecyclerView.Adapter<ForecastAdapter.ViewHo
             itemView.setOnClickListener(this);
         }
 
+
         @Override
         public void onClick(View view) {
+            // Oppgave 5c
             int position = getAdapterPosition();
             forecastClickListener.onClick(weatherList.get(position));
         }
