@@ -11,28 +11,12 @@
 
     <string name="action_settings">Settings</string>
 
-<!-- TODO: Remove or change this placeholder text -->
-    <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="location">Navn på sted eller adresse</string>
     <string name="search">Søk</string>
     <string name="previous_searches">Tidligere søk</string>
     <string name="current_weather">Nå</string>
     <string name="five_day_forecast">5-dagersvarsel</string>
 
-    <string-array name="months">
-        <item>jan</item>
-        <item>feb</item>
-        <item>mar</item>
-        <item>apr</item>
-        <item>mai</item>
-        <item>jun</item>
-        <item>jul</item>
-        <item>aug</item>
-        <item>sep</item>
-        <item>okt</item>
-        <item>nov</item>
-        <item>des</item>
-    </string-array>
     <string name="title_activity_weather_result">WeatherResultActivity</string>
     
     <string name="title_activity_forecast">ForecastActivity</string>
