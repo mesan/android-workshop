@@ -73,6 +73,14 @@ public class MainActivity extends BaseActivity
     @Override
     public void onNavigationDrawerItemSelected(int position) {
         // Oppgave 7
+        switch (position) {
+            case 0:
+                goToFragment(SearchFragment.class);
+                break;
+            case 1:
+                goToFragment(AboutAppFragment.class);
+                break;
+        }
     }
 
     /* Hjelpemetode for å åpne et nytt fragment, med bundle med argumenter */
