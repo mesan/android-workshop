@@ -26,10 +26,12 @@ public class SearchFragment extends Fragment {
     private void initViews(View view) {
         // Oppgave 1a Koble opp knapp og søkefelt
 
+        // Oppgave 1b Koble opp CoordinatorLayout
+
     }
 
     private void initListeners() {
-        // Oppgave 1b - Lage lytter for søkeknapp
+        // Oppgave 1c - Lage lytter for søkeknapp som viser snackbar
 
     }
 }
