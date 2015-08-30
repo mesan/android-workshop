@@ -65,6 +65,7 @@ public class SearchFragment extends Fragment {
         buttonSearch = (Button) view.findViewById(R.id.buttonSearch);
 
         // Oppgave 2b Koble opp recyclerview
+        recyclerViewLocations = (RecyclerView) view.findViewById(R.id.recyclerViewLocations);
 
         // Oppgave 6
         radioGroupSearchMode = (RadioGroup) view.findViewById(R.id.radioGroupSearchMode);
