@@ -15,11 +15,8 @@ import no.mesan.mobil.androidworkshop.R;
 public class LocationAdapter extends RecyclerView.Adapter<LocationAdapter.ViewHolder> {
     private List<String> locations = new ArrayList<>();
 
-    private LocationItemClickListener locationItemClickListener;
-
-    public LocationAdapter(LinkedHashSet<String> locations, LocationItemClickListener locationItemClickListener) {
+    public LocationAdapter(LinkedHashSet<String> locations) {
         this.locations = new ArrayList<>(locations);
-        this.locationItemClickListener = locationItemClickListener;
     }
 
     public LinkedHashSet<String> getLocations() {
@@ -29,19 +26,13 @@ public class LocationAdapter extends RecyclerView.Adapter<LocationAdapter.ViewHo
     // Provide a reference to the views for each data item
     // Complex data items may need more than one view per item, and
     // you provide access to all the views for a data item in a view holder
-    public class ViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
+    public class ViewHolder extends RecyclerView.ViewHolder {
         // each data item is just a string in this case
         public TextView textViewLocation;
 
         public ViewHolder(View view) {
             super(view);
             textViewLocation = (TextView) view.findViewById(R.id.textViewLocation);
-            view.setOnClickListener(this);
-        }
-
-        @Override
-        public void onClick(View view) {
-            locationItemClickListener.onClick(textViewLocation.getText().toString());
         }
     }
 

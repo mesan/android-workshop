@@ -68,24 +68,18 @@ public class SearchFragment extends Fragment {
 
     }
 
-    // Oppgave 3 og 6
     private void initAdapters() {
         LinkedHashSet<String> locations = getLocationHistory();
-        adapter = new LocationAdapter(locations, new LocationItemClickListener() {
-            @Override
-            public void onClick(String location) {
-                // Oppgave 3 - gå til listesiden
-            }
-        });
+        adapter = new LocationAdapter(locations);
 
+        // Set layout manager
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(getActivity());
         linearLayoutManager.setOrientation(LinearLayoutManager.VERTICAL);
-
         recyclerViewLocations.setLayoutManager(linearLayoutManager);
         recyclerViewLocations.setAdapter(adapter);
 
+        // Add divider to list
         Drawable drawable = getResources().getDrawable(R.drawable.abc_list_divider_mtrl_alpha);
-
         drawable.setColorFilter(getResources().getColor(R.color.red_dark), PorterDuff.Mode.SRC_IN);
         DividerItemDecoration dividerItemDecoration = new DividerItemDecoration(drawable);
         recyclerViewLocations.addItemDecoration(dividerItemDecoration);
