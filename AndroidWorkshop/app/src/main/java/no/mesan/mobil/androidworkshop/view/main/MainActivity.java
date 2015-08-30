@@ -22,6 +22,7 @@ import no.mesan.mobil.androidworkshop.R;
 import no.mesan.mobil.androidworkshop.model.ForecastType;
 import no.mesan.mobil.androidworkshop.view.BaseActivity;
 import no.mesan.mobil.androidworkshop.view.NavigationDrawerFragment;
+import no.mesan.mobil.androidworkshop.view.about.AboutAppFragment;
 import no.mesan.mobil.androidworkshop.view.forecast.ForecastActivity;
 
 public class MainActivity extends BaseActivity
@@ -71,7 +72,14 @@ public class MainActivity extends BaseActivity
 
     @Override
     public void onNavigationDrawerItemSelected(int position) {
-
+        switch (position) {
+            case 0:
+                goToFragment(SearchFragment.class);
+                break;
+            case 1:
+                goToFragment(AboutAppFragment.class);
+                break;
+        }
     }
 
     public void onSectionAttached(int number) {
