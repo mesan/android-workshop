@@ -4,6 +4,7 @@
     <style name="AppTheme" parent="Theme.AppCompat.NoActionBar">
         <item name="drawerArrowStyle">@style/DrawerArrowStyle</item>
 
+        <!-- Oppgave 1c -->
         <!-- Set AppCompat’s color theming attrs -->
         <item name="colorPrimary">@color/red</item>
         <item name="colorPrimaryDark">@color/red_dark</item>

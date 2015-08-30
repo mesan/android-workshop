@@ -61,6 +61,7 @@ public class SearchFragment extends Fragment {
     }
 
     private void initViews(View view) {
+        // Oppgave 1a Koble opp knapp og søkefelt
         editTextLocation = (EditText) view.findViewById(R.id.editTextLocation);
         buttonSearch = (Button) view.findViewById(R.id.buttonSearch);
 
@@ -96,8 +97,9 @@ public class SearchFragment extends Fragment {
 
     private void initListeners() {
 
-        // Oppgave 3 - Lage lytter for søkeknapp
-        // Oppgave 6 - Endre lytter for søkeknapp
+        // Oppgave 1b - Lage lytter for søkeknapp
+        // Oppgave 3 - Endre lytter for søkeknapp
+        // Oppgave 6 - Endre lytter for søkeknapp igjen
          buttonSearch.setOnClickListener(new View.OnClickListener() {
              @Override
              public void onClick(View view) {
