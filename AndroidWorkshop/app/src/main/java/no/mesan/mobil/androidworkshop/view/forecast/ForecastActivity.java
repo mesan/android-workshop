@@ -27,7 +27,6 @@ public class ForecastActivity extends BaseActivity {
         // to be our ActionBar
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
-        //toolbar.setTitle(title);
 
         ActionBar actionBar = getSupportActionBar();
         actionBar.setHomeButtonEnabled(true);
@@ -41,6 +40,7 @@ public class ForecastActivity extends BaseActivity {
         if (getIntent() != null) {
             // Oppgave 3
             String location = getIntent().getStringExtra(LOCATION);
+            setTitle(location);
 
             // Oppgave 6
             String forecastTypeName = getIntent().getStringExtra(FORECAST_TYPE);

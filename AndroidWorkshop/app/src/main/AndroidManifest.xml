@@ -21,7 +21,6 @@
         </activity>
         <activity
             android:name=".view.forecast.ForecastActivity"
-            android:label="@string/title_activity_forecast"
             android:parentActivityName=".view.main.MainActivity" >
         </activity>
     </application>
